@@ -1,6 +1,5 @@
 {
-<<<<<<< Updated upstream
-  "name": "nestjs-intro",
+  "name": "Api-PetLove",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -68,9 +67,5 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-=======
-  "dependencies": {
-    "@nestjs/cli": "^9.1.3"
->>>>>>> Stashed changes
   }
 }
