@@ -17,6 +17,8 @@ id               String                          @id @default(uuid())
 nome             String
 email            String                          @unique
 password         String
+team             String
+chapter          String
 role             String
 isAdmin          Boolean                         @map("is_admin")
 results          Result[]
