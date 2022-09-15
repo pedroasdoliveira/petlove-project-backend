@@ -17,10 +17,10 @@ id               String                          @id @default(uuid())
 name             String
 email            String                          @unique
 password         String
-team             String
-chapter          String
-role             String
-isAdmin          Boolean                         @map("is_admin")
+team             String?
+chapter          String?
+role             String?
+isAdmin          Boolean?                         @map("is_admin")
 results          Result[]
 createdAt        DateTime                        @default(now()) @map("created_at")
 updatedAt        DateTime                        @default(now()) @map("updated_at")

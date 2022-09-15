@@ -3,13 +3,37 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createUserDto: CreateUserDto) {
-   return ''
+  async create(createUserDto: CreateUserDto) {
+    if (createUserDto.password != createUserDto.confirmPassword) {
+      throw new BadRequestException('As senhas informadas não são iguais.');
+    }
+
+    delete createUserDto.confirmPassword;
+
+    const data: Prisma.UserCreateInput = {
+      name: createUserDto.name,
+      email: createUserDto.email,
+      password: await bcrypt.hash(createUserDto.password, 5),
+    };
+
+    return this.prisma.user
+    .create({
+      data,
+      select: {
+        password: false,
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    })//.catch(handleError);
   }
 
   async findAll() {
