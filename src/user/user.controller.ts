@@ -3,8 +3,9 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { ApiOperation } from '@nestjs/swagger';
 
-@Controller('user')
+@Controller('User')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -14,6 +15,7 @@ export class UserController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Listar todos os usuários.' }) // Pendente autenticação
   findAll() {
     return this.userService.findAll();
   }
