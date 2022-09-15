@@ -18,7 +18,7 @@ export class UserService {
        name:true,
        team:true,
        role:true,
-       chapter:true   
+       chapter:true
       },
     });
 
@@ -29,8 +29,22 @@ export class UserService {
     return allUsers;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    const record = await this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id:true,
+       name:true,
+       team:true,
+       role:true,
+       chapter:true
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException(`Registro com id: '${id}' não encontrado.`);
+    }
+    return record;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

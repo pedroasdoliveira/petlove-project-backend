@@ -21,8 +21,9 @@ export class UserController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Visualizar um usuário pelo id.' }) // Pendente autenticação
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findOne(id);
   }
 
   @Patch(':id')
