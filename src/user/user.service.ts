@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -76,7 +76,17 @@ export class UserService {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id:string) {
+    if(!id){
+
+      throw new NotFoundException(`id:${id} não encontrado`);
+      
+    }else{
+
+      await this.prisma.user.findUnique({where:{id:id}});
+      throw new HttpException('Usuário deletado com sucesso!', 200);
+
+      return { message: 'Usuário deletado com sucesso!' };
+    }
   }
 }
