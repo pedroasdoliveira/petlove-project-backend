@@ -16,23 +16,27 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @ApiTags('User')
   @Get()
   @ApiOperation({ summary: 'Listar todos os usuários.' }) // Pendente autenticação
   findAll() {
     return this.userService.findAll();
   }
 
+  @ApiTags('User')
   @Get(':id')
   @ApiOperation({ summary: 'Visualizar um usuário pelo id.' }) // Pendente autenticação
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
+  @ApiTags('User')
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) { // Pendente autenticação
+    return this.userService.update(id, updateUserDto);
   }
 
+  @ApiTags('User')
   @Delete(':id')
   @ApiOperation({ summary: 'Deletar um usuário (Adm)' })
   remove(@Param('id') id: string) {

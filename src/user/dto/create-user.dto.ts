@@ -14,7 +14,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'Nome do usuário',
-    example: 'BlueEdtech',
+    example: 'Petlove',
   })
   name: string;
 
@@ -22,7 +22,7 @@ export class CreateUserDto {
   @IsEmail()
   @ApiProperty({
     description: 'Email do usuário',
-    example: 'blueedtech@blue.com',
+    example: 'PetLove@gmail.com',
   })
   email: string;
 

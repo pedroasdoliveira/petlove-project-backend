@@ -72,15 +72,41 @@ export class UserService {
     return record;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    if (updateUserDto.password) {
+      if (updateUserDto.password != updateUserDto.confirmPassword) {
+        throw new BadRequestException('As senhas informadas não são iguais.');
+      }
+    }
+
+    delete updateUserDto.confirmPassword;
+
+    const data = { ...updateUserDto };
+
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, 5);
+    }
+
+    return this.prisma.user
+      .update({
+        where: { id },
+        data,
+        select: {
+          id: true,
+          name: true,
+          password: false,
+          createdAt: true,
+          updatedAt: true,
+        },
+      })
+      //.catch(handleError);
   }
 
   async remove(id:string) {
     if(!id){
 
       throw new NotFoundException(`id:${id} não encontrado`);
-      
+
     }else{
 
       await this.prisma.user.findUnique({where:{id:id}});
