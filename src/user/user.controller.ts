@@ -34,7 +34,8 @@ export class UserController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Deletar um usuário (Adm)' })
   remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return this.userService.remove(id); // Pendente isAdmin e autenticação
   }
 }
