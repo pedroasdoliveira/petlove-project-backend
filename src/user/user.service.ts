@@ -49,7 +49,7 @@ export class UserService {
     });
 
     if (allUsers.length === 0) {
-      throw new NotFoundException('Não há usuários cadastrados.');
+      throw new NotFoundException('Não existem usuários cadastrados.');
     }
 
     return allUsers;
