@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { handleError } from 'src/utils/handleError.utils';
 
 @Injectable()
 export class UserService {
@@ -33,7 +34,7 @@ export class UserService {
         createdAt: true,
         updatedAt: true,
       },
-    })//.catch(handleError);
+    }).catch(handleError);
   }
 
   async findAll() {
@@ -48,7 +49,7 @@ export class UserService {
     });
 
     if (allUsers.length === 0) {
-      throw new NotFoundException('Não há usuários cadastrados.');
+      throw new NotFoundException('Não existem usuários cadastrados.');
     }
 
     return allUsers;
@@ -72,15 +73,40 @@ export class UserService {
     return record;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    if (updateUserDto.password) {
+      if (updateUserDto.password != updateUserDto.confirmPassword) {
+        throw new BadRequestException('As senhas informadas não são iguais.');
+      }
+    }
+
+    delete updateUserDto.confirmPassword;
+
+    const data = { ...updateUserDto };
+
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, 5);
+    }
+
+    return this.prisma.user
+    .update({
+      where: { id },
+      data,
+      select: {
+        id: true,
+        name: true,
+        password: false,
+        createdAt: true,
+        updatedAt: true,
+      },
+    }).catch(handleError);
   }
 
   async remove(id:string) {
     if(!id){
 
       throw new NotFoundException(`id:${id} não encontrado`);
-      
+
     }else{
 
       await this.prisma.user.findUnique({where:{id:id}});
