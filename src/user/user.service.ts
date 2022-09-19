@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { handleError } from 'src/utils/handleError.utils';
 
 @Injectable()
 export class UserService {
@@ -33,7 +34,7 @@ export class UserService {
         createdAt: true,
         updatedAt: true,
       },
-    })//.catch(handleError);
+    }).catch(handleError);
   }
 
   async findAll() {
@@ -88,18 +89,17 @@ export class UserService {
     }
 
     return this.prisma.user
-      .update({
-        where: { id },
-        data,
-        select: {
-          id: true,
-          name: true,
-          password: false,
-          createdAt: true,
-          updatedAt: true,
-        },
-      })
-      //.catch(handleError);
+    .update({
+      where: { id },
+      data,
+      select: {
+        id: true,
+        name: true,
+        password: false,
+        createdAt: true,
+        updatedAt: true,
+      },
+    }).catch(handleError);
   }
 
   async remove(id:string) {
