@@ -32,6 +32,7 @@ export class UserController {
 
   @ApiTags('User')
   @Patch(':id')
+  @ApiOperation({ summary: 'Editar informações de usuário!' })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) { // Pendente autenticação
     return this.userService.update(id, updateUserDto);
   }
