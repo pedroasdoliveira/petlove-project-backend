@@ -15,7 +15,7 @@ export class UserController {
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
-
+  
   @Get()
   @ApiOperation({ summary: 'Listar todos os usuários.' }) //Pendente isAdmin e autenticação
   findAll() {
