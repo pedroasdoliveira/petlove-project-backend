@@ -14,10 +14,11 @@
 
 ### In Progress (Atribuir um responsável)
 
-- [x] Crud Auth (Bruna)
+- [x] Crud Specialties (Bruna)
 
 ### Done ✓
 
+- [x] Crud Auth 
 - [x] Prisma Schema
 - [x] Prisma Service e Module
 - [x] Entidade Auth
