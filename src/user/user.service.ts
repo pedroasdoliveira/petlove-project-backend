@@ -2,9 +2,10 @@ import { BadRequestException, HttpException, Injectable, NotFoundException } fro
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { handleError } from 'src/utils/handleError.utils';
+import { Prisma } from '@prisma/client';
+
 
 @Injectable()
 export class UserService {
@@ -107,7 +108,8 @@ export class UserService {
 
       throw new NotFoundException(`id:${id} não encontrado`);
 
-    }else{
+    }
+    else {
 
       await this.prisma.user.findUnique({where:{id:id}});
       throw new HttpException('Usuário deletado com sucesso!', 200);
