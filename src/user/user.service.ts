@@ -107,7 +107,8 @@ export class UserService {
 
       throw new NotFoundException(`id:${id} não encontrado`);
 
-    }else{
+    }
+    else{
 
       await this.prisma.user.findUnique({where:{id:id}});
       throw new HttpException('Usuário deletado com sucesso!', 200);

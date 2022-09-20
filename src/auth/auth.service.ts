@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service'
 import { LoginDto } from './dto/login.dto';
 import { LoginResponseDto } from './dto/login.response.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -20,15 +21,15 @@ export class AuthService {
       throw new UnauthorizedException('Invalid email and/or password')
     }
 
-    //const isHashValid = await bcrypt.compare(password, user.password);
-    /*if (!isHashValid) {
+    const isHashValid = await bcrypt.compare(password, user.password);
+    if (!isHashValid) {
       throw new UnauthorizedException('Invalid email and/or password')
-    }*/
+    }
 
     delete user.password;
     return {
       token: this.jwtService.sign({ email }),
-      user
+      user,
     }
   }
 }
