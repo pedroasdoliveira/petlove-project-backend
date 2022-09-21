@@ -1,40 +1,65 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { isAdmin } from 'src/utils/isAdmin.utils';
+import { AuthGuard } from '@nestjs/passport';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
 
 @Controller('User')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @ApiTags('User')
-  @Post('create')
+  @ApiTags('User-Create')
+  @Post('/create')
   @ApiOperation({ summary: 'Criar usuário' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
+  @ApiTags('User-Create')
+  @Post('/create/ADM')
+  @ApiOperation({ summary: 'Criar usuário com permissão de ADM' })
+  createADM(@Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
+  }
+
+
+  @ApiTags('User')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @Get()
-  @ApiOperation({ summary: 'Listar todos os usuários.' }) // Pendente autenticação
-  findAll() {
-    return this.userService.findAll();
+  @ApiOperation({ summary: 'Listar todos os usuários.' }) //Pendente isAdmin e autenticação
+  findAll(@LoggedUser() user:User) {
+    return this.userService.findAll(user);
   }
 
+  @ApiTags('User')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @Get(':id')
-  @ApiOperation({ summary: 'Visualizar um usuário pelo id.' }) // Pendente autenticação
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+  @ApiOperation({ summary: 'Visualizar um usuário pelo id.' }) //Pendente autenticação
+  findOne(@Param('id') id: string,@LoggedUser() user:User) {
+    return this.userService.findOne(id,user);
   }
 
+  @ApiTags('User')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @ApiOperation({ summary: 'Editar informações de usuário!' })
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto,@LoggedUser() user:User) { //Pendente isAdmin e autenticação
+    return this.userService.update(id, updateUserDto,user);
   }
 
+  @ApiTags('User')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @ApiOperation({ summary: 'Deletar um usuário (Adm)' })
+  remove(@Param('id') id: string,@LoggedUser() user:User) {
+    return this.userService.remove(id,user); // Pendente isAdmin e autenticação
   }
 }

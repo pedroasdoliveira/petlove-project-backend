@@ -14,7 +14,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'Nome do usuário',
-    example: 'BlueEdtech',
+    example: 'Petlove',
   })
   name: string;
 
@@ -22,7 +22,7 @@ export class CreateUserDto {
   @IsEmail()
   @ApiProperty({
     description: 'Email do usuário',
-    example: 'blueedtech@blue.com',
+    example: 'PetLove@gmail.com',
   })
   email: string;
 
@@ -34,7 +34,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   @ApiProperty({
     description:
-      'Senha do usuário. Requer letras maiúsculas e minúsculas, números ou caracters especial',
+      'Senha do usuário. Requer letras maiúsculas e minúsculas, números ou caracteres especiais',
     example: 'Petlove@123',
   })
   password: string;

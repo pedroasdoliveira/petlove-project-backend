@@ -13,12 +13,13 @@ async function bootstrap() {
     .setDescription('BootCamp')
     .setVersion('1.0.0')
     .addTag('status')
+    .addTag('User-Create')
     .addTag('Auth')
     .addTag('User')
     .addTag("Test")
     .addTag("Specialtie")
     .addTag("Result")
-    //.addBearerAuth()
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
