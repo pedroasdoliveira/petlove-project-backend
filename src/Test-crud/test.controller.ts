@@ -24,8 +24,8 @@ export class TestController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.testService.findOne(+id);
+  findOne(@Param('id') id: string,@LoggedUser() user:User) {
+    return this.testService.findOne(id,user);
   }
 
   @Patch(':id')

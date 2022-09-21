@@ -40,8 +40,9 @@ export class TestService {
     return await this.prisma.test.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} test`;
+  async findOne(id:string,user:User) {
+    isAdmin(user);
+    return await this.prisma.test.findUnique({where:{id:user.id}});
   }
 
   update(id: number, updateTestDto: UpdateTestDto) {
