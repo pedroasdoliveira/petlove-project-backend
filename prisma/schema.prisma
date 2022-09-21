@@ -32,6 +32,7 @@ updatedAt        DateTime                        @default(now()) @map("updated_a
 model Test {
 id               String                          @id @default(uuid())
 system           String[]
+influence        String[]
 person           String[]
 process          String[]
 toolShop         String[]                        @map("tool_shop") // Ferramentaria
