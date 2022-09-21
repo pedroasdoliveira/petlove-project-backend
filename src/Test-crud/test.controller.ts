@@ -12,14 +12,15 @@ export class TestController {
   constructor(private readonly testService: TestService) {}
 
   @Post('/create')
-  @ApiOperation({ summary: 'Acrescente perguntas a lista de testes' })
+  @ApiOperation({ summary: 'Acrescenta perguntas a lista de testes' })
   create(@Body() dto: CreateTestDto,@LoggedUser() user:User) {
     return this.testService.create(dto,user);
   }
 
   @Get('/allTests')
-  findAll() {
-    return this.testService.findAll();
+  @ApiOperation({summary: `Para listar todos os testes`})
+  findAll(@LoggedUser() user:User) {
+    return this.testService.findAll(user);
   }
 
   @Get(':id')

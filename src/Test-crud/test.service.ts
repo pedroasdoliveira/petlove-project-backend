@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { debugPort } from 'process';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from 'src/user/entities/user.entity';
 import { isAdmin } from 'src/utils/isAdmin.utils';
@@ -36,8 +35,9 @@ export class TestService {
     })
   }
 
-  findAll() {
-    return `This action returns all test`;
+  async findAll(user:User) {
+    isAdmin(user);
+    return await this.prisma.test.findMany();
   }
 
   findOne(id: number) {
