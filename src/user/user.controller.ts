@@ -13,11 +13,19 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @ApiTags('User-Create')
-  @Post('create')
+  @Post('/create')
   @ApiOperation({ summary: 'Criar usuário' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
+
+  @ApiTags('User-Create')
+  @Post('/create/ADM')
+  @ApiOperation({ summary: 'Criar usuário com permissão de ADM' })
+  createADM(@Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
+  }
+
 
   @ApiTags('User')
   @UseGuards(AuthGuard())
