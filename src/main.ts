@@ -13,6 +13,7 @@ async function bootstrap() {
     .setDescription('BootCamp')
     .setVersion('1.0.0')
     .addTag('status')
+    .addTag('User-Create')
     .addTag('Auth')
     .addTag('User')
     .addTag("Test")
