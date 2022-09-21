@@ -5,6 +5,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { handleError } from 'src/utils/handleError.utils';
 import { Prisma } from '@prisma/client';
+import { isAdmin } from 'src/utils/isAdmin.utils';
+import { User } from './entities/user.entity';
 
 
 @Injectable()
@@ -38,7 +40,8 @@ export class UserService {
     }).catch(handleError);
   }
 
-  async findAll() {
+  async findAll(user:User) {
+    isAdmin(user);
     const allUsers = await this.prisma.user.findMany({
       select: {
        id:true,
@@ -56,7 +59,8 @@ export class UserService {
     return allUsers;
   }
 
-  async findOne(id: string) {
+  async findOne(id: string,user:User) {
+    isAdmin(user);
     const record = await this.prisma.user.findUnique({
       where: { id },
       select: {
@@ -74,7 +78,8 @@ export class UserService {
     return record;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto,user:User) {
+    isAdmin(user);
     if (updateUserDto.password) {
       if (updateUserDto.password != updateUserDto.confirmPassword) {
         throw new BadRequestException('As senhas informadas não são iguais.');
@@ -103,7 +108,8 @@ export class UserService {
     }).catch(handleError);
   }
 
-  async remove(id:string) {
+  async remove(id:string,user:User) {
+    isAdmin(user);
     if(!id){
 
       throw new NotFoundException(`id:${id} não encontrado`);
