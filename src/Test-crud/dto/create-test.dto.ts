@@ -33,9 +33,4 @@ export class CreateTestDto {
   })
   technology:string
 
-  @IsString()
-  @ApiProperty({
-    description: 'It will address topics such as CI/CD and Clean Code.',
-  })
-  toolShop:string
 }
