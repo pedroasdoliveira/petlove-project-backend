@@ -1,11 +1,39 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { debugPort } from 'process';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from 'src/user/entities/user.entity';
+import { isAdmin } from 'src/utils/isAdmin.utils';
 import { CreateTestDto } from './dto/create-test.dto';
 import { UpdateTestDto } from './dto/update-test.dto';
 
 @Injectable()
 export class TestService {
-  create(createTestDto: CreateTestDto) {
-    return 'This action adds a new test';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(dto: CreateTestDto,user:User) {
+
+    isAdmin(user);
+
+    const data: Prisma.TestCreateInput = {
+      influence:dto.influence,
+      person:dto.person,
+      process:dto.process,
+      system:dto.system,
+      technology:dto.technology
+    }
+
+    return this.prisma.test.create({
+      data,
+      select:{
+        influence:true,
+        person:true,
+        process:true,
+        system:true,
+        technology:true,
+        createdAt:true,
+      }
+    })
   }
 
   findAll() {

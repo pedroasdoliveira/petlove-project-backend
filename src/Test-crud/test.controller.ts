@@ -2,17 +2,22 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TestService } from './test.service';
 import { CreateTestDto } from './dto/create-test.dto';
 import { UpdateTestDto } from './dto/update-test.dto';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
+import { User } from 'src/user/entities/user.entity';
 
-@Controller('test')
+@ApiTags('Test')
+@Controller('Test')
 export class TestController {
   constructor(private readonly testService: TestService) {}
 
-  @Post()
-  create(@Body() createTestDto: CreateTestDto) {
-    return this.testService.create(createTestDto);
+  @Post('/create')
+  @ApiOperation({ summary: 'Acrescente perguntas a lista de testes' })
+  create(@Body() dto: CreateTestDto,@LoggedUser() user:User) {
+    return this.testService.create(dto,user);
   }
 
-  @Get()
+  @Get('/allTests')
   findAll() {
     return this.testService.findAll();
   }
