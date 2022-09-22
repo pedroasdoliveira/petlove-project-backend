@@ -42,7 +42,17 @@ export class TestService {
 
   async findOne(id:string,user:User) {
     isAdmin(user);
-    return await this.prisma.test.findUnique({where:{id:user.id}});
+
+    if(!id){
+
+      throw new NotFoundException(`id:${id} não encontrado`);
+
+    }
+    else {
+
+      return await this.prisma.test.findUnique({where:{id:user.id}});
+    }
+
   }
 
   update(id:string, dto: UpdateTestDto, user:User) {
