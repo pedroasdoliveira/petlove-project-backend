@@ -35,7 +35,7 @@ export class TestController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id:string) {
-    return this.testService.remove(+id);
+  remove(@Param('id') id:string,@LoggedUser() user:User) {
+    return this.testService.remove(id,user);
   }
 }

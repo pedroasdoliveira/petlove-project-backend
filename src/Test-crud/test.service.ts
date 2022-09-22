@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from 'src/user/entities/user.entity';
@@ -70,7 +70,20 @@ export class TestService {
     })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} test`;
+  async remove(id:string,user:User) {
+    isAdmin(user);
+
+    if(!id){
+
+      throw new NotFoundException(`id:${id} não encontrado`);
+
+    }
+    else {
+
+      await this.prisma.test.delete({where:{id:id}});
+      throw new HttpException('Test deletado com sucesso!', 200);
+
+      return { message: 'Test deletado com sucesso!' };
+    }
   }
 }
