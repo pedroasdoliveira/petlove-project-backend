@@ -45,8 +45,29 @@ export class TestService {
     return await this.prisma.test.findUnique({where:{id:user.id}});
   }
 
-  update(id: number, updateTestDto: UpdateTestDto) {
-    return `This action updates a #${id} test`;
+  update(id:string, dto: UpdateTestDto, user:User) {
+    isAdmin(user);
+
+    const data: Prisma.TestUpdateInput = {
+      influence:dto.influence,
+      person:dto.person,
+      process:dto.process,
+      system:dto.system,
+      technology:dto.technology
+    }
+
+    return this.prisma.test.update({
+      data,
+      where:{id:id},
+      select:{
+        influence:true,
+        person:true,
+        process:true,
+        system:true,
+        technology:true,
+        updatedAt:true,
+      }
+    })
   }
 
   remove(id: number) {

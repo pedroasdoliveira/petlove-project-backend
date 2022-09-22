@@ -5,6 +5,7 @@ import { UpdateTestDto } from './dto/update-test.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
 import { User } from 'src/user/entities/user.entity';
+import { domainToASCII } from 'url';
 
 @ApiTags('Test')
 @Controller('Test')
@@ -29,12 +30,12 @@ export class TestController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTestDto: UpdateTestDto) {
-    return this.testService.update(+id, updateTestDto);
+  update(@Param('id') id: string, @Body() dto: UpdateTestDto,@LoggedUser() user:User) {
+    return this.testService.update(id,dto,user);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id:string) {
     return this.testService.remove(+id);
   }
 }
