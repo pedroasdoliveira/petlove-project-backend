@@ -29,8 +29,20 @@ export class CreateTestDto {
 
   @IsString()
   @ApiProperty({
-    description: 'Knowledge of tech stacks and computing tools:',
+    description: 'The importance of tests and the types of tests are the things sought after at these levels.',
   })
-  technology:string
+  test:string[]
+
+  @IsString()
+  @ApiProperty({
+    description: 'It will cover the design principles of each chapter.',
+  })
+  design:string[]
+
+  @IsString()
+  @ApiProperty({
+    description: 'It will address topics such as CI/CD and Clean Code.',
+  })
+  toolshop:string[]
 
 }
