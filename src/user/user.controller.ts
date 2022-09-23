@@ -23,7 +23,7 @@ export class UserController {
   @Post('/create/ADM')
   @ApiOperation({ summary: 'Criar usuário com permissão de ADM' })
   createADM(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+    return this.userService.createADM(createUserDto);
   }
 
 
