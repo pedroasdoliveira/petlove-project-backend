@@ -5,8 +5,8 @@ person:string[];
 test:string[];
 design:string[];
 toolshop:string[];
-influence:string[];
 process:string[];
+computationalFundamentals:string[];
 createdAt:Date;
 updatedAt:Date;
 }
