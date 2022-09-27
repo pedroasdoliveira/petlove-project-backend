@@ -13,17 +13,18 @@ import { User } from './entities/user.entity';
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createUserDto: CreateUserDto) {
-    if (createUserDto.password != createUserDto.confirmPassword) {
+  async create(dto: CreateUserDto) {
+    if (dto.password != dto.confirmPassword) {
       throw new BadRequestException('As senhas informadas não são iguais.');
     }
 
-    delete createUserDto.confirmPassword;
+    delete dto.confirmPassword;
 
     const data: Prisma.UserCreateInput = {
-      name: createUserDto.name,
-      email: createUserDto.email,
-      password: await bcrypt.hash(createUserDto.password, 5),
+      name: dto.name,
+      email: dto.email,
+      password: await bcrypt.hash(dto.password, 5),
+      isAdmin:false
     };
 
     return this.prisma.user
@@ -34,23 +35,24 @@ export class UserService {
         id: true,
         name: true,
         email: true,
+        isAdmin:true,
         createdAt: true,
         updatedAt: true,
       },
     }).catch(handleError);
   }
 
-  async createADM(createUserDto: CreateUserDto) {
-    if (createUserDto.password != createUserDto.confirmPassword) {
+  async createADM(dto: CreateUserDto) {
+    if (dto.password != dto.confirmPassword) {
       throw new BadRequestException('As senhas informadas não são iguais.');
     }
 
-    delete createUserDto.confirmPassword;
+    delete dto.confirmPassword;
 
     const data: Prisma.UserCreateInput = {
-      name: createUserDto.name,
-      email: createUserDto.email,
-      password: await bcrypt.hash(createUserDto.password, 5),
+      name: dto.name,
+      email: dto.email,
+      password: await bcrypt.hash(dto.password, 5),
       isAdmin:true
     };
 
@@ -62,8 +64,8 @@ export class UserService {
         id: true,
         name: true,
         email: true,
+        isAdmin:true,
         createdAt: true,
-        updatedAt: true,
       },
     }).catch(handleError);
   }
@@ -130,7 +132,6 @@ export class UserService {
         id: true,
         name: true,
         password: false,
-        createdAt: true,
         updatedAt: true,
       },
     }).catch(handleError);

@@ -19,7 +19,9 @@ export class TestService {
       person:dto.person,
       process:dto.process,
       system:dto.system,
-      technology:dto.technology
+      test:dto.test,
+      toolshop:dto.toolshop,
+      design:dto.design
     }
 
     return this.prisma.test.create({
@@ -29,7 +31,9 @@ export class TestService {
         person:true,
         process:true,
         system:true,
-        technology:true,
+        test:true,
+        toolshop:true,
+        design:true,
         createdAt:true,
       }
     })
@@ -63,7 +67,10 @@ export class TestService {
       person:dto.person,
       process:dto.process,
       system:dto.system,
-      technology:dto.technology
+      test:dto.test,
+      toolshop:dto.toolshop,
+      design:dto.design
+
     }
 
     return this.prisma.test.update({
@@ -74,7 +81,9 @@ export class TestService {
         person:true,
         process:true,
         system:true,
-        technology:true,
+        test:true,
+        toolshop:true,
+        design:true,
         updatedAt:true,
       }
     })
