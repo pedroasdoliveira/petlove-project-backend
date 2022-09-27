@@ -15,30 +15,27 @@ export class TestController {
   constructor(private readonly testService: TestService) {}
 
   @Post('/create')
-  @ApiOperation({ summary: 'Acrescenta perguntas a lista de testes' })
+  @ApiOperation({ summary: 'Create a complete test' })
   create(@Body() dto: CreateTestDto,@LoggedUser() user:User) {
     return this.testService.create(dto,user);
   }
 
   @Get('/allTests')
-  @ApiOperation({summary: `Para listar todos os testes`})
+  @ApiOperation({summary: `To list all tests`})
   findAll(@LoggedUser() user:User) {
     return this.testService.findAll(user);
   }
 
 
-  @Get(':id')
-  findOne(@Param('id') id: string,@LoggedUser() user:User) {
-    return this.testService.findOne(id,user);
-  }
-
   @Patch(':id')
+  @ApiOperation({summary: `To make changes to a test`})
   update(@Param('id') id: string, @Body() dto: UpdateTestDto,@LoggedUser() user:User) {
     return this.testService.update(id,dto,user);
   }
 
 
   @Delete(':id')
+  @ApiOperation({summary: `To delete a test`})
   remove(@Param('id') id:string,@LoggedUser() user:User) {
     return this.testService.remove(id,user);
   }

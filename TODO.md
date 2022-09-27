@@ -1,8 +1,5 @@
 ### Todo
 
-- [x] Crud Auth
-- [x] Crud User
-- [x] Crud Test
 - [x] Crud Specialties
 - [x] Crud Results
 - [x] Incluir a função isAdmin nos campos devidos
@@ -14,11 +11,13 @@
 
 ### In Progress (Atribuir um responsável)
 
-- [x] Crud Specialties (Bruna)
+- [x] Crud Auth (Bruna)
+- [x] Incluir a função isAdmin nos campos devidos (Felipe)
+- [x] Incluir a função loggedUser nos campos devidos (Felipe)
 
 ### Done ✓
 
-- [x] Crud Auth 
+- [x] Crud Auth
 - [x] Prisma Schema
 - [x] Prisma Service e Module
 - [x] Entidade Auth
@@ -26,6 +25,8 @@
 - [x] Crud User
 - [x] Função isAdmin
 - [x] Função HandleError
+- [x] Crud User
+- [x] Crud Test
 
 
 
