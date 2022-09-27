@@ -17,6 +17,7 @@
 
 ### Done ✓
 
+- [x] Crud Auth
 - [x] Prisma Schema
 - [x] Prisma Service e Module
 - [x] Entidade Auth

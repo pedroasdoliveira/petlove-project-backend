@@ -11,7 +11,7 @@ import { UpdateTestDto } from './dto/update-test.dto';
 export class TestService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateTestDto,user:User) {
+  async create(dto: CreateTestDto, user:User) {
 
     isAdmin(user);
 

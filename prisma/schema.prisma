@@ -7,12 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-  output   = "../entity_diagram.pdf"
-}
-
-
 model User {
 id                          String                          @id @default(uuid())
 name                        String
