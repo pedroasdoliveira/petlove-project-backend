@@ -7,11 +7,11 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
 
+@ApiTags('User')
 @Controller('User')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @ApiTags('User-Create')
   @Post('/create')
   @ApiOperation({ summary: 'Criar usuário' })
   create(@Body() createUserDto: CreateUserDto) {
