@@ -14,7 +14,7 @@ import { UpdateSpecialtyDto } from './dto/update-specialty.dto';
 import { User } from 'src/user/entities/user.entity';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
@@ -24,21 +24,25 @@ export class SpecialtiesController {
   constructor(private readonly specialty: SpecialtiesService) {}
 
   @Post()
+  @ApiOperation({ summary: 'create a specialty' })
   create(@Body() dto: CreateSpecialtyDto, @LoggedUser() user: User) {
     return this.specialty.create(dto, user);
   }
 
   @Get()
+  @ApiOperation({ summary: 'List all specialties' })
   findAll(@LoggedUser() user: User) {
     return this.specialty.findAll(user);
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Find a specific specialty through the id' })
   findOne(@Param('id') id: string, @LoggedUser() user: User) {
     return this.specialty.findOne(id, user);
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Change or update information about a specialty' })
   update(
     @Param('id') id: string,
     @Body() dto: UpdateSpecialtyDto,
@@ -48,6 +52,7 @@ export class SpecialtiesController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'delete a specialty' })
   remove(@Param('id') id: string, @LoggedUser() user: User) {
     return this.specialty.remove(id, user);
   }
