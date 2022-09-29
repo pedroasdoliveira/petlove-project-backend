@@ -116,8 +116,6 @@ export class UserService {
 
 
   async update(id: string, updateUserDto: UpdateUserDto,user:User) {
-    isAdmin(user);
-
     if (updateUserDto.password) {
       if (updateUserDto.password != updateUserDto.confirmPassword) {
         throw new BadRequestException('As senhas informadas não são iguais.');
@@ -151,10 +149,9 @@ export class UserService {
     }
   }
 
-  }
-
   async remove(id:string,user:User) {
     isAdmin(user);
+
     if(!id){
 
       throw new NotFoundException(`id:${id} não encontrado`);
