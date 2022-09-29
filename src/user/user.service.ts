@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -78,7 +78,8 @@ export class UserService {
        name:true,
        team:true,
        role:true,
-       chapter:true
+       chapter:true,
+       results:true
       },
     });
 
@@ -90,7 +91,7 @@ export class UserService {
   }
 
   async findOne(id: string,user:User) {
-    isAdmin(user);
+
     const record = await this.prisma.user.findUnique({
       where: { id },
       select: {
@@ -105,11 +106,16 @@ export class UserService {
     if (!record) {
       throw new NotFoundException(`Registro com id: '${id}' não encontrado.`);
     }
-    return record;
+
+    if (user.id == id || user.isAdmin == true) {
+      return record;
+    }else{
+      throw new UnauthorizedException('Você não tem permissão para acessar essa área!');
+    }
   }
 
+
   async update(id: string, updateUserDto: UpdateUserDto,user:User) {
-    isAdmin(user);
     if (updateUserDto.password) {
       if (updateUserDto.password != updateUserDto.confirmPassword) {
         throw new BadRequestException('As senhas informadas não são iguais.');
@@ -124,21 +130,28 @@ export class UserService {
       data.password = await bcrypt.hash(data.password, 5);
     }
 
-    return this.prisma.user
-    .update({
-      where: { id },
-      data,
-      select: {
-        id: true,
-        name: true,
-        password: false,
-        updatedAt: true,
-      },
-    }).catch(handleError);
+    if (user.id == id || user.isAdmin == true) {
+
+      return this.prisma.user
+      .update({
+        where: { id },
+        data,
+        select: {
+          id: true,
+          name: true,
+          password: false,
+          updatedAt: true,
+        },
+      }).catch(handleError);
+    }
+    else{
+      throw new UnauthorizedException('Você não tem permissão para acessar essa área!');
+    }
   }
 
   async remove(id:string,user:User) {
     isAdmin(user);
+
     if(!id){
 
       throw new NotFoundException(`id:${id} não encontrado`);

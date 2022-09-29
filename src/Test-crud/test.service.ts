@@ -41,9 +41,6 @@ export class TestService {
   }
 
   async findAll(user:User) {
-
-    isAdmin(user);
-
     return await this.prisma.test.findMany();
   }
 
