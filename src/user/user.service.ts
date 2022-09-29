@@ -78,7 +78,8 @@ export class UserService {
        name:true,
        team:true,
        role:true,
-       chapter:true
+       chapter:true,
+       results:true
       },
     });
 
