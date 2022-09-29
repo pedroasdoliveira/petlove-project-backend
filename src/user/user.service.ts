@@ -103,12 +103,12 @@ export class UserService {
       },
     });
 
+    if (!record) {
+      throw new NotFoundException(`Registro com id: '${id}' não encontrado.`);
+    }
+
     if (user.id == id || user.isAdmin == true) {
-      if (!record) {
-        throw new NotFoundException(`Registro com id: '${id}' não encontrado.`);
-      }else{
-        return record;
-      }
+      return record;
     }else{
       throw new UnauthorizedException('Você não tem permissão para acessar essa área!');
     }
