@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -90,7 +90,7 @@ export class UserService {
   }
 
   async findOne(id: string,user:User) {
-    isAdmin(user);
+
     const record = await this.prisma.user.findUnique({
       where: { id },
       select: {
@@ -102,11 +102,17 @@ export class UserService {
       },
     });
 
-    if (!record) {
-      throw new NotFoundException(`Registro com id: '${id}' não encontrado.`);
+    if (user.id == id || user.isAdmin == true) {
+      if (!record) {
+        throw new NotFoundException(`Registro com id: '${id}' não encontrado.`);
+      }else{
+        return record;
+      }
+    }else{
+      throw new UnauthorizedException('Você não tem permissão para acessar essa área!');
     }
-    return record;
   }
+
 
   async update(id: string, updateUserDto: UpdateUserDto,user:User) {
     isAdmin(user);
