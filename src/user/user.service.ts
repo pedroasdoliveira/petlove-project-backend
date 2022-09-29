@@ -117,6 +117,7 @@ export class UserService {
 
   async update(id: string, updateUserDto: UpdateUserDto,user:User) {
     isAdmin(user);
+
     if (updateUserDto.password) {
       if (updateUserDto.password != updateUserDto.confirmPassword) {
         throw new BadRequestException('As senhas informadas não são iguais.');
@@ -131,17 +132,25 @@ export class UserService {
       data.password = await bcrypt.hash(data.password, 5);
     }
 
-    return this.prisma.user
-    .update({
-      where: { id },
-      data,
-      select: {
-        id: true,
-        name: true,
-        password: false,
-        updatedAt: true,
-      },
-    }).catch(handleError);
+    if (user.id == id || user.isAdmin == true) {
+
+      return this.prisma.user
+      .update({
+        where: { id },
+        data,
+        select: {
+          id: true,
+          name: true,
+          password: false,
+          updatedAt: true,
+        },
+      }).catch(handleError);
+    }
+    else{
+      throw new UnauthorizedException('Você não tem permissão para acessar essa área!');
+    }
+  }
+
   }
 
   async remove(id:string,user:User) {
