@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ResultService } from './result.service';
 import { CreateResultDto } from './dto/create-result.dto';
 import { UpdateResultDto } from './dto/update-result.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
+import { User } from 'src/user/entities/user.entity';
 
 @ApiTags('Result')
 @Controller('Result')
@@ -15,8 +17,9 @@ export class ResultController {
   }
 
   @Get()
-  findAll() {
-    return this.resultService.findAll();
+  @ApiOperation({ summary: 'List all results' })
+  findAll(@LoggedUser() user:User) {
+    return this.resultService.findAll(user);
   }
 
   @Get(':id')

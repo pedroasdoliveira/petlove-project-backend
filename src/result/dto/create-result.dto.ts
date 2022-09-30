@@ -44,7 +44,7 @@ export class CreateResultDto {
   })
   influence: number;
 
-  @IsNumber()
+  @IsString()
   @ApiProperty({
     description: 'Test validation',
   })
@@ -55,7 +55,4 @@ export class CreateResultDto {
     example: ''
   })
   userId: string;
-
-  createdAt?: Date;
-  updatedAt?: Date;
 }

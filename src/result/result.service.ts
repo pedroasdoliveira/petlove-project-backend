@@ -12,8 +12,15 @@ export class ResultService {
     return 'This action adds a new result';
   }
 
-  findAll() {
-    return `This action returns all result`;
+  async findAll(user:User) {
+    isAdmin(user);
+    const allResults = await this.prisma.result.findMany();
+
+    if (allResults.length === 0) {
+      throw new NotFoundException('Não existem resultados cadastrados.');
+    }
+
+    return allResults;
   }
 
   findOne(id: string) {
