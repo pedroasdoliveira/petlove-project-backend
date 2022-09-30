@@ -1,6 +1,5 @@
 export class Result {
   id?: string;
-
   nextRole: string;
   system: number;
   person: number;

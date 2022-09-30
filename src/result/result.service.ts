@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { handleError } from 'src/utils/handleError.utils';
 import { CreateResultDto } from './dto/create-result.dto';
 import { UpdateResultDto } from './dto/update-result.dto';
 
@@ -20,7 +21,8 @@ export class ResultService {
     return `This action updates a #${id} result`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} result`;
+  async delete(id: number) {
+    await this.prisma.result.delete({ where: {id} }).catch(handleError)
+    return { message: 'Results deleted successfully'};
   }
 }
