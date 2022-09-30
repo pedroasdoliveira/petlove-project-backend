@@ -1,15 +1,61 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from 'src/user/entities/user.entity';
+import { isAdmin } from 'src/utils/isAdmin.utils';
 import { CreateResultDto } from './dto/create-result.dto';
 import { UpdateResultDto } from './dto/update-result.dto';
 
 @Injectable()
 export class ResultService {
-  create(createResultDto: CreateResultDto) {
-    return 'This action adds a new result';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(user:User,dto: CreateResultDto) {
+
+    const tecnology = (dto.toolshop + dto.design + dto.test + dto.computationalFundamentals)* (5/12);
+    const influence = (dto.system + dto.process + (2*dto.person))/4;
+
+    const data: Prisma.ResultCreateInput = {
+      person:dto.person,
+      process:dto.process,
+      system:dto.system,
+      technology:Math.round(tecnology),
+      influence:Math.round(influence)
+    }
+
+    return this.prisma.result.create({
+      data,
+      select:{
+        id:true,
+        nextRole:true,
+        person:true,
+        process:true,
+        system:true,
+        technology:true,
+        influence:true
+      }
+    })
   }
 
-  findAll() {
-    return `This action returns all result`;
+  async findAll(user:User) {
+    isAdmin(user);
+    const allResults = await this.prisma.result.findMany({
+      select:{
+        id:true,
+        nextRole:true,
+        person:true,
+        process:true,
+        system:true,
+        technology:true,
+        influence:true
+      }
+    });
+
+    if (allResults.length === 0) {
+      throw new NotFoundException('Não existem resultados cadastrados.');
+    }
+
+    return allResults;
   }
 
   findOne(id: number) {
