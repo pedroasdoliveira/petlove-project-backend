@@ -15,7 +15,6 @@ export class SpecialtiesService {
 
   async create(dto: CreateSpecialtyDto, user: User) {
     isAdmin(user);
-
     const data: Prisma.SpecialtieCreateInput = { ...dto };
     return await this.prisma.specialtie.create({ data }).catch(handleError);
   }

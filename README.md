@@ -1,49 +1,55 @@
-## Description
+# Petlove Back-end
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Getting Started
+Projeto de bootcamp desenvolvido para a equipe da Petlove, referente a uma aplicação onde os gestores possam avaliar seus colaboradores através de questionarios que determinam as qualidades individuais e da equipe como um todo.
 
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
+First, run the development server:
+-------------------------------------------------------------------------------------
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm run dev
+# or
+yarn dev
 ```
+## Pré-requisitos
 
-## Test
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```bash
-# unit tests
-$ npm run test
+### 👯‍ Clonando o projeto
 
-# e2e tests
-$ npm run test:e2e
+Clone o projeto na sua maquina utilizando o comando do git:
 
-# test coverage
-$ npm run test:cov
-```
+```Git Clone https://github.com/pedroasdoliveira/petlove-project-backend```
 
-## Support
+Ou através do Github Desktop:
+## Learn More
+```gh repo clone pedroasdoliveira/petlove-project-backend```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+To learn more about Next.js, take a look at the following resources:
+### 🔧 Instalação
 
-## Stay in touch
+```yarn install```
+## Deploy on Vercel
+### ⚙️ Rodando o projeto
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```yarn dev```
+- Para roda no ambiente de produção utilize os comandos:
+```yarn build``` & ```yarn start```
+--------------------------------------------------------------------------------------
 
-## License
+## 🛠️ Construído com
+* JavaScript
+* TypeScript
+* Nest.js
+* npm
+--------------------------------------------------------------------------------------
 
-Nest is [MIT licensed](LICENSE).
+## ✒️ Autores
+* **Pedro Oliveira** (Github: https://github.com/pedroasdoliveira);
+* **Giovanne Berteli** (Github: https://github.com/hethus);
+* **João Vitor Carvalho** (Github: https://github.com/jcvalgas);
+* **Bruna Barbosa Bomfim** (Github: https://github.com/brunabbomfim);
+* **Felipe dos Santos Azevedo** (Github: https://github.com/Felipe360flp);
+---------------------------------------------------------------------------------------------
+## 📄 Licença
+Este projeto está sob a licença (Mozilla Public License Version 2.0) - veja o arquivo [LICENSE.md] para mais detalhes.
