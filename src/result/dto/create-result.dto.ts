@@ -3,13 +3,6 @@ import { IsNumber, IsString } from "class-validator";
 
 export class CreateResultDto {
 
-  @IsString()
-  @ApiProperty({
-    description: 'Professional level',
-    example: 'Junior'
-  })
-  nextRole: string;
-
   @IsNumber()
   @ApiProperty({
     description: 'Sistem test result',
@@ -26,10 +19,10 @@ export class CreateResultDto {
 
   @IsNumber()
   @ApiProperty({
-    description: 'Technology test result',
+    description: 'result for the test category',
     example: 4
   })
-  technology: number;
+  test: number;
 
   @IsNumber()
   @ApiProperty({
@@ -40,19 +33,19 @@ export class CreateResultDto {
 
   @IsNumber()
   @ApiProperty({
-    description: 'Influence calculation',
+    description: 'result for the design category',
   })
-  influence: number;
+  design: number;
 
-  @IsString()
+  @IsNumber()
   @ApiProperty({
-    description: 'Test validation',
+    description: 'result for the tooling category',
   })
-  isValided: string;
+  toolshop:number;
 
+  @IsNumber()
   @ApiProperty({
-    description: 'User`s ID',
-    example: ''
+    description: 'Result for the category Computational Fundamentals',
   })
-  userId: string;
+  computationalFundamentals:number;
 }

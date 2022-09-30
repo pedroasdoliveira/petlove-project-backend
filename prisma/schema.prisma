@@ -54,15 +54,19 @@ updatedAt                   DateTime                        @default(now()) @map
 
 model Result {
 id                          String                          @id @default(uuid())
-user                        User                            @relation(fields: [userId], references: [id], onDelete: Cascade)
-userId                      String
-nextRole                    String                          @map("next_role")
+user                        User?                           @relation(fields: [userId], references: [id], onDelete: Cascade)
+userId                      String?
+nextRole                    String?                         @map("next_role")
 system                      Int
 person                      Int
-technology                  Int
 process                     Int
-influence                   Int
-isValided                   String                          @map("is_valided")
+computationalFundamentals   Int?
+test                        Int?
+design                      Int?
+toolshop                    Int?
+technology                  Int?
+influence                   Int?
+isValided                   String?                         @map("is_valided")
 createdAt                   DateTime                        @default(now()) @map("created_at")
 updatedAt                   DateTime                        @default(now()) @map("updated_at")
 
