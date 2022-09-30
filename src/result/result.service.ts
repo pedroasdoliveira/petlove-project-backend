@@ -1,7 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from 'src/user/entities/user.entity';
 import { isAdmin } from 'src/utils/isAdmin.utils';
+import { domainToASCII } from 'url';
 import { CreateResultDto } from './dto/create-result.dto';
 import { UpdateResultDto } from './dto/update-result.dto';
 
@@ -9,8 +11,12 @@ import { UpdateResultDto } from './dto/update-result.dto';
 export class ResultService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createResultDto: CreateResultDto) {
-    return 'This action adds a new result';
+  create(user:User,dto: CreateResultDto) {
+
+
+    const data: Prisma.ResultCreateInput = {
+
+    }
   }
 
   async findAll(user:User) {

@@ -59,8 +59,12 @@ userId                      String
 nextRole                    String                          @map("next_role")
 system                      Int
 person                      Int
-technology                  Int
 process                     Int
+computationalFundamentals   Int
+test                        Int
+design                      Int
+toolshop                    Int
+technology                  Int
 influence                   Int
 isValided                   String                          @map("is_valided")
 createdAt                   DateTime                        @default(now()) @map("created_at")

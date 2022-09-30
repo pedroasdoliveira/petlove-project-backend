@@ -12,8 +12,8 @@ export class ResultController {
   constructor(private readonly resultService: ResultService) {}
 
   @Post()
-  create(@Body() createResultDto: CreateResultDto) {
-    return this.resultService.create(createResultDto);
+  create(@LoggedUser() user:User,@Body() dto: CreateResultDto) {
+    return this.resultService.create(user,dto);
   }
 
   @Get()
