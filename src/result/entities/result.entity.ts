@@ -3,10 +3,6 @@ export class Result {
   nextRole: string;
   system: number;
   person: number;
-  computationalFundamentals?:number;
-  test?:number;
-  design?:number;
-  toolshop?:number;
   process: number;
   technology?: number;
   influence?: number;

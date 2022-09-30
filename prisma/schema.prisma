@@ -60,10 +60,6 @@ nextRole                    String?                         @map("next_role")
 system                      Int
 person                      Int
 process                     Int
-computationalFundamentals   Int?
-test                        Int?
-design                      Int?
-toolshop                    Int?
 technology                  Int?
 influence                   Int?
 isValided                   String?                         @map("is_valided")
