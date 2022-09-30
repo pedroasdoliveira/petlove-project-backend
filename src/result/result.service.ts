@@ -39,7 +39,17 @@ export class ResultService {
 
   async findAll(user:User) {
     isAdmin(user);
-    const allResults = await this.prisma.result.findMany();
+    const allResults = await this.prisma.result.findMany({
+      select:{
+        id:true,
+        nextRole:true,
+        person:true,
+        process:true,
+        system:true,
+        technology:true,
+        influence:true
+      }
+    });
 
     if (allResults.length === 0) {
       throw new NotFoundException('Não existem resultados cadastrados.');
