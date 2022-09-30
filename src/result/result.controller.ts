@@ -28,16 +28,16 @@ export class ResultController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.resultService.findOne(+id);
+    return this.resultService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateResultDto: UpdateResultDto) {
-    return this.resultService.update(+id, updateResultDto);
+    return this.resultService.update(id, updateResultDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.resultService.remove(+id);
+    return this.resultService.delete(id);
   }
 }

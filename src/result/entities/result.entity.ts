@@ -1,7 +1,6 @@
 export class Result {
   id?: string;
-
-  nextRole?: string;
+  nextRole: string;
   system: number;
   person: number;
   process: number;
