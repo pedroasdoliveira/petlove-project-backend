@@ -1,14 +1,18 @@
 export class Result {
   id?: string;
 
-  nextRole: string;
+  nextRole?: string;
   system: number;
   person: number;
-  technology: number;
+  computationalFundamentals?:number;
+  test?:number;
+  design?:number;
+  toolshop?:number;
   process: number;
-  influence: number;
-  isValided: string;
-  userId: string;
+  technology?: number;
+  influence?: number;
+  isValided?: string;
+  userId?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
