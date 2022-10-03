@@ -36,10 +36,10 @@ export class UserController {
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  @Patch(':id')
+  @Patch(':email')
   @ApiOperation({ summary: 'Edit User Information!' })
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto,@LoggedUser() user:User) {
-    return this.userService.update(id, updateUserDto,user);
+  update(@Param('email') email: string, @Body() updateUserDto: UpdateUserDto,@LoggedUser() user:User) {
+    return this.userService.update(email, updateUserDto,user);
   }
 
   @UseGuards(AuthGuard())

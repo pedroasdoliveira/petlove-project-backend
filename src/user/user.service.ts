@@ -116,7 +116,7 @@ export class UserService {
   }
 
 
-  async update(id: string, updateUserDto: UpdateUserDto,user:User) {
+  async update(email: string, updateUserDto: UpdateUserDto,user:User) {
     if (updateUserDto.password) {
       if (updateUserDto.password != updateUserDto.confirmPassword) {
         throw new BadRequestException('As senhas informadas não são iguais.');
@@ -131,15 +131,16 @@ export class UserService {
       data.password = await bcrypt.hash(data.password, 5);
     }
 
-    if (user.id == id || user.isAdmin == true) {
+    if (user.email == email || user.isAdmin == true) {
 
       return this.prisma.user
       .update({
-        where: { id },
+        where: { email },
         data,
         select: {
           id: true,
           name: true,
+          email:true,
           password: false,
           updatedAt: true,
         },
