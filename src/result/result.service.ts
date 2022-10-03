@@ -73,9 +73,36 @@ export class ResultService {
     })
   }
 
-  update(id: string, updateResultDto: UpdateResultDto) {
-    return `This action updates a #${id} result`;
+  async update(id: string, dto: UpdateResultDto) {
+
+    const tecnology = (dto.toolshop + dto.design + dto.test + dto.computationalFundamentals)* (5/12);
+    const influence = (dto.system + dto.process + (2*dto.person))/4;
+
+    const data: Prisma.ResultUpdateInput = {
+      nextRole:dto.nextRole,
+      person:dto.person,
+      process:dto.process,
+      system:dto.system,
+      technology:Math.round(tecnology),
+      influence:Math.round(influence)
+    }
+
+    return this.prisma.result.update({
+      data,
+      where:{id:id},
+      select:{
+        id:true,
+        nextRole:true,
+        person:true,
+        process:true,
+        system:true,
+        technology:true,
+        influence:true
+      }
+    })
+
   }
+
 
   remove(id: number) {
     return `This action removes a #${id} result`;
