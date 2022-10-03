@@ -90,24 +90,25 @@ export class UserService {
     return allUsers;
   }
 
-  async findOne(id: string,user:User) {
+  async findOne(email: string,user:User) {
 
     const record = await this.prisma.user.findUnique({
-      where: { id },
+      where: {email},
       select: {
         id:true,
-       name:true,
-       team:true,
-       role:true,
-       chapter:true
+        name:true,
+        email:true,
+        team:true,
+        role:true,
+        chapter:true
       },
     });
 
     if (!record) {
-      throw new NotFoundException(`Registro com id: '${id}' não encontrado.`);
+      throw new NotFoundException(`Registro: '${email}' não encontrado.`);
     }
 
-    if (user.id == id || user.isAdmin == true) {
+    if (user.email == email || user.isAdmin == true) {
       return record;
     }else{
       throw new UnauthorizedException('Você não tem permissão para acessar essa área!');

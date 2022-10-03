@@ -28,10 +28,10 @@ export class UserController {
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  @Get(':id')
+  @Get(':email')
   @ApiOperation({ summary: 'View a user by id.' })
-  findOne(@Param('id') id: string,@LoggedUser() user:User) {
-    return this.userService.findOne(id,user);
+  findOne(@Param('email') email: string,@LoggedUser() user:User) {
+    return this.userService.findOne(email,user);
   }
 
   @UseGuards(AuthGuard())
