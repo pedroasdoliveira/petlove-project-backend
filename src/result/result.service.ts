@@ -58,11 +58,22 @@ export class ResultService {
     return allResults;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} result`;
+  findOne(id: string) {
+    return this.prisma.result.findUnique({
+      where:{id:id},
+      select:{
+        id:true,
+        nextRole:true,
+        person:true,
+        process:true,
+        system:true,
+        technology:true,
+        influence:true
+      }
+    })
   }
 
-  update(id: number, updateResultDto: UpdateResultDto) {
+  update(id: string, updateResultDto: UpdateResultDto) {
     return `This action updates a #${id} result`;
   }
 
