@@ -28,25 +28,25 @@ export class UserController {
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  @Get(':id')
+  @Get(':email')
   @ApiOperation({ summary: 'View a user by id.' })
-  findOne(@Param('id') id: string,@LoggedUser() user:User) {
-    return this.userService.findOne(id,user);
+  findOne(@Param('email') email: string,@LoggedUser() user:User) {
+    return this.userService.findOne(email,user);
   }
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  @Patch(':id')
+  @Patch(':email')
   @ApiOperation({ summary: 'Edit User Information!' })
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto,@LoggedUser() user:User) {
-    return this.userService.update(id, updateUserDto,user);
+  update(@Param('email') email: string, @Body() updateUserDto: UpdateUserDto,@LoggedUser() user:User) {
+    return this.userService.update(email, updateUserDto,user);
   }
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  @Delete(':id')
+  @Delete(':email')
   @ApiOperation({ summary: 'Delete a user (Adm)' })
-  remove(@Param('id') id: string,@LoggedUser() user:User) {
-    return this.userService.remove(id,user);
+  remove(@Param('email') email: string,@LoggedUser() user:User) {
+    return this.userService.remove(email,user);
   }
 }
