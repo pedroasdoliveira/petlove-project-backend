@@ -90,24 +90,25 @@ export class UserService {
     return allUsers;
   }
 
-  async findOne(id: string,user:User) {
+  async findOne(email: string,user:User) {
 
     const record = await this.prisma.user.findUnique({
-      where: { id },
+      where: {email},
       select: {
         id:true,
-       name:true,
-       team:true,
-       role:true,
-       chapter:true
+        name:true,
+        email:true,
+        team:true,
+        role:true,
+        chapter:true
       },
     });
 
     if (!record) {
-      throw new NotFoundException(`Registro com id: '${id}' não encontrado.`);
+      throw new NotFoundException(`Registro: '${email}' não encontrado.`);
     }
 
-    if (user.id == id || user.isAdmin == true) {
+    if (user.email == email || user.isAdmin == true) {
       return record;
     }else{
       throw new UnauthorizedException('Você não tem permissão para acessar essa área!');
@@ -115,7 +116,7 @@ export class UserService {
   }
 
 
-  async update(id: string, updateUserDto: UpdateUserDto,user:User) {
+  async update(email: string, updateUserDto: UpdateUserDto,user:User) {
     if (updateUserDto.password) {
       if (updateUserDto.password != updateUserDto.confirmPassword) {
         throw new BadRequestException('As senhas informadas não são iguais.');
@@ -130,15 +131,16 @@ export class UserService {
       data.password = await bcrypt.hash(data.password, 5);
     }
 
-    if (user.id == id || user.isAdmin == true) {
+    if (user.email == email || user.isAdmin == true) {
 
       return this.prisma.user
       .update({
-        where: { id },
+        where: { email },
         data,
         select: {
           id: true,
           name: true,
+          email:true,
           password: false,
           updatedAt: true,
         },
@@ -149,17 +151,17 @@ export class UserService {
     }
   }
 
-  async remove(id:string,user:User) {
+  async remove(email:string,user:User) {
     isAdmin(user);
 
-    if(!id){
+    if(!email){
 
-      throw new NotFoundException(`id:${id} não encontrado`);
+      throw new NotFoundException(`email:${email} não encontrado`);
 
     }
     else {
 
-      await this.prisma.user.findUnique({where:{id:id}});
+      await this.prisma.user.findUnique({where:{email:email}});
       throw new HttpException('Usuário deletado com sucesso!', 200);
 
       return { message: 'Usuário deletado com sucesso!' };
