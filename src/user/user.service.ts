@@ -151,17 +151,17 @@ export class UserService {
     }
   }
 
-  async remove(id:string,user:User) {
+  async remove(email:string,user:User) {
     isAdmin(user);
 
-    if(!id){
+    if(!email){
 
-      throw new NotFoundException(`id:${id} não encontrado`);
+      throw new NotFoundException(`email:${email} não encontrado`);
 
     }
     else {
 
-      await this.prisma.user.findUnique({where:{id:id}});
+      await this.prisma.user.findUnique({where:{email:email}});
       throw new HttpException('Usuário deletado com sucesso!', 200);
 
       return { message: 'Usuário deletado com sucesso!' };

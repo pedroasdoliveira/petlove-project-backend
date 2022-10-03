@@ -44,9 +44,9 @@ export class UserController {
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  @Delete(':id')
+  @Delete(':email')
   @ApiOperation({ summary: 'Delete a user (Adm)' })
-  remove(@Param('id') id: string,@LoggedUser() user:User) {
-    return this.userService.remove(id,user);
+  remove(@Param('email') email: string,@LoggedUser() user:User) {
+    return this.userService.remove(email,user);
   }
 }
