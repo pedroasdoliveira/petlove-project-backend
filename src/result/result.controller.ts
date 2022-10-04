@@ -27,13 +27,15 @@ export class ResultController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'To find a test result by id' })
   findOne(@Param('id') id: string) {
     return this.resultService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateResultDto: UpdateResultDto) {
-    return this.resultService.update(id, updateResultDto);
+  @ApiOperation({ summary: 'To change data from a test performed' })
+  update(@Param('id') id: string, @Body() dto: UpdateResultDto) {
+    return this.resultService.update(id, dto);
   }
 
   @Delete(':id')
