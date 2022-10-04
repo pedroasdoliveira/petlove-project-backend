@@ -1,16 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from 'src/user/entities/user.entity';
-import { isAdmin } from 'src/utils/isAdmin.utils';
+import { handleError } from 'src/utils/handleError.utils';
 import { CreateResultDto } from './dto/create-result.dto';
 import { UpdateResultDto } from './dto/update-result.dto';
 
 @Injectable()
 export class ResultService {
   constructor(private readonly prisma: PrismaService) {}
-
-  async create(user:User,dto: CreateResultDto) {
+  async create(user: User, dto: CreateResultDto) {
 
     const tecnology = (dto.toolshop + dto.design + dto.test + dto.computationalFundamentals)* (5/12);
     const influence = (dto.system + dto.process + (2*dto.person))/4;
@@ -159,5 +158,3 @@ export class ResultService {
 
   remove(id: number) {
     return `This action removes a #${id} result`;
-  }
-}
