@@ -159,3 +159,5 @@ export class ResultService {
 
   remove(id: number) {
     return `This action removes a #${id} result`
+  }
+}
