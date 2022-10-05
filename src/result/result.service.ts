@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from 'src/user/entities/user.entity';
 import { handleError } from 'src/utils/handleError.utils';
+import { isAdmin } from 'src/utils/isAdmin.utils';
 import { CreateResultDto } from './dto/create-result.dto';
 import { UpdateResultDto } from './dto/update-result.dto';
 
@@ -157,4 +158,4 @@ export class ResultService {
 
 
   remove(id: number) {
-    return `This action removes a #${id} result`;
+    return `This action removes a #${id} result`
