@@ -21,12 +21,12 @@ export class SpecialtiesService {
 
   async findAll(user: User) {
     isAdmin(user);
-    return await this.prisma.specialtie.findMany();
+    return await this.prisma.specialtie.findMany().catch(handleError);
   }
 
   async findOne(id: string, user: User) {
     isAdmin(user);
-    return await this.prisma.specialtie.findUnique({ where: {id} });
+    return await this.prisma.specialtie.findUnique({ where: {id} }).catch(handleError);
   }
 
   async update(id: string, dto: UpdateSpecialtyDto, user: User) {

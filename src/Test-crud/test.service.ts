@@ -41,7 +41,7 @@ export class TestService {
   }
 
   async findAll(user:User) {
-    return await this.prisma.test.findMany();
+    return await this.prisma.test.findMany().catch(handleError);
   }
 
   async update(id:string, dto: UpdateTestDto, user:User) {

@@ -87,7 +87,7 @@ export class ResultService {
         technology:true,
         influence:true
       }
-    })
+    }).catch(handleError);
   }
 
   async findAll(user:User) {
@@ -123,7 +123,7 @@ export class ResultService {
         technology:true,
         influence:true
       }
-    })
+    }).catch(handleError);
   }
 
   async update(id: string, dto: UpdateResultDto) {
@@ -152,12 +152,12 @@ export class ResultService {
         technology:true,
         influence:true
       }
-    })
+    }).catch(handleError);
 
   }
 
 
-  remove(id: number) {
+  remove(id:string) {
     return `This action removes a #${id} result`
   }
 }
