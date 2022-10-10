@@ -4,7 +4,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+  });
 
   app.useGlobalPipes(new ValidationPipe());
 
@@ -15,9 +17,9 @@ async function bootstrap() {
     .addTag('Status')
     .addTag('Auth')
     .addTag('User')
-    .addTag("Test")
-    .addTag("Specialtie")
-    .addTag("Result")
+    .addTag('Test')
+    .addTag('Specialtie')
+    .addTag('Result')
     .addBearerAuth()
     .build();
 
@@ -27,4 +29,3 @@ async function bootstrap() {
   await app.listen(process.env.PORT || 3333);
 }
 bootstrap();
-

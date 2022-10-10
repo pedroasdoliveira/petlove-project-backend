@@ -39,6 +39,19 @@ export class CreateUserDto {
   })
   password: string;
 
+  @MinLength(6)
+  @IsString()
+  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+    message: 'senha muito fraca',
+  })
+  @IsNotEmpty()
+  @ApiProperty({
+    description:
+      'Senha do usuário. Requer letras maiúsculas e minúsculas, números ou caracteres especiais',
+    example: 'Petlove@123',
+  })
+  newPassword: string;
+
   @IsString()
   @IsNotEmpty()
   @ApiProperty({

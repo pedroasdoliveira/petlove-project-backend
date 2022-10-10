@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -22,7 +31,7 @@ export class UserController {
   @ApiBearerAuth()
   @Get()
   @ApiOperation({ summary: 'List all users' })
-  findAll(@LoggedUser() user:User) {
+  findAll(@LoggedUser() user: User) {
     return this.userService.findAll(user);
   }
 
@@ -30,23 +39,27 @@ export class UserController {
   @ApiBearerAuth()
   @Get(':email')
   @ApiOperation({ summary: 'View a user by id.' })
-  findOne(@Param('email') email: string,@LoggedUser() user:User) {
-    return this.userService.findOne(email,user);
+  findOne(@Param('email') email: string, @LoggedUser() user: User) {
+    return this.userService.findOne(email, user);
   }
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @Patch(':email')
   @ApiOperation({ summary: 'Edit User Information!' })
-  update(@Param('email') email: string, @Body() updateUserDto: UpdateUserDto,@LoggedUser() user:User) {
-    return this.userService.update(email, updateUserDto,user);
+  update(
+    @Param('email') email: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @LoggedUser() user: User,
+  ) {
+    return this.userService.update(email, updateUserDto, user);
   }
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @Delete(':email')
   @ApiOperation({ summary: 'Delete a user (Adm)' })
-  remove(@Param('email') email: string,@LoggedUser() user:User) {
-    return this.userService.remove(email,user);
+  remove(@Param('email') email: string, @LoggedUser() user: User) {
+    return this.userService.remove(email, user);
   }
 }
