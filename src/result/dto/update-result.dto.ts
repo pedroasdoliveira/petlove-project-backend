@@ -17,7 +17,9 @@ export class UpdateResultDto extends PartialType(CreateResultDto) {
   })
   isValided: string;
 
-  @IsNumber()
+  @IsNumber({
+    maxDecimalPlaces: 2,
+  })
   @IsOptional()
   @ApiProperty({
     description: 'Person test result',
@@ -25,7 +27,9 @@ export class UpdateResultDto extends PartialType(CreateResultDto) {
   })
   influence: number;
 
-  @IsNumber()
+  @IsNumber({
+    maxDecimalPlaces: 2,
+  })
   @IsOptional()
   @ApiProperty({
     description: 'Person test result',
