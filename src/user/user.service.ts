@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   BadRequestException,
   HttpException,
@@ -106,7 +107,7 @@ export class UserService {
 
         const mailData = {
           from: 'sou eu :/ <projetopetlover@gmail.com>',
-          to: 'emaildevcs@emaildevcs.com',
+          to: 'petloveteste75@gmail.com',
           subject: 'tchau',
           html: '<div><h1>oi1</h1> <p>oi2</p></div>',
         };
