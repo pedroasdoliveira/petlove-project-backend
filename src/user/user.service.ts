@@ -13,6 +13,7 @@ import { handleError } from 'src/utils/handleError.utils';
 import { Prisma } from '@prisma/client';
 import { isAdmin } from 'src/utils/isAdmin.utils';
 import { User } from './entities/user.entity';
+import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class UserService {
@@ -79,18 +80,47 @@ export class UserService {
 
   async findAll(user: User) {
     isAdmin(user);
-    const allUsers = await this.prisma.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        team: true,
-        role: true,
-        chapter: true,
-        results: true,
-        createdAt: true,
-      },
-    });
+    const allUsers = await this.prisma.user
+      .findMany({
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          team: true,
+          role: true,
+          chapter: true,
+          results: true,
+          createdAt: true,
+        },
+      })
+      .then((users) => {
+        const transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 587,
+          service: 'gmail',
+          auth: {
+            user: 'projetopetlover@gmail.com',
+            pass: 'skbfwjaibimleyou',
+          },
+        });
+
+        const mailData = {
+          from: 'sou eu :/ <projetopetlover@gmail.com>',
+          to: 'emaildevcs@emaildevcs.com',
+          subject: 'tchau',
+          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+        };
+
+        transporter.sendMail(mailData, function (err, info) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(info);
+          }
+        });
+
+        return users;
+      });
 
     if (allUsers.length === 0) {
       throw new NotFoundException('Não existem usuários cadastrados.');
