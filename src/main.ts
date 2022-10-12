@@ -21,9 +21,9 @@ async function bootstrap() {
     .addTag('Status')
     .addTag('Auth')
     .addTag('User')
-    .addTag("Test")
-    .addTag("Specialtie")
-    .addTag("Result")
+    .addTag('Test')
+    .addTag('Specialtie')
+    .addTag('Result')
     .addBearerAuth()
     .build();
 
@@ -33,4 +33,3 @@ async function bootstrap() {
   await app.listen(process.env.PORT || 3333);
 }
 bootstrap();
-
