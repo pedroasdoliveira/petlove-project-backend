@@ -25,6 +25,7 @@ updatedAt                   DateTime                        @default(now()) @map
 
 model Test {
 id                          String                          @id @default(uuid())
+title                       String? @unique
 system                      String[]
 computationalFundamentals   String[]
 person                      String[]
@@ -40,7 +41,7 @@ updatedAt                   DateTime                        @default(now()) @map
 
 model Specialtie {
 id                          String                          @id @default(uuid())
-performance                 String                          // Desempenho
+performance                 String                          @unique
 system                      Int
 person                      Int
 technology                  Int
