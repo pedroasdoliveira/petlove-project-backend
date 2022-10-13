@@ -8,7 +8,6 @@ import { CreateSpecialtyDto } from './dto/create-specialty.dto';
 import { UpdateSpecialtyDto } from './dto/update-specialty.dto';
 import { Specialty } from './entities/specialty.entity';
 
-
 @Injectable()
 export class SpecialtiesService {
   constructor(private readonly prisma: PrismaService) {}
@@ -20,29 +19,37 @@ export class SpecialtiesService {
   }
 
   async findAll(user: User) {
-    isAdmin(user);
+    if (!user) {
+      throw new Error('Usuário não está logado');
+    }
+
     return await this.prisma.specialtie.findMany().catch(handleError);
   }
 
   async findOne(id: string, user: User) {
-    isAdmin(user);
-    return await this.prisma.specialtie.findUnique({ where: {id} }).catch(handleError);
+    if (!user) {
+      throw new Error('Usuário não está logado');
+    }
+
+    return await this.prisma.specialtie
+      .findUnique({ where: { id } })
+      .catch(handleError);
   }
 
   async update(id: string, dto: UpdateSpecialtyDto, user: User) {
     isAdmin(user);
-    const data: Partial<Specialty> = {...dto};
+    const data: Partial<Specialty> = { ...dto };
     return await this.prisma.specialtie
-    .update({
-      where: {id},
-      data
-    })
-    .catch(handleError);
+      .update({
+        where: { id },
+        data,
+      })
+      .catch(handleError);
   }
 
   async remove(id: string, user: User) {
     isAdmin(user);
-    await this.prisma.specialtie.delete({ where: {id} }).catch(handleError);
-    return { message: 'specialty deleted successfully'};
+    await this.prisma.specialtie.delete({ where: { id } }).catch(handleError);
+    return { message: 'specialty deleted successfully' };
   }
 }

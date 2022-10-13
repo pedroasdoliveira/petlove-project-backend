@@ -40,11 +40,12 @@ updatedAt                   DateTime                        @default(now()) @map
 
 model Specialtie {
 id                          String                          @id @default(uuid())
-performance                 String                          // Desempenho
-system                      Int
-person                      Int
+performance                 String                          @unique // Desempenho
+description                 String                          // Descrição
+system                      Float
+person                      Float
 technology                  Float
-process                     Int
+process                     Float
 influence                   Float
 createdAt                   DateTime                        @default(now()) @map("created_at")
 updatedAt                   DateTime                        @default(now()) @map("updated_at")

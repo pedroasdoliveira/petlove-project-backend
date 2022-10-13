@@ -19,7 +19,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @ApiTags('Specialtie')
-@Controller('specialty')
+@Controller('Specialty')
 export class SpecialtiesController {
   constructor(private readonly specialty: SpecialtiesService) {}
 

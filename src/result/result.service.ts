@@ -11,56 +11,42 @@ import { UpdateResultDto } from './dto/update-result.dto';
 export class ResultService {
   constructor(private readonly prisma: PrismaService) {}
   async create(user: User, dto: CreateResultDto) {
-    const tecnology =
+    const technology =
       (dto.toolshop + dto.design + dto.test + dto.computationalFundamentals) *
       (5 / 12);
     const influence = (dto.system + dto.process + 2 * dto.person) / 4;
 
     let nextRoleValue = undefined;
 
-    if (
-      dto.system > 3 &&
-      dto.person > 3 &&
-      dto.process > 3 &&
-      tecnology > 3 &&
-      influence > 3
-    ) {
-      nextRoleValue = 'Tech-Leader';
-    } else if (
-      tecnology > 3.9 &&
-      dto.system > 3 &&
-      dto.person < 3 &&
-      dto.process < 3 &&
-      influence < 3
-    ) {
-      nextRoleValue = 'Especialista';
-    } else if (
-      tecnology > 3.4 &&
-      dto.system > 3.4 &&
-      dto.person > 1 &&
-      dto.process > 1 &&
-      influence > 1.9
-    ) {
-      nextRoleValue = 'Senior';
-    } else if (
-      tecnology > 2.9 &&
-      dto.system > 2 &&
-      dto.person > 1 &&
-      dto.process > 1 &&
-      influence > 1.9
-    ) {
-      nextRoleValue = 'Pleno';
-    } else if (
-      tecnology < 3 &&
-      dto.system > 1.9 &&
-      dto.person > 1 &&
-      dto.process > 1 &&
-      influence > 1.9
-    ) {
-      nextRoleValue = 'Junior';
-    } else {
-      nextRoleValue = 'Trainee';
+    const specialtys = await this.prisma.specialtie.findMany();
+
+    if (specialtys.length === 0) {
+      throw new NotFoundException('Não existem especialidades cadastradas.');
     }
+
+    const result = specialtys.map((specialy) => {
+      const { performance, system, person, technology, process, influence } =
+        specialy;
+      const systemDiff = system - dto.system;
+      const personDiff = person - dto.person;
+      const technologyDiff = technology - technology;
+      const processDiff = process - dto.process;
+      const influenceDiff = influence - influence;
+
+      const totalDiff =
+        Math.abs(systemDiff) +
+        Math.abs(personDiff) +
+        Math.abs(technologyDiff) +
+        Math.abs(processDiff) +
+        Math.abs(influenceDiff);
+      return { performance, totalDiff };
+    });
+
+    const near = result.reduce((prev, current) =>
+      prev.totalDiff < current.totalDiff ? prev : current,
+    );
+
+    nextRoleValue = near.performance;
 
     const data: Prisma.ResultCreateInput = {
       user: {
@@ -72,7 +58,7 @@ export class ResultService {
       person: dto.person,
       process: dto.process,
       system: dto.system,
-      technology: Math.round(tecnology),
+      technology: Math.round(technology),
       influence: Math.round(influence),
     };
 
@@ -115,9 +101,9 @@ export class ResultService {
     return allResults;
   }
 
-  findOne(id: string) {
-    return this.prisma.result
-      .findUnique({
+  async findOne(id: string) {
+    try {
+      return await this.prisma.result.findUnique({
         where: { id: id },
         select: {
           id: true,
@@ -128,8 +114,10 @@ export class ResultService {
           technology: true,
           influence: true,
         },
-      })
-      .catch(handleError);
+      });
+    } catch (error) {
+      return handleError(error);
+    }
   }
 
   async update(id: string, dto: UpdateResultDto) {
