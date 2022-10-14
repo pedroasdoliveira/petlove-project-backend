@@ -1,27 +1,29 @@
-import {PrismaClient}  from "@prisma/client";
-import * as seed from "./seed";
-
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const seeds = Object.entries(seed);
+const seeds = Object.entries({
+  ...require('./seed/01-user'),
+  ...require('./seed/02-Test-crud'),
+  ...require('./seed/03-specialties'),
+});
 
 (async () => {
-	for (const [model, func] of seeds) {
-		if (typeof func !== "function") {
-			continue;
-		}
+  for (const [model, func] of seeds) {
+    if (typeof func !== 'function') {
+      continue;
+    }
 
-		console.info(`Seeding model '${model}'...`);
+    console.info(`Seeding model '${model}'...`);
 
-		await func(prisma);
-	}
+    await func(prisma);
+  }
 })()
-	.catch((e) => {
-		console.error(e);
+  .catch((e) => {
+    console.error(e);
 
-		process.exit(1);
-	})
-	.finally(async () => {
-		await prisma.$disconnect();
-	});
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
