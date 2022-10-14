@@ -1,8 +1,8 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 
-export const Test: Prisma.TestCreateInput[] = [
+export const test: Prisma.TestCreateInput[] = [
 	{
-    title:'proeficiência',
+    title:'proeficiencia',
 
 		system:[
       'Você é capaz de implementar features simples e resolver pequenos bugs dentro da sua squad?',

@@ -5,11 +5,6 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "main": "index.ts",
-  "type": "module",
-  "prisma": {
-    "seed": "node ./src/prisma/seed.ts"
-  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -24,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "seed": "node ./src/prisma/seed.ts"
+    "seed": "ts-node ./src/prisma/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",

@@ -1,10 +1,13 @@
 import {PrismaClient}  from "@prisma/client";
-import * as seed from "./seed";
-
 
 const prisma = new PrismaClient();
 
-const seeds = Object.entries(seed);
+const seeds = Object.entries({
+  ...require('./seed/01-user'),
+  ...require('./seed/02-Test-crud'),
+  ...require('./seed/03-specialties'),
+});
+
 
 (async () => {
 	for (const [model, func] of seeds) {
