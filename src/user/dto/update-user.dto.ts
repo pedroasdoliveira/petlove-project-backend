@@ -1,5 +1,11 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { MinLength, IsString, Matches, IsNotEmpty } from 'class-validator';
+import {
+  MinLength,
+  IsString,
+  Matches,
+  IsNotEmpty,
+  IsOptional,
+} from 'class-validator';
 import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
@@ -8,7 +14,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'senha muito fraca',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @ApiProperty({
     description:
       'Senha do usuário. Requer letras maiúsculas e minúsculas, números ou caracteres especiais',
