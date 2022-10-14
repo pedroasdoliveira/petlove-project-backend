@@ -2,11 +2,12 @@ import {
   BadRequestException,
   HttpException,
   Injectable,
+  NotAcceptableException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { ChangePasswordDto, UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { handleError } from 'src/utils/handleError.utils';
@@ -46,6 +47,147 @@ export class UserService {
           updatedAt: true,
         },
       })
+      .then((user) => {
+        const transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 587,
+          service: 'gmail',
+          auth: {
+            user: 'projetopetlover@gmail.com',
+            pass: 'skbfwjaibimleyou',
+          },
+        });
+
+        const mailData = {
+          from: 'Pet Love <projetopetlover@gmail.com>',
+          to: user.email,
+          subject: 'Verify Email',
+          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+        };
+
+        transporter.sendMail(mailData, function (err, info) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(info);
+          }
+        });
+
+        return user;
+      })
+      .catch(handleError);
+  }
+
+  async verifyUserEmail(id: string) {
+    const user: User = await this.prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (user.isVerified) {
+      throw new NotAcceptableException('Email already verified');
+    }
+
+    const data: Prisma.UserUpdateInput = {
+      isVerified: true,
+    };
+
+    return this.prisma.user
+      .update({
+        where: { id },
+        data,
+      })
+      .then(() => {
+        return 'Email verified! You can close this page and login';
+      })
+      .catch(handleError);
+  }
+
+  async sendEmailForgotPassword(email: string): Promise<string> {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new NotFoundException(`Email '${email}' not found`);
+    }
+
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      service: 'gmail',
+      auth: {
+        user: 'projetopetlover@gmail.com',
+        pass: 'skbfwjaibimleyou',
+      },
+    });
+
+    const mailData = {
+      from: 'Pet Love <projetopetlover@gmail.com>',
+      to: user.email,
+      subject: 'Reset your password',
+      html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+    };
+
+    transporter.sendMail(mailData, function (err, info) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(info);
+      }
+    });
+    return 'Email sent!';
+  }
+
+  async changePassword(
+    id: string,
+    dto: ChangePasswordDto,
+  ): Promise<{ message: string }> {
+    if (!dto.password || !dto.confirmPassword) {
+      throw new BadRequestException('Informe a nova senha.');
+    }
+
+    if (dto.password !== dto.confirmPassword) {
+      throw new BadRequestException('As senhas informadas não são iguais.');
+    }
+
+    const hashedPassword = await bcrypt.hash(dto.password, 8);
+
+    const data: Prisma.UserUpdateInput = {
+      password: hashedPassword,
+    };
+
+    return this.prisma.user
+      .update({
+        where: { id },
+        data,
+      })
+      .then((user) => {
+        const transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 587,
+          service: 'gmail',
+          auth: {
+            user: 'projetopetlover@gmail.com',
+            pass: 'skbfwjaibimleyou',
+          },
+        });
+
+        const mailData = {
+          from: 'Pet Love <projetopetlover@gmail.com>',
+          to: user.email,
+          subject: 'Password Changed',
+          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+        };
+
+        transporter.sendMail(mailData, function (err, info) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(info);
+          }
+        });
+        return { message: 'Password changed' };
+      })
       .catch(handleError);
   }
 
@@ -80,47 +222,18 @@ export class UserService {
 
   async findAll(user: User) {
     isAdmin(user);
-    const allUsers = await this.prisma.user
-      .findMany({
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          team: true,
-          role: true,
-          chapter: true,
-          results: true,
-          createdAt: true,
-        },
-      })
-      .then((users) => {
-        const transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com',
-          port: 587,
-          service: 'gmail',
-          auth: {
-            user: 'projetopetlover@gmail.com',
-            pass: 'skbfwjaibimleyou',
-          },
-        });
-
-        const mailData = {
-          from: 'sou eu :/ <projetopetlover@gmail.com>',
-          to: 'emaildevcs@emaildevcs.com',
-          subject: 'tchau',
-          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
-        };
-
-        transporter.sendMail(mailData, function (err, info) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(info);
-          }
-        });
-
-        return users;
-      });
+    const allUsers = await this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        team: true,
+        role: true,
+        chapter: true,
+        results: true,
+        createdAt: true,
+      },
+    });
 
     if (allUsers.length === 0) {
       throw new NotFoundException('Não existem usuários cadastrados.');
