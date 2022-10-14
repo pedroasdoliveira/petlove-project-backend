@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { ResultService } from './result.service';
 import { CreateResultDto } from './dto/create-result.dto';
 import { UpdateResultDto } from './dto/update-result.dto';
@@ -16,13 +25,13 @@ export class ResultController {
 
   @Post()
   @ApiOperation({ summary: 'Create test result' })
-  create(@LoggedUser() user:User,@Body() dto: CreateResultDto) {
-    return this.resultService.create(user,dto);
+  create(@LoggedUser() user: User, @Body() dto: CreateResultDto) {
+    return this.resultService.create(user, dto);
   }
 
   @Get()
   @ApiOperation({ summary: 'List all results' })
-  findAll(@LoggedUser() user:User) {
+  findAll(@LoggedUser() user: User) {
     return this.resultService.findAll(user);
   }
 

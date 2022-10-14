@@ -7,6 +7,6 @@ import { PassportModule } from '@nestjs/passport';
 @Module({
   imports: [PrismaModule, PassportModule.register({ defaultStrategy: 'jwt' })],
   controllers: [SpecialtiesController],
-  providers: [SpecialtiesService]
+  providers: [SpecialtiesService],
 })
 export class SpecialtiesModule {}
