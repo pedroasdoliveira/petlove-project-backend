@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from 'src/user/entities/user.entity';
@@ -20,7 +20,7 @@ export class SpecialtiesService {
 
   async findAll(user: User) {
     if (!user) {
-      throw new Error('Usuário não está logado');
+      throw new UnprocessableEntityException('Usuário não está logado');
     }
 
     return await this.prisma.specialtie.findMany().catch(handleError);
@@ -28,7 +28,7 @@ export class SpecialtiesService {
 
   async findOne(id: string, user: User) {
     if (!user) {
-      throw new Error('Usuário não está logado');
+      throw new UnprocessableEntityException('Usuário não está logado');
     }
 
     return await this.prisma.specialtie

@@ -2,11 +2,11 @@ const dto = {
   id: 1,
   name: 'John',
   nextRole: null,
-  system: 0,
-  person: 0,
-  technology: 0,
-  process: 0,
-  influence: 0,
+  system: 3,
+  person: 3,
+  technology: 3,
+  process: 3,
+  influence: 3,
 };
 
 const specialys = [
