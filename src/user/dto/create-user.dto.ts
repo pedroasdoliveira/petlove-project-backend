@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-  @Length(3, 40)
+  @Length(15, 40)
   @IsString()
   @IsNotEmpty()
   @ApiProperty({

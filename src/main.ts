@@ -11,7 +11,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
-    .setTitle('API-PetLove')
+    .setTitle('Api-PetLove')
     .setDescription('BootCamp')
     .setVersion('1.0.0')
     .addTag('Status')

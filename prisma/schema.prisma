@@ -26,6 +26,7 @@ updatedAt                   DateTime                        @default(now()) @map
 
 model Test {
 id                          String                          @id @default(uuid())
+title                       String? @unique
 system                      String[]
 computationalFundamentals   String[]
 person                      String[]
@@ -41,13 +42,12 @@ updatedAt                   DateTime                        @default(now()) @map
 
 model Specialtie {
 id                          String                          @id @default(uuid())
-performance                 String                          @unique // Desempenho
-description                 String                          // Descrição
-system                      Float
-person                      Float
-technology                  Float
-process                     Float
-influence                   Float
+performance                 String                          @unique
+system                      Int
+person                      Int
+technology                  Int
+process                     Int
+influence                   Int
 createdAt                   DateTime                        @default(now()) @map("created_at")
 updatedAt                   DateTime                        @default(now()) @map("updated_at")
 
