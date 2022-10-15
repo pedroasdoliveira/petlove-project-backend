@@ -15,7 +15,8 @@ password                    String
 team                        String?
 chapter                     String?
 role                        String?
-isAdmin                     Boolean?                         @map("is_admin")
+isAdmin                     Boolean?                        @map("is_admin")
+isVerified                  Boolean?                        @default(false) @map("is_verified")
 results                     Result[]
 createdAt                   DateTime                        @default(now()) @map("created_at")
 updatedAt                   DateTime                        @default(now()) @map("updated_at")
@@ -25,6 +26,7 @@ updatedAt                   DateTime                        @default(now()) @map
 
 model Test {
 id                          String                          @id @default(uuid())
+title                       String? @unique
 system                      String[]
 computationalFundamentals   String[]
 person                      String[]
@@ -40,7 +42,7 @@ updatedAt                   DateTime                        @default(now()) @map
 
 model Specialtie {
 id                          String                          @id @default(uuid())
-performance                 String                          // Desempenho
+performance                 String                          @unique
 system                      Int
 person                      Int
 technology                  Int
@@ -60,8 +62,8 @@ nextRole                    String?                         @map("next_role")
 system                      Int
 person                      Int
 process                     Int
-technology                  Int?
-influence                   Int?
+technology                  Float?
+influence                   Float?
 isValided                   String?                         @map("is_valided")
 createdAt                   DateTime                        @default(now()) @map("created_at")
 updatedAt                   DateTime                        @default(now()) @map("updated_at")
