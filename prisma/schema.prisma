@@ -2,69 +2,71 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-  output   = "../entity_diagram.pdf"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-id               String                          @id @default(uuid())
-nome             String
-email            String                          @unique
-password         String
-role             String
-isAdmin          Boolean                         @map("is_admin")
-results          Result[]
-createdAt        DateTime                        @default(now()) @map("created_at")
-updatedAt        DateTime                        @default(now()) @map("updated_at")
+id                          String                          @id @default(uuid())
+name                        String
+email                       String                          @unique
+password                    String
+team                        String?
+chapter                     String?
+role                        String?
+isAdmin                     Boolean?                        @map("is_admin")
+isVerified                  Boolean?                        @default(false) @map("is_verified")
+results                     Result[]
+createdAt                   DateTime                        @default(now()) @map("created_at")
+updatedAt                   DateTime                        @default(now()) @map("updated_at")
 
 @@map("users")
 }
 
 model Test {
-id               String                          @id @default(uuid())
-system           String[]
-person           String[]
-process          String[]
-toolShop         String[]                        @map("tool_shop") // Ferramentaria
-createdAt        DateTime                        @default(now()) @map("created_at")
-updatedAt        DateTime                        @default(now()) @map("updated_at")
+id                          String                          @id @default(uuid())
+title                       String? @unique
+system                      String[]
+computationalFundamentals   String[]
+person                      String[]
+process                     String[]
+test                        String[]
+design                      String[]
+toolshop                    String[]
+createdAt                   DateTime                        @default(now()) @map("created_at")
+updatedAt                   DateTime                        @default(now()) @map("updated_at")
 
 @@map("tests")
 }
 
 model Specialtie {
-id               String                          @id @default(uuid())
-performance      String                          // Desempenho
-system           Int
-person           Int
-process          Int
-influence        Int
-toolShop         Int                             @map("tool_shop") // Ferramentaria
-createdAt        DateTime                        @default(now()) @map("created_at")
-updatedAt        DateTime                        @default(now()) @map("updated_at")
+id                          String                          @id @default(uuid())
+performance                 String                          @unique
+system                      Int
+person                      Int
+technology                  Int
+process                     Int
+influence                   Int
+createdAt                   DateTime                        @default(now()) @map("created_at")
+updatedAt                   DateTime                        @default(now()) @map("updated_at")
 
 @@map("specialties")
 }
 
 model Result {
-id               String                          @id @default(uuid())
-user             User                            @relation(fields: [userId], references: [id], onDelete: Cascade)
-userId           String
-nextRole         String                          @map("next_role")
-system           Int
-person           Int
-process          Int
-influence        Int
-toolShop         Int                             @map("tool_shop") // Ferramentaria
-isValided        String                          @map("is_valided")
-createdAt        DateTime                        @default(now()) @map("created_at")
-updatedAt        DateTime                        @default(now()) @map("updated_at")
+id                          String                          @id @default(uuid())
+user                        User?                           @relation(fields: [userId], references: [id], onDelete: Cascade)
+userId                      String?
+nextRole                    String?                         @map("next_role")
+system                      Int
+person                      Int
+process                     Int
+technology                  Float?
+influence                   Float?
+isValided                   String?                         @map("is_valided")
+createdAt                   DateTime                        @default(now()) @map("created_at")
+updatedAt                   DateTime                        @default(now()) @map("updated_at")
 
 @@map("results")
 }
