@@ -48,6 +48,8 @@ export class ResultService {
 
     nextRoleValue = near.performance;
 
+    // verifica nível do teste
+
     const data: Prisma.ResultCreateInput = {
       user: {
         connect: {
