@@ -133,14 +133,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">src/auth/auth.controller.ts:28</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/auth/auth.controller.ts:33</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Recebe um token para a autenticação</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -176,7 +178,8 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>Token</p>
+
                     </div>
                 </td>
             </tr>
@@ -209,8 +212,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">src/auth/auth.controller.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/auth/auth.controller.ts:43</a></div>
                 </td>
             </tr>
 
@@ -284,6 +287,11 @@ import { LoggedUser } from &#x27;./logged-user.decorator&#x27;;
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  /**
+	 * Recebe um token para a autenticação
+	 * @param req Objeto de Request do Express
+	 * @returns Token
+	 */
   @Post()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({

@@ -24,12 +24,20 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  /**
+	 * @param req
+	 * @returns user
+	 */
   @Post('/create')
   @ApiOperation({ summary: 'create user' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
+   /**
+	 * @param req
+	 * @returns user
+	 */
   @Get('verify/:id')
   @ApiOperation({
     summary: 'Verify user email',
@@ -38,6 +46,10 @@ export class UserController {
     return this.userService.verifyUserEmail(id);
   }
 
+  /**
+	 * @param req
+	 * @returns Message: 'Email sent'!
+	 */
   @Get('send/:email')
   @ApiOperation({
     summary: 'Send email to change password',
@@ -46,6 +58,10 @@ export class UserController {
     return this.userService.sendEmailForgotPassword(email);
   }
 
+  /**
+	 * @param req
+	 * @returns message: 'Password changed'
+	 */
   @Patch('change/password/:resetToken/:id')
   @ApiOperation({
     summary: 'Recover user password',
@@ -58,6 +74,10 @@ export class UserController {
     return this.userService.changePassword(id, resetToken, dto);
   }
 
+  /**
+	 * @param req
+	 * @returns users
+	 */
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @Get()
@@ -66,6 +86,10 @@ export class UserController {
     return this.userService.findAll(user);
   }
 
+  /**
+	 * @param req
+	 * @returns users
+	 */
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @Get(':email')

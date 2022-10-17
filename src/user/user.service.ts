@@ -268,35 +268,6 @@ export class UserService {
       .catch(handleError);
   }
 
-  async createADM(dto: CreateUserDto) {
-    if (dto.password != dto.confirmPassword) {
-      throw new BadRequestException('As senhas informadas não são iguais.');
-    }
-
-    delete dto.confirmPassword;
-
-    const data: Prisma.UserCreateInput = {
-      name: dto.name,
-      email: dto.email,
-      password: await bcrypt.hash(dto.password, 5),
-      isAdmin: true,
-    };
-
-    return this.prisma.user
-      .create({
-        data,
-        select: {
-          password: false,
-          id: true,
-          name: true,
-          email: true,
-          isAdmin: true,
-          createdAt: true,
-        },
-      })
-      .catch(handleError);
-  }
-
   async findAll(user: User) {
     isAdmin(user);
     const allUsers = await this.prisma.user.findMany({
