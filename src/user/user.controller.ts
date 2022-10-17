@@ -94,7 +94,10 @@ export class UserController {
     return this.userService.remove(email, user);
   }
 
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @Post('upload')
+  @ApiOperation({ summary: 'Adiciona uma foto ao perfil do usuário' })
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFiles() file) {
   console.log(file);
