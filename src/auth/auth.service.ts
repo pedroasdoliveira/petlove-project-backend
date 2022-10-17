@@ -32,6 +32,12 @@ export class AuthService {
     }
 
     delete user.password;
+
+    await this.prisma.user.update({
+      where: { id: user.id },
+      data: { resetToken: null },
+    });
+
     return {
       token: this.jwtService.sign({ email }),
       user: undefined,

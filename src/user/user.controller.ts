@@ -43,15 +43,16 @@ export class UserController {
     return this.userService.sendEmailForgotPassword(email);
   }
 
-  @Patch('change/password/:id')
+  @Patch('change/password/:resetToken/:id')
   @ApiOperation({
     summary: 'Recover user password',
   })
   changePassword(
     @Param('id') id: string,
+    @Param('resetToken') resetToken: string,
     @Body() dto: ChangePasswordDto,
   ): Promise<{ message: string }> {
-    return this.userService.changePassword(id, dto);
+    return this.userService.changePassword(id, resetToken, dto);
   }
 
   @UseGuards(AuthGuard())
