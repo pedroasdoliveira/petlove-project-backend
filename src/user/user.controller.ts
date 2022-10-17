@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  UploadedFiles,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,6 +17,7 @@ import { User } from './entities/user.entity';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { LoggedUser } from 'src/auth/logged-user.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('User')
 @Controller('User')
@@ -88,5 +91,11 @@ export class UserController {
   @ApiOperation({ summary: 'Delete a user (Adm)' })
   remove(@Param('email') email: string, @LoggedUser() user: User) {
     return this.userService.remove(email, user);
+  }
+
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadFile(@UploadedFiles() file) {
+  console.log(file);
   }
 }
