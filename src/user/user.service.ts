@@ -15,10 +15,16 @@ import { Prisma } from '@prisma/client';
 import { isAdmin } from 'src/utils/isAdmin.utils';
 import { User } from './entities/user.entity';
 import * as nodemailer from 'nodemailer';
+import { JwtPayload } from './entities/jwtChangePassword.entity';
+import { JwtService } from '@nestjs/jwt';
+import * as crypto from 'crypto-js';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async create(dto: CreateUserDto) {
     if (dto.password != dto.confirmPassword) {
@@ -103,13 +109,35 @@ export class UserService {
   }
 
   async sendEmailForgotPassword(email: string): Promise<string> {
-    const user = await this.prisma.user.findUnique({
-      where: { email },
-    });
+    const user = await this.prisma.user
+      .findUnique({
+        where: { email },
+        select: {
+          id: true,
+          email: true,
+        },
+      })
+      .catch(handleError);
 
     if (!user) {
       throw new NotFoundException(`Email '${email}' not found`);
     }
+
+    const payload: JwtPayload = {
+      id: user.id,
+    };
+
+    const token = this.jwtService.sign(payload);
+
+    const tokenCrypt = crypto.AES.encrypt(
+      token,
+      process.env.JWT_CHANGE_PASSWORD_SECRET,
+    ).toString();
+
+    const tokenToUrl = await tokenCrypt
+      .replace(/\+/g, 'p1L2u3S')
+      .replace(/\//g, 's1L2a3S4h')
+      .replace(/=/g, 'e1Q2u3A4l');
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -125,23 +153,69 @@ export class UserService {
       from: 'Pet Love <projetopetlover@gmail.com>',
       to: user.email,
       subject: 'Reset your password',
-      html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+      html: `<div><h1>oi1</h1> <p>token:${tokenToUrl}, id:${user.id}, url: http://localhost:3000/Change/${tokenToUrl}/${user.id}</p></div>`,
     };
 
-    transporter.sendMail(mailData, function (err, info) {
+    transporter.sendMail(mailData, async function (err, info) {
       if (err) {
         console.log(err);
+
+        throw new BadRequestException('Error sending email');
       } else {
         console.log(info);
       }
     });
-    return 'Email sent!';
+
+    await this.prisma.user.update({
+      where: { id: user.id },
+      data: { resetToken: token },
+    });
+
+    return 'Email sent';
   }
 
   async changePassword(
     id: string,
+    resetToken: string,
     dto: ChangePasswordDto,
   ): Promise<{ message: string }> {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User '${id}' not found`);
+    }
+
+    if (!user.resetToken) {
+      throw new BadRequestException('Token not found');
+    }
+    console.log(resetToken);
+
+    const resetTokenToText = resetToken
+      .replace(/p1L2u3S/g, '+')
+      .replace(/s1L2a3S4h/g, '/')
+      .replace(/e1Q2u3A4l/g, '=');
+
+    const resetTokenDecrypted = crypto.AES.decrypt(
+      resetTokenToText,
+      process.env.JWT_CHANGE_PASSWORD_SECRET,
+    ).toString(crypto.enc.Utf8);
+
+    if (resetTokenDecrypted != user.resetToken) {
+      throw new UnauthorizedException('Invalid token');
+    }
+    let jwtVerify: JwtPayload;
+    try {
+      jwtVerify = this.jwtService.verify(user.resetToken);
+    } catch (error) {
+      throw new UnauthorizedException('Invalid token');
+    }
+
+    if (!jwtVerify.id || jwtVerify.id != id) {
+      throw new UnauthorizedException('Invalid token');
+    }
+
     if (!dto.password || !dto.confirmPassword) {
       throw new BadRequestException('Informe a nova senha.');
     }
@@ -154,6 +228,7 @@ export class UserService {
 
     const data: Prisma.UserUpdateInput = {
       password: hashedPassword,
+      resetToken: null,
     };
 
     return this.prisma.user
@@ -182,6 +257,8 @@ export class UserService {
         transporter.sendMail(mailData, function (err, info) {
           if (err) {
             console.log(err);
+
+            throw new BadRequestException('Error sending email');
           } else {
             console.log(info);
           }

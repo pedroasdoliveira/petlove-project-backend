@@ -2,18 +2,14 @@ import { ApiProperty } from '@nestjs/swagger';
 import { ArrayMinSize, IsArray, IsString } from 'class-validator';
 
 export class CreateTestDto {
-
   @IsString()
   @ApiProperty({
     description: 'Título do teste',
-    example:[
-      'Teste de Proeficiência'
-
-    ]
+    example: ['Teste de Proficiência'],
   })
-  title:string
+  title: string;
 
-  @IsString({each: true})
+  @IsString({ each: true })
   @IsArray()
   @ArrayMinSize(5)
   @ApiProperty({
@@ -70,8 +66,8 @@ export class CreateTestDto {
     example: [
       'Você implementa teste unitário e também testa a sua solução manualmente considerando as definições do produto?',
       'Você simula comportamentos dos clientes no seu desenvolvimento, testa além do caminho feliz e analisa o impacto das mudanças',
-      'Você implementa teste e2e, de integração que permita avaliar e monitorar o produto'
-    ]
+      'Você implementa teste e2e, de integração que permita avaliar e monitorar o produto',
+    ],
   })
   test: string;
 
