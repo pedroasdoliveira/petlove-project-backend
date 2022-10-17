@@ -1,0 +1,1405 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>api-petlove documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">api-petlove documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >UserService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/user/user.service.ts</code>
+        </p>
+
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#changePassword" >changePassword</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#create" >create</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createADM" >createADM</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findAll" >findAll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findOne" >findOne</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#remove" >remove</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendEmailForgotPassword" >sendEmailForgotPassword</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#update" >update</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#verifyUserEmail" >verifyUserEmail</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(prisma: <a href="../injectables/PrismaService.html" target="_self">PrismaService</a>, jwtService: JwtService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/user/user.service.ts:23</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>prisma</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PrismaService.html" target="_self" >PrismaService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>jwtService</td>
+                                                  
+                                                        <td>
+                                                                    <code>JwtService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changePassword"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>changePassword</b></span>
+                        <a href="#changePassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>changePassword(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, resetToken: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, dto: <a href="../classes/ChangePasswordDto.html" target="_self">ChangePasswordDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="177"
+                            class="link-to-prism">src/user/user.service.ts:177</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>resetToken</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>dto</td>
+                                    <td>
+                                                <code><a href="../classes/ChangePasswordDto.html" target="_self" >ChangePasswordDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="create"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>create</b></span>
+                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>create(dto: <a href="../classes/CreateUserDto.html" target="_self">CreateUserDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="29"
+                            class="link-to-prism">src/user/user.service.ts:29</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>dto</td>
+                                    <td>
+                                                <code><a href="../classes/CreateUserDto.html" target="_self" >CreateUserDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createADM"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>createADM</b></span>
+                        <a href="#createADM"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createADM(dto: <a href="../classes/CreateUserDto.html" target="_self">CreateUserDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="271"
+                            class="link-to-prism">src/user/user.service.ts:271</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>dto</td>
+                                    <td>
+                                                <code><a href="../classes/CreateUserDto.html" target="_self" >CreateUserDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAll"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>findAll</b></span>
+                        <a href="#findAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findAll(user: <a href="../classes/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="300"
+                            class="link-to-prism">src/user/user.service.ts:300</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>user</td>
+                                    <td>
+                                                <code><a href="../classes/User.html" target="_self" >User</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findOne"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>findOne</b></span>
+                        <a href="#findOne"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findOne(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, user: <a href="../classes/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="322"
+                            class="link-to-prism">src/user/user.service.ts:322</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>email</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>user</td>
+                                    <td>
+                                                <code><a href="../classes/User.html" target="_self" >User</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="remove"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>remove</b></span>
+                        <a href="#remove"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>remove(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, user: <a href="../classes/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="408"
+                            class="link-to-prism">src/user/user.service.ts:408</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>email</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>user</td>
+                                    <td>
+                                                <code><a href="../classes/User.html" target="_self" >User</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendEmailForgotPassword"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>sendEmailForgotPassword</b></span>
+                        <a href="#sendEmailForgotPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendEmailForgotPassword(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/user/user.service.ts:111</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>email</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="update"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>update</b></span>
+                        <a href="#update"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>update(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, updateUserDto: <a href="../classes/UpdateUserDto.html" target="_self">UpdateUserDto</a>, user: <a href="../classes/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="351"
+                            class="link-to-prism">src/user/user.service.ts:351</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>email</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>updateUserDto</td>
+                                    <td>
+                                                <code><a href="../classes/UpdateUserDto.html" target="_self" >UpdateUserDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>user</td>
+                                    <td>
+                                                <code><a href="../classes/User.html" target="_self" >User</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verifyUserEmail"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>verifyUserEmail</b></span>
+                        <a href="#verifyUserEmail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>verifyUserEmail(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="87"
+                            class="link-to-prism">src/user/user.service.ts:87</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  BadRequestException,
+  HttpException,
+  Injectable,
+  NotAcceptableException,
+  NotFoundException,
+  UnauthorizedException,
+} from &#x27;@nestjs/common&#x27;;
+import { CreateUserDto } from &#x27;./dto/create-user.dto&#x27;;
+import { ChangePasswordDto, UpdateUserDto } from &#x27;./dto/update-user.dto&#x27;;
+import { PrismaService } from &#x27;src/prisma/prisma.service&#x27;;
+import * as bcrypt from &#x27;bcrypt&#x27;;
+import { handleError } from &#x27;src/utils/handleError.utils&#x27;;
+import { Prisma } from &#x27;@prisma/client&#x27;;
+import { isAdmin } from &#x27;src/utils/isAdmin.utils&#x27;;
+import { User } from &#x27;./entities/user.entity&#x27;;
+import * as nodemailer from &#x27;nodemailer&#x27;;
+import { JwtPayload } from &#x27;./entities/jwtChangePassword.entity&#x27;;
+import { JwtService } from &#x27;@nestjs/jwt&#x27;;
+import * as crypto from &#x27;crypto-js&#x27;;
+
+@Injectable()
+export class UserService {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
+
+  async create(dto: CreateUserDto) {
+    if (dto.password !&#x3D; dto.confirmPassword) {
+      throw new BadRequestException(&#x27;As senhas informadas não são iguais.&#x27;);
+    }
+
+    delete dto.confirmPassword;
+
+    const data: Prisma.UserCreateInput &#x3D; {
+      name: dto.name,
+      email: dto.email,
+      password: await bcrypt.hash(dto.password, 5),
+      isAdmin: false,
+    };
+
+    return this.prisma.user
+      .create({
+        data,
+        select: {
+          password: false,
+          id: true,
+          name: true,
+          email: true,
+          isAdmin: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      })
+      .then((user) &#x3D;&gt; {
+        const transporter &#x3D; nodemailer.createTransport({
+          host: &#x27;smtp.gmail.com&#x27;,
+          port: 587,
+          service: &#x27;gmail&#x27;,
+          auth: {
+            user: &#x27;projetopetlover@gmail.com&#x27;,
+            pass: &#x27;skbfwjaibimleyou&#x27;,
+          },
+        });
+
+        const mailData &#x3D; {
+          from: &#x27;Pet Love &lt;projetopetlover@gmail.com&gt;&#x27;,
+          to: user.email,
+          subject: &#x27;Verify Email&#x27;,
+          html: &#x27;&lt;div&gt;&lt;h1&gt;oi1&lt;/h1&gt; &lt;p&gt;oi2&lt;/p&gt;&lt;/div&gt;&#x27;,
+        };
+
+        transporter.sendMail(mailData, function (err, info) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(info);
+          }
+        });
+
+        return user;
+      })
+      .catch(handleError);
+  }
+
+  async verifyUserEmail(id: string) {
+    const user: User &#x3D; await this.prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (user.isVerified) {
+      throw new NotAcceptableException(&#x27;Email already verified&#x27;);
+    }
+
+    const data: Prisma.UserUpdateInput &#x3D; {
+      isVerified: true,
+    };
+
+    return this.prisma.user
+      .update({
+        where: { id },
+        data,
+      })
+      .then(() &#x3D;&gt; {
+        return &#x27;Email verified! You can close this page and login&#x27;;
+      })
+      .catch(handleError);
+  }
+
+  async sendEmailForgotPassword(email: string): Promise&lt;string&gt; {
+    const user &#x3D; await this.prisma.user
+      .findUnique({
+        where: { email },
+        select: {
+          id: true,
+          email: true,
+        },
+      })
+      .catch(handleError);
+
+    if (!user) {
+      throw new NotFoundException(&#x60;Email &#x27;${email}&#x27; not found&#x60;);
+    }
+
+    const payload: JwtPayload &#x3D; {
+      id: user.id,
+    };
+
+    const token &#x3D; this.jwtService.sign(payload);
+
+    const tokenCrypt &#x3D; crypto.AES.encrypt(
+      token,
+      process.env.JWT_CHANGE_PASSWORD_SECRET,
+    ).toString();
+
+    const tokenToUrl &#x3D; await tokenCrypt
+      .replace(/\+/g, &#x27;p1L2u3S&#x27;)
+      .replace(/\//g, &#x27;s1L2a3S4h&#x27;)
+      .replace(/&#x3D;/g, &#x27;e1Q2u3A4l&#x27;);
+
+    const transporter &#x3D; nodemailer.createTransport({
+      host: &#x27;smtp.gmail.com&#x27;,
+      port: 587,
+      service: &#x27;gmail&#x27;,
+      auth: {
+        user: &#x27;projetopetlover@gmail.com&#x27;,
+        pass: &#x27;skbfwjaibimleyou&#x27;,
+      },
+    });
+
+    const mailData &#x3D; {
+      from: &#x27;Pet Love &lt;projetopetlover@gmail.com&gt;&#x27;,
+      to: user.email,
+      subject: &#x27;Reset your password&#x27;,
+      html: &#x60;&lt;div&gt;&lt;h1&gt;oi1&lt;/h1&gt; &lt;p&gt;token:${tokenToUrl}, id:${user.id}, url: http://localhost:3000/Change/${tokenToUrl}/${user.id}&lt;/p&gt;&lt;/div&gt;&#x60;,
+    };
+
+    transporter.sendMail(mailData, async function (err, info) {
+      if (err) {
+        console.log(err);
+
+        throw new BadRequestException(&#x27;Error sending email&#x27;);
+      } else {
+        console.log(info);
+      }
+    });
+
+    await this.prisma.user.update({
+      where: { id: user.id },
+      data: { resetToken: token },
+    });
+
+    return &#x27;Email sent&#x27;;
+  }
+
+  async changePassword(
+    id: string,
+    resetToken: string,
+    dto: ChangePasswordDto,
+  ): Promise&lt;{ message: string }&gt; {
+    const user &#x3D; await this.prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new NotFoundException(&#x60;User &#x27;${id}&#x27; not found&#x60;);
+    }
+
+    if (!user.resetToken) {
+      throw new BadRequestException(&#x27;Token not found&#x27;);
+    }
+    console.log(resetToken);
+
+    const resetTokenToText &#x3D; resetToken
+      .replace(/p1L2u3S/g, &#x27;+&#x27;)
+      .replace(/s1L2a3S4h/g, &#x27;/&#x27;)
+      .replace(/e1Q2u3A4l/g, &#x27;&#x3D;&#x27;);
+
+    const resetTokenDecrypted &#x3D; crypto.AES.decrypt(
+      resetTokenToText,
+      process.env.JWT_CHANGE_PASSWORD_SECRET,
+    ).toString(crypto.enc.Utf8);
+
+    if (resetTokenDecrypted !&#x3D; user.resetToken) {
+      throw new UnauthorizedException(&#x27;Invalid token&#x27;);
+    }
+    let jwtVerify: JwtPayload;
+    try {
+      jwtVerify &#x3D; this.jwtService.verify(user.resetToken);
+    } catch (error) {
+      throw new UnauthorizedException(&#x27;Invalid token&#x27;);
+    }
+
+    if (!jwtVerify.id || jwtVerify.id !&#x3D; id) {
+      throw new UnauthorizedException(&#x27;Invalid token&#x27;);
+    }
+
+    if (!dto.password || !dto.confirmPassword) {
+      throw new BadRequestException(&#x27;Informe a nova senha.&#x27;);
+    }
+
+    if (dto.password !&#x3D;&#x3D; dto.confirmPassword) {
+      throw new BadRequestException(&#x27;As senhas informadas não são iguais.&#x27;);
+    }
+
+    const hashedPassword &#x3D; await bcrypt.hash(dto.password, 8);
+
+    const data: Prisma.UserUpdateInput &#x3D; {
+      password: hashedPassword,
+      resetToken: null,
+    };
+
+    return this.prisma.user
+      .update({
+        where: { id },
+        data,
+      })
+      .then((user) &#x3D;&gt; {
+        const transporter &#x3D; nodemailer.createTransport({
+          host: &#x27;smtp.gmail.com&#x27;,
+          port: 587,
+          service: &#x27;gmail&#x27;,
+          auth: {
+            user: &#x27;projetopetlover@gmail.com&#x27;,
+            pass: &#x27;skbfwjaibimleyou&#x27;,
+          },
+        });
+
+        const mailData &#x3D; {
+          from: &#x27;Pet Love &lt;projetopetlover@gmail.com&gt;&#x27;,
+          to: user.email,
+          subject: &#x27;Password Changed&#x27;,
+          html: &#x27;&lt;div&gt;&lt;h1&gt;oi1&lt;/h1&gt; &lt;p&gt;oi2&lt;/p&gt;&lt;/div&gt;&#x27;,
+        };
+
+        transporter.sendMail(mailData, function (err, info) {
+          if (err) {
+            console.log(err);
+
+            throw new BadRequestException(&#x27;Error sending email&#x27;);
+          } else {
+            console.log(info);
+          }
+        });
+        return { message: &#x27;Password changed&#x27; };
+      })
+      .catch(handleError);
+  }
+
+  async createADM(dto: CreateUserDto) {
+    if (dto.password !&#x3D; dto.confirmPassword) {
+      throw new BadRequestException(&#x27;As senhas informadas não são iguais.&#x27;);
+    }
+
+    delete dto.confirmPassword;
+
+    const data: Prisma.UserCreateInput &#x3D; {
+      name: dto.name,
+      email: dto.email,
+      password: await bcrypt.hash(dto.password, 5),
+      isAdmin: true,
+    };
+
+    return this.prisma.user
+      .create({
+        data,
+        select: {
+          password: false,
+          id: true,
+          name: true,
+          email: true,
+          isAdmin: true,
+          createdAt: true,
+        },
+      })
+      .catch(handleError);
+  }
+
+  async findAll(user: User) {
+    isAdmin(user);
+    const allUsers &#x3D; await this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        team: true,
+        role: true,
+        chapter: true,
+        results: true,
+        createdAt: true,
+      },
+    });
+
+    if (allUsers.length &#x3D;&#x3D;&#x3D; 0) {
+      throw new NotFoundException(&#x27;Não existem usuários cadastrados.&#x27;);
+    }
+
+    return allUsers;
+  }
+
+  async findOne(email: string, user: User) {
+    const record &#x3D; await this.prisma.user.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        team: true,
+        role: true,
+        chapter: true,
+        results: true,
+        createdAt: true,
+        isAdmin: true,
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException(&#x60;Registro: &#x27;${email}&#x27; não encontrado.&#x60;);
+    }
+
+    if (user.email &#x3D;&#x3D; email || user.isAdmin &#x3D;&#x3D; true) {
+      return record;
+    } else {
+      throw new UnauthorizedException(
+        &#x27;Você não tem permissão para acessar essa área!&#x27;,
+      );
+    }
+  }
+
+  async update(email: string, updateUserDto: UpdateUserDto, user: User) {
+    if (user.email &#x3D;&#x3D;&#x3D; email &amp;&amp; updateUserDto.newPassword) {
+      if (!updateUserDto.password) {
+        throw new BadRequestException(&#x27;A senha atual não pode ser vazia.&#x27;);
+      }
+
+      if (updateUserDto.newPassword !&#x3D;&#x3D; updateUserDto.confirmPassword) {
+        throw new BadRequestException(
+          &#x27;As novas senhas informadas não são iguais.&#x27;,
+        );
+      }
+
+      const newPassword &#x3D; await bcrypt.hash(updateUserDto.newPassword, 5);
+      delete updateUserDto.confirmPassword;
+      delete updateUserDto.newPassword;
+
+      const data &#x3D; { ...updateUserDto };
+      data.password &#x3D; newPassword;
+
+      return this.prisma.user
+        .update({
+          where: { email: email },
+          data,
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            password: false,
+            updatedAt: true,
+          },
+        })
+        .catch(handleError);
+    }
+
+    if (user.isAdmin &#x3D;&#x3D;&#x3D; true) {
+      const data &#x3D; { ...updateUserDto };
+
+      return this.prisma.user
+        .update({
+          where: { email },
+          data,
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            password: false,
+            updatedAt: true,
+          },
+        })
+        .catch(handleError);
+    }
+
+    throw new UnauthorizedException(
+      &#x27;Você não tem permissão para acessar essa área!&#x27;,
+    );
+  }
+
+  async remove(email: string, user: User) {
+    isAdmin(user);
+
+    if (!email) {
+      throw new NotFoundException(&#x60;email:${email} não encontrado&#x60;);
+    } else {
+      await this.prisma.user.findUnique({ where: { email: email } });
+      throw new HttpException(&#x27;Usuário deletado com sucesso!&#x27;, 200);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'UserService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
