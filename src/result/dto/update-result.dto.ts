@@ -12,17 +12,17 @@ export class UpdateResultDto extends PartialType(CreateResultDto) {
 
   @IsString()
   @ApiProperty({
-    description: 'Para escolher se o usuário é passou ou não',
+    description: 'Para escolher se o usuário passou ou não',
     example: 'Sim',
   })
-  isValided: string;
+  isValided: 'Sim' | 'Não';
 
   @IsNumber({
     maxDecimalPlaces: 2,
   })
   @IsOptional()
   @ApiProperty({
-    description: 'Person test result',
+    description: 'Influence test result',
     example: 3,
   })
   influence: number;
@@ -32,7 +32,7 @@ export class UpdateResultDto extends PartialType(CreateResultDto) {
   })
   @IsOptional()
   @ApiProperty({
-    description: 'Person test result',
+    description: 'Technology test result',
     example: 3,
   })
   technology: number;

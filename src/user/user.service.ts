@@ -90,6 +90,13 @@ export class UserService {
   async verifyUserEmail(id: string) {
     const user: User = await this.prisma.user.findUnique({
       where: { id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
 
     if (user.isVerified) {
@@ -342,6 +349,7 @@ export class UserService {
         results: true,
         createdAt: true,
         isAdmin: true,
+        emailNotification: true,
       },
     });
 
@@ -399,6 +407,10 @@ export class UserService {
     }
 
     if (user.isAdmin === true) {
+      delete updateUserDto.confirmPassword;
+      delete updateUserDto.newPassword;
+      delete updateUserDto.password;
+
       const data = { ...updateUserDto };
 
       return this.prisma.user
