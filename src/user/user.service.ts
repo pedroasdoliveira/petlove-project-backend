@@ -74,6 +74,8 @@ export class UserService {
         transporter.sendMail(mailData, function (err, info) {
           if (err) {
             console.log(err);
+
+            throw new BadRequestException('Error sending email');
           } else {
             console.log(info);
           }
@@ -316,7 +318,14 @@ export class UserService {
       throw new NotFoundException('Não existem usuários cadastrados.');
     }
 
-    return allUsers;
+    const allUsersSort = allUsers.map((user) => {
+      user.results = user.results.sort((a, b) => {
+        return b.createdAt < a.createdAt ? 1 : -1;
+      });
+      return user;
+    });
+
+    return allUsersSort;
   }
 
   async findOne(email: string, user: User) {
@@ -340,6 +349,12 @@ export class UserService {
     }
 
     if (user.email == email || user.isAdmin == true) {
+      const usersSort = record.results.sort((a, b) => {
+        return b.createdAt < a.createdAt ? 1 : -1;
+      });
+
+      record.results = usersSort;
+
       return record;
     } else {
       throw new UnauthorizedException(

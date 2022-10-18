@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from 'src/user/entities/user.entity';
@@ -6,6 +10,7 @@ import { handleError } from 'src/utils/handleError.utils';
 import { isAdmin } from 'src/utils/isAdmin.utils';
 import { CreateResultDto } from './dto/create-result.dto';
 import { UpdateResultDto } from './dto/update-result.dto';
+import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class ResultService {
@@ -76,6 +81,49 @@ export class ResultService {
           influence: true,
         },
       })
+      .then(async (result) => {
+        // enviar email para todos os administradores
+
+        const adms = await this.prisma.user.findMany({
+          where: {
+            isAdmin: true,
+          },
+          select: {
+            email: true,
+          },
+        });
+
+        const emails = adms.map((adm) => adm.email);
+
+        const transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 587,
+          service: 'gmail',
+          auth: {
+            user: 'projetopetlover@gmail.com',
+            pass: 'skbfwjaibimleyou',
+          },
+        });
+
+        const mailData = {
+          from: 'Pet Love <projetopetlover@gmail.com>',
+          to: emails,
+          subject: 'Novo teste realizado',
+          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+        };
+
+        transporter.sendMail(mailData, function (err, info) {
+          if (err) {
+            console.log(err);
+
+            throw new BadRequestException('Error sending email');
+          } else {
+            console.log(info);
+          }
+        });
+
+        return result;
+      })
       .catch(handleError);
   }
 
@@ -121,7 +169,15 @@ export class ResultService {
   }
 
   async update(id: string, dto: UpdateResultDto) {
-    if (dto.isValided && dto.nextRole && !dto.influence) {
+    if (
+      dto.isValided &&
+      dto.nextRole &&
+      (!dto.influence ||
+        !dto.technology ||
+        !dto.system ||
+        !dto.process ||
+        !dto.person)
+    ) {
       return this.prisma.result
         .update({
           where: { id: id },
@@ -131,6 +187,7 @@ export class ResultService {
           },
           select: {
             id: true,
+            userId: true,
             nextRole: true,
             person: true,
             process: true,
@@ -138,6 +195,45 @@ export class ResultService {
             technology: true,
             influence: true,
           },
+        })
+        .then(async (result) => {
+          // enviar email para o usuário
+
+          const user = await this.prisma.user.findUnique({
+            where: { id: result.userId },
+            select: {
+              email: true,
+            },
+          });
+
+          const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 587,
+            service: 'gmail',
+            auth: {
+              user: 'projetopetlover@gmail.com',
+              pass: 'skbfwjaibimleyou',
+            },
+          });
+
+          const mailData = {
+            from: 'Pet Love <projetopetlover@gmail.com>',
+            to: user.email,
+            subject: 'Resultado do teste',
+            html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+          };
+
+          transporter.sendMail(mailData, function (err, info) {
+            if (err) {
+              console.log(err);
+
+              throw new BadRequestException('Error sending email');
+            } else {
+              console.log(info);
+            }
+          });
+
+          return result;
         })
         .catch(handleError);
     }
@@ -158,6 +254,7 @@ export class ResultService {
         where: { id: id },
         select: {
           id: true,
+          userId: true,
           nextRole: true,
           person: true,
           process: true,
@@ -165,6 +262,45 @@ export class ResultService {
           technology: true,
           influence: true,
         },
+      })
+      .then(async (result) => {
+        // enviar email para o usuário
+
+        const user = await this.prisma.user.findUnique({
+          where: { id: result.userId },
+          select: {
+            email: true,
+          },
+        });
+
+        const transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 587,
+          service: 'gmail',
+          auth: {
+            user: 'projetopetlover@gmail.com',
+            pass: 'skbfwjaibimleyou',
+          },
+        });
+
+        const mailData = {
+          from: 'Pet Love <projetopetlover@gmail.com>',
+          to: user.email,
+          subject: 'Resultado do teste (modificado pelo administrador)',
+          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+        };
+
+        transporter.sendMail(mailData, function (err, info) {
+          if (err) {
+            console.log(err);
+
+            throw new BadRequestException('Error sending email');
+          } else {
+            console.log(info);
+          }
+        });
+
+        return result;
       })
       .catch(handleError);
   }
