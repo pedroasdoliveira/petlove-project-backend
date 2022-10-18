@@ -90,10 +90,34 @@ export class ResultService {
           },
           select: {
             email: true,
+            emailNotification: true,
+            team: true,
           },
         });
 
-        const emails = adms.map((adm) => adm.email);
+        const emails = adms.map((adm) => {
+          if (adm.emailNotification === 'all') {
+            return adm.email;
+          }
+
+          if (adm.emailNotification === 'team' && adm.team === user.team) {
+            return adm.email;
+          }
+
+          return null;
+        });
+
+        console.log(emails);
+
+        // verificar se todos do map retornaram null
+
+        const allNull = emails.every((email) => email === null);
+
+        if (allNull) {
+          return result;
+        }
+
+        console.log(allNull);
 
         const transporter = nodemailer.createTransport({
           host: 'smtp.gmail.com',
