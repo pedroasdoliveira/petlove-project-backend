@@ -21,6 +21,16 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     example: 'Petlove@123',
   })
   newPassword: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  @ApiProperty({
+    description:
+      'define qual notificação de email o usuário receberá (somente para usuários com papel de administrador)',
+    example: 'team',
+  })
+  emailNotification: 'none' | 'team' | 'all';
 }
 
 export class ChangePasswordDto {
