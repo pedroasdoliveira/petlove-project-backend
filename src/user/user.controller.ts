@@ -98,6 +98,10 @@ export class UserController {
     return this.userService.findOne(email, user);
   }
 
+    /**
+	 * @param req
+	 * @returns users
+	 */
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @Patch(':email')
@@ -110,6 +114,10 @@ export class UserController {
     return this.userService.update(email, updateUserDto, user);
   }
 
+   /**
+	 * @param req
+	 * @returns Message: Usuário deletado com sucesso!
+	 */
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @Delete(':email')
@@ -118,6 +126,9 @@ export class UserController {
     return this.userService.remove(email, user);
   }
 
+     /**
+	 * @param req
+	 */
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @Post('upload')

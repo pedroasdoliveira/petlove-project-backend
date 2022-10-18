@@ -88,10 +88,6 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#createADM" >createADM</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Async</span>
                                 <a href="#findAll" >findAll</a>
                             </li>
                             <li>
@@ -362,77 +358,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="createADM"></a>
-                    <span class="name">
-                        <span class="modifier">Async</span>
-                        <span ><b>createADM</b></span>
-                        <a href="#createADM"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>createADM(dto: <a href="../classes/CreateUserDto.html" target="_self">CreateUserDto</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="271"
-                            class="link-to-prism">src/user/user.service.ts:271</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>dto</td>
-                                    <td>
-                                                <code><a href="../classes/CreateUserDto.html" target="_self" >CreateUserDto</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>unknown</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="findAll"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
@@ -451,8 +376,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="300"
-                            class="link-to-prism">src/user/user.service.ts:300</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="271"
+                            class="link-to-prism">src/user/user.service.ts:271</a></div>
                 </td>
             </tr>
 
@@ -522,8 +447,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="322"
-                            class="link-to-prism">src/user/user.service.ts:322</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="293"
+                            class="link-to-prism">src/user/user.service.ts:293</a></div>
                 </td>
             </tr>
 
@@ -605,8 +530,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="408"
-                            class="link-to-prism">src/user/user.service.ts:408</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="379"
+                            class="link-to-prism">src/user/user.service.ts:379</a></div>
                 </td>
             </tr>
 
@@ -759,8 +684,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="351"
-                            class="link-to-prism">src/user/user.service.ts:351</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="322"
+                            class="link-to-prism">src/user/user.service.ts:322</a></div>
                 </td>
             </tr>
 
@@ -1175,35 +1100,6 @@ export class UserService {
           }
         });
         return { message: &#x27;Password changed&#x27; };
-      })
-      .catch(handleError);
-  }
-
-  async createADM(dto: CreateUserDto) {
-    if (dto.password !&#x3D; dto.confirmPassword) {
-      throw new BadRequestException(&#x27;As senhas informadas não são iguais.&#x27;);
-    }
-
-    delete dto.confirmPassword;
-
-    const data: Prisma.UserCreateInput &#x3D; {
-      name: dto.name,
-      email: dto.email,
-      password: await bcrypt.hash(dto.password, 5),
-      isAdmin: true,
-    };
-
-    return this.prisma.user
-      .create({
-        data,
-        select: {
-          password: false,
-          id: true,
-          name: true,
-          email: true,
-          isAdmin: true,
-          createdAt: true,
-        },
       })
       .catch(handleError);
   }

@@ -133,16 +133,14 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">src/auth/auth.controller.ts:33</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/auth/auth.controller.ts:32</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Recebe um token para a autenticação</p>
-</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -212,8 +210,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="43"
-                            class="link-to-prism">src/auth/auth.controller.ts:43</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/auth/auth.controller.ts:46</a></div>
                 </td>
             </tr>
 
@@ -255,7 +253,8 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>message: Usuário autenticado com sucesso!</p>
+
                     </div>
                 </td>
             </tr>
@@ -288,8 +287,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   /**
-	 * Recebe um token para a autenticação
-	 * @param req Objeto de Request do Express
+	 * @param req
 	 * @returns Token
 	 */
   @Post()
@@ -301,6 +299,10 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
+  /**
+	 * @param req
+	 * @returns message: Usuário autenticado com sucesso!
+	 */
   @Get()
   @ApiOperation({
     summary: &#x27;Returns the currently authenticated user&#x27;
