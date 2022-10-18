@@ -45,6 +45,7 @@ export class ChangePasswordDto {
       'Senha do usuário. Requer letras maiúsculas e minúsculas, números ou caracteres especiais',
     example: 'Petlove@123',
   })
+  newPassword: string;
   password: string;
 
   @IsString()

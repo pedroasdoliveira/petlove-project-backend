@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { UnauthorizedException } from '@nestjs/common';
 import { User } from 'src/user/entities/user.entity';
 
