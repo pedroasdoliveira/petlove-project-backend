@@ -1,4 +1,9 @@
-import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from 'src/user/entities/user.entity';
@@ -20,7 +25,7 @@ export class TestService {
       system: dto.system,
       test: dto.test,
       toolshop: dto.toolshop,
-      design: dto.toolshop,
+      design: dto.design,
       computationalFundamentals: dto.computationalFundamentals,
     };
 
@@ -42,6 +47,10 @@ export class TestService {
   }
 
   async findAll(user: User) {
+    if (!user) {
+      throw new UnprocessableEntityException('Usuário não está logado');
+    }
+
     return await this.prisma.test.findMany().catch(handleError);
   }
 
@@ -58,7 +67,7 @@ export class TestService {
       system: dto.system,
       test: dto.test,
       toolshop: dto.toolshop,
-      design: dto.toolshop,
+      design: dto.design,
       computationalFundamentals: dto.computationalFundamentals,
     };
 

@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { ChangePasswordDto, UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -25,6 +25,34 @@ export class UserController {
   @ApiOperation({ summary: 'create user' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
+  }
+
+  @Get('verify/:id')
+  @ApiOperation({
+    summary: 'Verify user email',
+  })
+  verifyUserEmail(@Param('id') id: string): Promise<string> {
+    return this.userService.verifyUserEmail(id);
+  }
+
+  @Get('send/:email')
+  @ApiOperation({
+    summary: 'Send email to change password',
+  })
+  sendEmailForgotPassword(@Param('email') email: string): Promise<string> {
+    return this.userService.sendEmailForgotPassword(email);
+  }
+
+  @Patch('change/password/:resetToken/:id')
+  @ApiOperation({
+    summary: 'Recover user password',
+  })
+  changePassword(
+    @Param('id') id: string,
+    @Param('resetToken') resetToken: string,
+    @Body() dto: ChangePasswordDto,
+  ): Promise<{ message: string }> {
+    return this.userService.changePassword(id, resetToken, dto);
   }
 
   @UseGuards(AuthGuard())

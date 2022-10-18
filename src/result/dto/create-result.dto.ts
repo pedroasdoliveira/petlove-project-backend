@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber } from 'class-validator';
 
 export class CreateResultDto {
   @IsNumber()
@@ -33,18 +33,21 @@ export class CreateResultDto {
   @IsNumber()
   @ApiProperty({
     description: 'result for the design category',
+    example: 2,
   })
   design: number;
 
   @IsNumber()
   @ApiProperty({
     description: 'result for the tooling category',
+    example: 3,
   })
   toolshop: number;
 
   @IsNumber()
   @ApiProperty({
     description: 'Result for the category Computational Fundamentals',
+    example: 4,
   })
   computationalFundamentals: number;
 }
