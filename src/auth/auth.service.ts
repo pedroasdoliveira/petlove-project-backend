@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from '../prisma/prisma.service'
+import { PrismaService } from '../prisma/prisma.service';
 import { LoginDto } from './dto/login.dto';
 import { LoginResponseDto } from './dto/login.response.dto';
 import * as bcrypt from 'bcrypt';
@@ -9,8 +9,8 @@ import * as bcrypt from 'bcrypt';
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly jwtService: JwtService)
-  {}
+    private readonly jwtService: JwtService,
+  ) {}
 
   async login(loginDto: LoginDto): Promise<LoginResponseDto> {
     const { email, password } = loginDto;
@@ -18,19 +18,29 @@ export class AuthService {
 
     const user = await this.prisma.user.findUnique({ where: { email } });
 
-    if (!user){
-      throw new UnauthorizedException('Invalid email and/or password')
+    if (!user) {
+      throw new UnauthorizedException('Invalid email and/or password');
+    }
+
+    if (!user.isVerified) {
+      throw new UnauthorizedException('User not verified');
     }
 
     const isHashValid = await bcrypt.compare(password, user.password);
     if (!isHashValid) {
-      throw new UnauthorizedException('Invalid email and/or password')
+      throw new UnauthorizedException('Invalid email and/or password');
     }
 
     delete user.password;
+
+    await this.prisma.user.update({
+      where: { id: user.id },
+      data: { resetToken: null },
+    });
+
     return {
       token: this.jwtService.sign({ email }),
-      user:undefined,
-    }
+      user: undefined,
+    };
   }
 }

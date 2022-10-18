@@ -12,121 +12,87 @@ export class ResultService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(user: User, dto: CreateResultDto) {
-
-    const userTest = await this.prisma.user.findUnique({
-      where: { id: user.email  },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        team: true,
-        role: true,
-        chapter: true,
-        results: true,
-        createdAt: true,
-        isAdmin: true,
-      }
-     });
-    let date = new Date();
-    const lastTestUser = userTest.results.at(-1);
-    const dateLastTest = new Date(lastTestUser.createdAt);
-    date.setMonth(date.getMonth() - 3)
-
-    if ( dateLastTest >= date ) {
-      throw new UnauthorizedException('Insufficient completion time!')
-    }
-
-
-    const tecnology = (dto.toolshop + dto.design + dto.test + dto.computationalFundamentals)* (5/12);
-    const influence = (dto.system + dto.process + (2*dto.person))/4;
+    const technology =
+      (dto.toolshop + dto.design + dto.test + dto.computationalFundamentals) *
+      (5 / 12);
+    const influence = (dto.system + dto.process + 2 * dto.person) / 4;
 
     let nextRoleValue = undefined;
 
-    if(
-      dto.system  > 3 &&
-      dto.person  > 3 &&
-      dto.process > 3 &&
-      tecnology   > 3 &&
-      influence   > 3
-    ){
-      nextRoleValue = 'Tech Leaders';
-    }
-    else if(
-      tecnology   > 3.9 &&
-      dto.system  > 3   &&
-      dto.person  < 3   &&
-      dto.process < 3   &&
-      influence   < 3
+    const specialtys = await this.prisma.specialtie.findMany();
 
-      ){
-      nextRoleValue = 'Specialist';
+    if (specialtys.length === 0) {
+      throw new NotFoundException('Não existem especialidades cadastradas.');
     }
-    else if(
-      tecnology   > 3.4 &&
-      dto.system  > 3.4 &&
-      dto.person  > 1   &&
-      dto.process > 1   &&
-      influence   > 1.9
-      ){
-        nextRoleValue = 'Senior';
-    }
-    else if(
-      tecnology   > 2.9  &&
-      dto.system  > 2    &&
-      dto.person  > 1    &&
-      dto.process > 1    &&
-      influence   > 1.9
-      ){
-        nextRoleValue = 'Pleno';
-    }
-    else if(
-      tecnology   < 3   &&
-      dto.system  > 1.9   &&
-      dto.person  > 1   &&
-      dto.process > 1   &&
-      influence   > 1.9
-      ){
-        nextRoleValue = 'Junior';
-    }
-    else{
-        nextRoleValue = 'Aprendiz';
-    }
+
+    const result = specialtys.map((specialy) => {
+      const { performance, system, person, technology, process, influence } =
+        specialy;
+      const systemDiff = system - dto.system;
+      const personDiff = person - dto.person;
+      const technologyDiff = technology - technology;
+      const processDiff = process - dto.process;
+      const influenceDiff = influence - influence;
+
+      const totalDiff =
+        Math.abs(systemDiff) +
+        Math.abs(personDiff) +
+        Math.abs(technologyDiff) +
+        Math.abs(processDiff) +
+        Math.abs(influenceDiff);
+      return { performance, totalDiff };
+    });
+
+    const near = result.reduce((prev, current) =>
+      prev.totalDiff < current.totalDiff ? prev : current,
+    );
+
+    nextRoleValue = near.performance;
 
     const data: Prisma.ResultCreateInput = {
-      nextRole:nextRoleValue,
-      person:dto.person,
-      process:dto.process,
-      system:dto.system,
-      technology:Math.round(tecnology),
-      influence:Math.round(influence)
-    }
+      user: {
+        connect: {
+          id: user.id,
+        },
+      },
+      nextRole: nextRoleValue,
+      person: dto.person,
+      process: dto.process,
+      system: dto.system,
+      technology: Math.round(technology),
+      influence: Math.round(influence),
+    };
 
-    return this.prisma.result.create({
-      data,
-      select:{
-        id:true,
-        nextRole:true,
-        person:true,
-        process:true,
-        system:true,
-        technology:true,
-        influence:true
-      }
-    }).catch(handleError);
+    return this.prisma.result
+      .create({
+        data,
+        select: {
+          id: true,
+          userId: true,
+          nextRole: true,
+          person: true,
+          process: true,
+          system: true,
+          technology: true,
+          influence: true,
+        },
+      })
+      .catch(handleError);
   }
 
-  async findAll(user:User) {
+  async findAll(user: User) {
     isAdmin(user);
     const allResults = await this.prisma.result.findMany({
-      select:{
-        id:true,
-        nextRole:true,
-        person:true,
-        process:true,
-        system:true,
-        technology:true,
-        influence:true
-      }
+      select: {
+        id: true,
+        nextRole: true,
+        person: true,
+        process: true,
+        system: true,
+        technology: true,
+        influence: true,
+        createdAt: true,
+      },
     });
 
     if (allResults.length === 0) {
@@ -136,49 +102,72 @@ export class ResultService {
     return allResults;
   }
 
-  findOne(id: string) {
-    return this.prisma.result.findUnique({
-      where:{id:id},
-      select:{
-        id:true,
-        nextRole:true,
-        person:true,
-        process:true,
-        system:true,
-        technology:true,
-        influence:true
-      }
-    }).catch(handleError);
+  async findOne(id: string) {
+    try {
+      return await this.prisma.result.findUnique({
+        where: { id: id },
+        select: {
+          id: true,
+          nextRole: true,
+          person: true,
+          process: true,
+          system: true,
+          technology: true,
+          influence: true,
+        },
+      });
+    } catch (error) {
+      return handleError(error);
+    }
   }
 
   async update(id: string, dto: UpdateResultDto) {
-
-    const tecnology = (dto.toolshop + dto.design + dto.test + dto.computationalFundamentals)* (5/12);
-    const influence = (dto.system + dto.process + (2*dto.person))/4;
-
-    const data: Prisma.ResultUpdateInput = {
-      nextRole:dto.nextRole,
-      person:dto.person,
-      process:dto.process,
-      system:dto.system,
-      technology:Math.round(tecnology),
-      influence:Math.round(influence)
+    if (dto.isValided && dto.nextRole && !dto.influence) {
+      return this.prisma.result
+        .update({
+          where: { id: id },
+          data: {
+            isValided: dto.isValided,
+            nextRole: dto.nextRole,
+          },
+          select: {
+            id: true,
+            nextRole: true,
+            person: true,
+            process: true,
+            system: true,
+            technology: true,
+            influence: true,
+          },
+        })
+        .catch(handleError);
     }
 
-    return this.prisma.result.update({
-      data,
-      where:{id:id},
-      select:{
-        id:true,
-        nextRole:true,
-        person:true,
-        process:true,
-        system:true,
-        technology:true,
-        influence:true
-      }
-    }).catch(handleError);
+    const data: Prisma.ResultUpdateInput = {
+      isValided: dto.isValided,
+      nextRole: dto.nextRole,
+      person: dto.person,
+      process: dto.process,
+      system: dto.system,
+      technology: dto.technology,
+      influence: dto.influence,
+    };
 
+    return this.prisma.result
+      .update({
+        data,
+        where: { id: id },
+        select: {
+          id: true,
+          nextRole: true,
+          person: true,
+          process: true,
+          system: true,
+          technology: true,
+          influence: true,
+        },
+      })
+      .catch(handleError);
   }
 
 
