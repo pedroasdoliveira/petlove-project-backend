@@ -164,7 +164,6 @@ export class UserService {
       await this.prisma.user.findUnique({where:{email:email}});
       throw new HttpException('Usuário deletado com sucesso!', 200);
 
-      return { message: 'Usuário deletado com sucesso!' };
     }
   }
 }

@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsString } from "class-validator";
+import { IsEmail, IsNumber, IsString } from "class-validator";
 
 export class CreateResultDto {
 
@@ -48,4 +48,5 @@ export class CreateResultDto {
     description: 'Result for the category Computational Fundamentals',
   })
   computationalFundamentals:number;
+  
 }

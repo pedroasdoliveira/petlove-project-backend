@@ -1,3 +1,5 @@
+import { Result } from "@prisma/client";
+
 export class User {
   id?:string;
   name:string;

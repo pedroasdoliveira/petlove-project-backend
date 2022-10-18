@@ -54,7 +54,7 @@ updatedAt                   DateTime                        @default(now()) @map
 
 model Result {
 id                          String                          @id @default(uuid())
-user                        User?                           @relation(fields: [userId], references: [id], onDelete: Cascade)
+user                        User?                           @relation(fields: [userId], references: [email], onDelete: Cascade)
 userId                      String?
 nextRole                    String?                         @map("next_role")
 system                      Int
