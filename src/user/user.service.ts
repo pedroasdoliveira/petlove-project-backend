@@ -406,6 +406,10 @@ export class UserService {
     }
 
     if (user.isAdmin === true) {
+      delete updateUserDto.confirmPassword;
+      delete updateUserDto.newPassword;
+      delete updateUserDto.password;
+
       const data = { ...updateUserDto };
 
       return this.prisma.user
