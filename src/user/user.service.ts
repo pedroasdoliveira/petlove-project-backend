@@ -19,6 +19,7 @@ import * as nodemailer from 'nodemailer';
 import { JwtPayload } from './entities/jwtChangePassword.entity';
 import { JwtService } from '@nestjs/jwt';
 import * as crypto from 'crypto-js';
+import { emailChangePassword, emailConfirmChangePassword, emailVerify } from 'src/utils/emailsTemplates.utils';
 
 @Injectable()
 export class UserService {
@@ -60,16 +61,16 @@ export class UserService {
           port: 587,
           service: 'gmail',
           auth: {
-            user: 'projetopetlover@gmail.com',
-            pass: 'skbfwjaibimleyou',
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASSWORD,
           },
         });
 
         const mailData = {
-          from: 'Pet Love <projetopetlover@gmail.com>',
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: user.email,
           subject: 'Verify Email',
-          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+          html: emailVerify(user.id, user.name.split(' ')[0]),
         };
 
         transporter.sendMail(mailData, function (err, info) {
@@ -125,6 +126,7 @@ export class UserService {
         select: {
           id: true,
           email: true,
+          name: true,
         },
       })
       .catch(handleError);
@@ -154,16 +156,16 @@ export class UserService {
       port: 587,
       service: 'gmail',
       auth: {
-        user: 'projetopetlover@gmail.com',
-        pass: 'skbfwjaibimleyou',
+        user: process.env.USER_EMAIL,
+        pass: process.env.USER_PASSWORD,
       },
     });
 
     const mailData = {
-      from: 'Pet Love <projetopetlover@gmail.com>',
+      from: `Pet Love <${process.env.USER_EMAIL}>`,
       to: user.email,
       subject: 'Reset your password',
-      html: `<div><h1>oi1</h1> <p>token:${tokenToUrl}, id:${user.id}, url: http://localhost:3000/Change/${tokenToUrl}/${user.id}</p></div>`,
+      html: emailChangePassword(user.id, tokenToUrl, user.name.split(' ')[0]),
     };
 
     transporter.sendMail(mailData, async function (err, info) {
@@ -252,16 +254,16 @@ export class UserService {
           port: 587,
           service: 'gmail',
           auth: {
-            user: 'projetopetlover@gmail.com',
-            pass: 'skbfwjaibimleyou',
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASSWORD,
           },
         });
 
         const mailData = {
-          from: 'Pet Love <projetopetlover@gmail.com>',
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: user.email,
           subject: 'Password Changed',
-          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+          html: emailConfirmChangePassword(user.name.split(' ')[0]),
         };
 
         transporter.sendMail(mailData, function (err, info) {

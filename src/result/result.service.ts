@@ -11,6 +11,11 @@ import { isAdmin } from 'src/utils/isAdmin.utils';
 import { CreateResultDto } from './dto/create-result.dto';
 import { UpdateResultDto } from './dto/update-result.dto';
 import * as nodemailer from 'nodemailer';
+import {
+  emailTestResult,
+  emailTestValidation,
+  emailTestValidationAdm,
+} from 'src/utils/emailsTemplates.utils';
 
 @Injectable()
 export class ResultService {
@@ -113,30 +118,45 @@ export class ResultService {
 
         const allNull = emails.every((email) => email === null);
 
-        if (allNull) {
-          return result;
-        }
-
-        console.log(allNull);
-
         const transporter = nodemailer.createTransport({
           host: 'smtp.gmail.com',
           port: 587,
           service: 'gmail',
           auth: {
-            user: 'projetopetlover@gmail.com',
-            pass: 'skbfwjaibimleyou',
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASSWORD,
           },
         });
 
         const mailData = {
-          from: 'Pet Love <projetopetlover@gmail.com>',
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: emails,
           subject: 'Novo teste realizado',
-          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+          html: emailTestValidation(user.name.split(' ')[0]),
         };
 
         transporter.sendMail(mailData, function (err, info) {
+          if (err) {
+            console.log(err);
+
+            throw new BadRequestException('Error sending email');
+          } else {
+            console.log(info);
+          }
+        });
+
+        if (allNull) {
+          return result;
+        }
+
+        const mailDataAdm = {
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
+          to: emails,
+          subject: 'Novos testes para avaliação',
+          html: emailTestValidationAdm(user.name.split(' ')[0]),
+        };
+
+        transporter.sendMail(mailDataAdm, function (err, info) {
           if (err) {
             console.log(err);
 
@@ -218,6 +238,7 @@ export class ResultService {
             system: true,
             technology: true,
             influence: true,
+            isValided: true,
           },
         })
         .then(async (result) => {
@@ -227,6 +248,7 @@ export class ResultService {
             where: { id: result.userId },
             select: {
               email: true,
+              name: true,
             },
           });
 
@@ -235,16 +257,20 @@ export class ResultService {
             port: 587,
             service: 'gmail',
             auth: {
-              user: 'projetopetlover@gmail.com',
-              pass: 'skbfwjaibimleyou',
+              user: process.env.USER_EMAIL,
+              pass: process.env.USER_PASSWORD,
             },
           });
 
           const mailData = {
-            from: 'Pet Love <projetopetlover@gmail.com>',
+            from: `Pet Love <${process.env.USER_EMAIL}>`,
             to: user.email,
             subject: 'Resultado do teste',
-            html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+            html: emailTestResult(
+              user.name.split(' ')[0],
+              result.nextRole,
+              result.isValided,
+            ),
           };
 
           transporter.sendMail(mailData, function (err, info) {
@@ -302,13 +328,13 @@ export class ResultService {
           port: 587,
           service: 'gmail',
           auth: {
-            user: 'projetopetlover@gmail.com',
-            pass: 'skbfwjaibimleyou',
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASSWORD,
           },
         });
 
         const mailData = {
-          from: 'Pet Love <projetopetlover@gmail.com>',
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: user.email,
           subject: 'Resultado do teste (modificado pelo administrador)',
           html: '<div><h1>oi1</h1> <p>oi2</p></div>',
