@@ -1,9 +1,9 @@
-import { Prisma, PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from "@prisma/client";
 
 export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
-    performance: 'Inserir nome',
-    description: 'Inserir descrição',
+    performance: "Inserir nome",
+    description: "Inserir descrição",
     system: 0,
     person: 0,
     technology: 0,

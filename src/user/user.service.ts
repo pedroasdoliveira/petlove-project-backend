@@ -202,7 +202,6 @@ export class UserService {
     if (!user.resetToken) {
       throw new BadRequestException('Token not found');
     }
-    console.log(resetToken);
 
     const resetTokenToText = resetToken
       .replace(/p1L2u3S/g, '+')
@@ -321,6 +320,7 @@ export class UserService {
         chapter: true,
         results: true,
         createdAt: true,
+        profilePicture: true,
       },
     });
 
@@ -352,6 +352,7 @@ export class UserService {
         createdAt: true,
         isAdmin: true,
         emailNotification: true,
+        profilePicture: true,
       },
     });
 

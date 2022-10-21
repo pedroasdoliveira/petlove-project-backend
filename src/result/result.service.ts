@@ -2,20 +2,20 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from 'src/user/entities/user.entity';
-import { handleError } from 'src/utils/handleError.utils';
-import { isAdmin } from 'src/utils/isAdmin.utils';
-import { CreateResultDto } from './dto/create-result.dto';
-import { UpdateResultDto } from './dto/update-result.dto';
-import * as nodemailer from 'nodemailer';
+} from "@nestjs/common";
+import { Prisma } from "@prisma/client";
+import { PrismaService } from "src/prisma/prisma.service";
+import { User } from "src/user/entities/user.entity";
+import { handleError } from "src/utils/handleError.utils";
+import { isAdmin } from "src/utils/isAdmin.utils";
+import { CreateResultDto } from "./dto/create-result.dto";
+import { UpdateResultDto } from "./dto/update-result.dto";
+import * as nodemailer from "nodemailer";
 import {
   emailTestResult,
   emailTestValidation,
   emailTestValidationAdm,
-} from 'src/utils/emailsTemplates.utils';
+} from "src/utils/emailsTemplates.utils";
 
 @Injectable()
 export class ResultService {
@@ -31,7 +31,7 @@ export class ResultService {
     const specialtys = await this.prisma.specialtie.findMany();
 
     if (specialtys.length === 0) {
-      throw new NotFoundException('Não existem especialidades cadastradas.');
+      throw new NotFoundException("Não existem especialidades cadastradas.");
     }
 
     const result = specialtys.map((specialy) => {
@@ -101,11 +101,11 @@ export class ResultService {
         });
 
         const emails = adms.map((adm) => {
-          if (adm.emailNotification === 'all') {
+          if (adm.emailNotification === "all") {
             return adm.email;
           }
 
-          if (adm.emailNotification === 'team' && adm.team === user.team) {
+          if (adm.emailNotification === "team" && adm.team === user.team) {
             return adm.email;
           }
 
@@ -119,9 +119,9 @@ export class ResultService {
         const allNull = emails.every((email) => email === null);
 
         const transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com',
+          host: "smtp.gmail.com",
           port: 587,
-          service: 'gmail',
+          service: "gmail",
           auth: {
             user: process.env.USER_EMAIL,
             pass: process.env.USER_PASSWORD,
@@ -131,15 +131,15 @@ export class ResultService {
         const mailData = {
           from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: emails,
-          subject: 'Novo teste realizado',
-          html: emailTestValidation(user.name.split(' ')[0]),
+          subject: "Novo teste realizado",
+          html: emailTestValidation(user.name.split(" ")[0]),
         };
 
         transporter.sendMail(mailData, function (err, info) {
           if (err) {
             console.log(err);
 
-            throw new BadRequestException('Error sending email');
+            throw new BadRequestException("Error sending email");
           } else {
             console.log(info);
           }
@@ -152,15 +152,15 @@ export class ResultService {
         const mailDataAdm = {
           from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: emails,
-          subject: 'Novos testes para avaliação',
-          html: emailTestValidationAdm(user.name.split(' ')[0]),
+          subject: "Novos testes para avaliação",
+          html: emailTestValidationAdm(user.name.split(" ")[0]),
         };
 
         transporter.sendMail(mailDataAdm, function (err, info) {
           if (err) {
             console.log(err);
 
-            throw new BadRequestException('Error sending email');
+            throw new BadRequestException("Error sending email");
           } else {
             console.log(info);
           }
@@ -187,7 +187,7 @@ export class ResultService {
     });
 
     if (allResults.length === 0) {
-      throw new NotFoundException('Não existem resultados cadastrados.');
+      throw new NotFoundException("Não existem resultados cadastrados.");
     }
 
     return allResults;
@@ -253,9 +253,9 @@ export class ResultService {
           });
 
           const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
+            host: "smtp.gmail.com",
             port: 587,
-            service: 'gmail',
+            service: "gmail",
             auth: {
               user: process.env.USER_EMAIL,
               pass: process.env.USER_PASSWORD,
@@ -265,9 +265,9 @@ export class ResultService {
           const mailData = {
             from: `Pet Love <${process.env.USER_EMAIL}>`,
             to: user.email,
-            subject: 'Resultado do teste',
+            subject: "Resultado do teste",
             html: emailTestResult(
-              user.name.split(' ')[0],
+              user.name.split(" ")[0],
               result.nextRole,
               result.isValided,
             ),
@@ -277,7 +277,7 @@ export class ResultService {
             if (err) {
               console.log(err);
 
-              throw new BadRequestException('Error sending email');
+              throw new BadRequestException("Error sending email");
             } else {
               console.log(info);
             }
@@ -324,9 +324,9 @@ export class ResultService {
         });
 
         const transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com',
+          host: "smtp.gmail.com",
           port: 587,
-          service: 'gmail',
+          service: "gmail",
           auth: {
             user: process.env.USER_EMAIL,
             pass: process.env.USER_PASSWORD,
@@ -336,15 +336,15 @@ export class ResultService {
         const mailData = {
           from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: user.email,
-          subject: 'Resultado do teste (modificado pelo administrador)',
-          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+          subject: "Resultado do teste (modificado pelo administrador)",
+          html: "<div><h1>oi1</h1> <p>oi2</p></div>",
         };
 
         transporter.sendMail(mailData, function (err, info) {
           if (err) {
             console.log(err);
 
-            throw new BadRequestException('Error sending email');
+            throw new BadRequestException("Error sending email");
           } else {
             console.log(info);
           }
