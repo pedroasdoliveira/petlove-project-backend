@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   BadRequestException,
   HttpException,
@@ -18,6 +19,7 @@ import * as nodemailer from 'nodemailer';
 import { JwtPayload } from './entities/jwtChangePassword.entity';
 import { JwtService } from '@nestjs/jwt';
 import * as crypto from 'crypto-js';
+import { emailChangePassword, emailConfirmChangePassword, emailVerify } from 'src/utils/emailsTemplates.utils';
 
 @Injectable()
 export class UserService {
@@ -59,21 +61,23 @@ export class UserService {
           port: 587,
           service: 'gmail',
           auth: {
-            user: 'projetopetlover@gmail.com',
-            pass: 'skbfwjaibimleyou',
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASSWORD,
           },
         });
 
         const mailData = {
-          from: 'Pet Love <projetopetlover@gmail.com>',
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: user.email,
           subject: 'Verify Email',
-          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+          html: emailVerify(user.id, user.name.split(' ')[0]),
         };
 
         transporter.sendMail(mailData, function (err, info) {
           if (err) {
             console.log(err);
+
+            throw new BadRequestException('Error sending email');
           } else {
             console.log(info);
           }
@@ -87,6 +91,13 @@ export class UserService {
   async verifyUserEmail(id: string) {
     const user: User = await this.prisma.user.findUnique({
       where: { id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
 
     if (user.isVerified) {
@@ -115,6 +126,7 @@ export class UserService {
         select: {
           id: true,
           email: true,
+          name: true,
         },
       })
       .catch(handleError);
@@ -144,16 +156,16 @@ export class UserService {
       port: 587,
       service: 'gmail',
       auth: {
-        user: 'projetopetlover@gmail.com',
-        pass: 'skbfwjaibimleyou',
+        user: process.env.USER_EMAIL,
+        pass: process.env.USER_PASSWORD,
       },
     });
 
     const mailData = {
-      from: 'Pet Love <projetopetlover@gmail.com>',
+      from: `Pet Love <${process.env.USER_EMAIL}>`,
       to: user.email,
       subject: 'Reset your password',
-      html: `<div><h1>oi1</h1> <p>token:${tokenToUrl}, id:${user.id}, url: http://localhost:3000/Change/${tokenToUrl}/${user.id}</p></div>`,
+      html: emailChangePassword(user.id, tokenToUrl, user.name.split(' ')[0]),
     };
 
     transporter.sendMail(mailData, async function (err, info) {
@@ -190,7 +202,6 @@ export class UserService {
     if (!user.resetToken) {
       throw new BadRequestException('Token not found');
     }
-    console.log(resetToken);
 
     const resetTokenToText = resetToken
       .replace(/p1L2u3S/g, '+')
@@ -242,16 +253,16 @@ export class UserService {
           port: 587,
           service: 'gmail',
           auth: {
-            user: 'projetopetlover@gmail.com',
-            pass: 'skbfwjaibimleyou',
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASSWORD,
           },
         });
 
         const mailData = {
-          from: 'Pet Love <projetopetlover@gmail.com>',
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: user.email,
           subject: 'Password Changed',
-          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+          html: emailConfirmChangePassword(user.name.split(' ')[0]),
         };
 
         transporter.sendMail(mailData, function (err, info) {
@@ -280,6 +291,7 @@ export class UserService {
         chapter: true,
         results: true,
         createdAt: true,
+        profilePicture: true,
       },
     });
 
@@ -287,7 +299,14 @@ export class UserService {
       throw new NotFoundException('Não existem usuários cadastrados.');
     }
 
-    return allUsers;
+    const allUsersSort = allUsers.map((user) => {
+      user.results = user.results.sort((a, b) => {
+        return b.createdAt < a.createdAt ? 1 : -1;
+      });
+      return user;
+    });
+
+    return allUsersSort;
   }
 
   async findOne(email: string, user: User) {
@@ -303,6 +322,8 @@ export class UserService {
         results: true,
         createdAt: true,
         isAdmin: true,
+        emailNotification: true,
+        profilePicture: true,
       },
     });
 
@@ -311,6 +332,12 @@ export class UserService {
     }
 
     if (user.email == email || user.isAdmin == true) {
+      const usersSort = record.results.sort((a, b) => {
+        return b.createdAt < a.createdAt ? 1 : -1;
+      });
+
+      record.results = usersSort;
+
       return record;
     } else {
       throw new UnauthorizedException(
@@ -354,6 +381,10 @@ export class UserService {
     }
 
     if (user.isAdmin === true) {
+      delete updateUserDto.confirmPassword;
+      delete updateUserDto.newPassword;
+      delete updateUserDto.password;
+
       const data = { ...updateUserDto };
 
       return this.prisma.user

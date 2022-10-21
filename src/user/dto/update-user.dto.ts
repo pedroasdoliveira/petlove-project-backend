@@ -1,46 +1,66 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from "@nestjs/swagger";
 import {
   MinLength,
   IsString,
   Matches,
   IsNotEmpty,
   IsOptional,
-} from 'class-validator';
-import { CreateUserDto } from './create-user.dto';
+  IsUrl,
+} from "class-validator";
+import { CreateUserDto } from "./create-user.dto";
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
   @MinLength(6)
   @IsString()
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-    message: 'senha muito fraca',
+    message: "senha muito fraca",
   })
   @IsOptional()
   @ApiProperty({
     description:
-      'Senha do usuário. Requer letras maiúsculas e minúsculas, números ou caracteres especiais',
-    example: 'Petlove@123',
+      "Senha do usuário. Requer letras maiúsculas e minúsculas, números ou caracteres especiais",
+    example: "Petlove@123",
   })
   newPassword: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  @ApiProperty({
+    description:
+      "define qual notificação de email o usuário receberá (somente para usuários com papel de administrador)",
+    example: "team",
+  })
+  emailNotification: "none" | "team" | "all";
+
+  @IsUrl()
+  @IsOptional()
+  @ApiProperty({
+    description: "URL da foto do usuário",
+    example:
+      "https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg",
+  })
+  profilePicture: string;
 }
 
 export class ChangePasswordDto {
   @MinLength(6)
   @IsString()
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-    message: 'senha muito fraca',
+    message: "senha muito fraca",
   })
   @IsNotEmpty()
   @ApiProperty({
     description:
-      'Senha do usuário. Requer letras maiúsculas e minúsculas, números ou caracteres especiais',
-    example: 'Petlove@123',
+      "Senha do usuário. Requer letras maiúsculas e minúsculas, números ou caracteres especiais",
+    example: "Petlove@123",
   })
   password: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty({
-    example: 'Petlove@123',
+    example: "Petlove@123",
   })
   confirmPassword: string;
 }

@@ -9,6 +9,7 @@ datasource db {
 
 model User {
 id                          String                          @id @default(uuid())
+profilePicture              String?                         @map("profile_picture")
 name                        String
 email                       String                          @unique
 password                    String
@@ -18,6 +19,7 @@ role                        String?
 resetToken                  String?
 isAdmin                     Boolean?                        @map("is_admin")
 isVerified                  Boolean?                        @default(false) @map("is_verified")
+emailNotification           String?                         @default("all") @map("email_notification")
 results                     Result[]
 createdAt                   DateTime                        @default(now()) @map("created_at")
 updatedAt                   DateTime                        @default(now()) @map("updated_at")
