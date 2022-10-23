@@ -21,6 +21,7 @@ const OneLineUser = ({ subject }: OneLineUserProps) => {
     "linear-gradient(111.58deg, #3B49DA 21.73%, rgba(59, 73, 218, 0.49) 52.68%)",
     "linear-gradient(97.85deg, rgba(6, 11, 40, 0.94) 20.22%, rgba(10, 14, 35, 0.49) 100%)",
   );
+  const colorChart = useColorModeValue("rgb(8, 16, 59)", "#FF0000");
 
   const mountLastData = (subName: string) => {
     const data = user.results?.sort((a: any, b: any) => {
@@ -49,13 +50,18 @@ const OneLineUser = ({ subject }: OneLineUserProps) => {
           <Line
             dataKey={"A"}
             name={subject}
-            stroke={"#FF0000"}
+            stroke={colorChart}
             strokeWidth={3}
             type="monotone"
             dot={{ stroke: "white", strokeWidth: 0.5 }}
           />
           <Tooltip
-            contentStyle={{ background: background, borderRadius: "10px" }}
+            contentStyle={{
+              background: background,
+              borderRadius: "10px",
+              fontWeight: "bold",
+              fontSize: "1.1rem",
+            }}
           />
           <Legend
             iconType="circle"
@@ -66,6 +72,7 @@ const OneLineUser = ({ subject }: OneLineUserProps) => {
               top: -20,
               right: 0,
               lineHeight: "24px",
+              fontWeight: "bold",
             }}
           />
         </LineChart>

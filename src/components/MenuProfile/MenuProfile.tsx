@@ -20,7 +20,7 @@ const MenuProfile = ({ path }: SettingsMenuProps) => {
 
   useEffect(() => {
     if (user?.isAdmin) {
-      users?.map((user, index) => {
+      users?.map((user) => {
         if (user?.results?.at(-1)?.isValided === null) {
           setNewTest(true);
         }
@@ -58,7 +58,7 @@ const MenuProfile = ({ path }: SettingsMenuProps) => {
           alignItems={"center"}
           background={path === "Perfil" ? menuPatchBackground : "none"}
           fontWeight={path === "Perfil" ? "bold" : "normal"}
-          color={path === "Perfil" ? "white" : "gray.400"}
+          color={path === "Perfil" ? "white" : "gray.300"}
           borderRadius={"10px"}
           cursor={"pointer"}
           _hover={{
@@ -79,7 +79,7 @@ const MenuProfile = ({ path }: SettingsMenuProps) => {
           display={"flex"}
           alignItems={"center"}
           background={path === "Histórico" ? menuPatchBackground : "none"}
-          color={path === "Histórico" ? "white" : "gray.400"}
+          color={path === "Histórico" ? "white" : "gray.300"}
           fontWeight={path === "Histórico" ? "bold" : "normal"}
           borderRadius={"10px"}
           cursor={"pointer"}
@@ -101,7 +101,7 @@ const MenuProfile = ({ path }: SettingsMenuProps) => {
           display={"flex"}
           alignItems={"center"}
           background={path === "Especialidades" ? menuPatchBackground : "none"}
-          color={path === "Especialidades" ? "white" : "gray.400"}
+          color={path === "Especialidades" ? "white" : "gray.300"}
           fontWeight={path === "Especialidades" ? "bold" : "normal"}
           borderRadius={"10px"}
           cursor={"pointer"}
@@ -124,7 +124,7 @@ const MenuProfile = ({ path }: SettingsMenuProps) => {
           alignItems={"center"}
           background={path === "Mudar conta" ? menuPatchBackground : "none"}
           fontWeight={path === "Mudar conta" ? "bold" : "normal"}
-          color={path === "Mudar conta" ? "white" : "gray.400"}
+          color={path === "Mudar conta" ? "white" : "gray.300"}
           borderRadius={"10px"}
           cursor={"pointer"}
           _hover={{
@@ -147,7 +147,7 @@ const MenuProfile = ({ path }: SettingsMenuProps) => {
             display={"flex"}
             alignItems={"center"}
             background={path === "Administrador" ? menuPatchBackground : "none"}
-            color={path === "Administrador" ? "white" : "gray.400"}
+            color={path === "Administrador" ? "white" : "gray.300"}
             fontWeight={path === "Administrador" ? "bold" : "normal"}
             borderRadius={"10px"}
             cursor={"pointer"}

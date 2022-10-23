@@ -13,6 +13,7 @@ async function bootstrap() {
 
   app.set('trust proxy', 1);
   app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.useStaticAssets(join(__dirname, '..', 'src'));
 
   app.useGlobalPipes(new ValidationPipe());
 

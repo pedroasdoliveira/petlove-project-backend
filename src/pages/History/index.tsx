@@ -47,7 +47,7 @@ const History: NextPage = () => {
 
   const handleContTest = () => {
     setContTest(0);
-    users?.map((user, index) => {
+    users?.map((user) => {
       if (user?.results?.at(-1)?.isValided === null) {
         setNewTest(true);
         setContTest(contTest + 1);
@@ -156,7 +156,7 @@ const History: NextPage = () => {
                   color={"white"}
                   textAlign={"center"}
                   mt={"1rem"}
-                  mb={"-1rem"}
+                  mb={"0rem"}
                 >
                   Radar - Todos os testes
                 </Text>

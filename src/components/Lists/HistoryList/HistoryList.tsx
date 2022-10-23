@@ -10,8 +10,8 @@ import {
   Td,
   useColorModeValue,
 } from "@chakra-ui/react";
-import ModalUser from "src/components/ModalUser/ModalUser";
-import { useUsers } from "src/contexts/Users";
+import ModalUser from "../../../components/ModalUser/ModalUser";
+import { useUsers } from "../../../contexts/Users";
 
 const HistoryList = () => {
   const { user } = useUsers();

@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { SpecialtiesService } from "./specialties.service";
 import { SpecialtiesController } from "./specialties.controller";
-import { PrismaModule } from "src/server/prisma/prisma.module";
+import { PrismaModule } from "../prisma/prisma.module";
 import { PassportModule } from "@nestjs/passport";
 
 @Module({

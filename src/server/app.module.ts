@@ -20,7 +20,7 @@ import { Module } from "@nestjs/common";
     ResultModule,
     RenderModule.forRootAsync(
       Next({
-        dev: true,
+        dev: process.env.NODE_ENV === "development",
         conf: {
           images: {
             formats: ["image/webp", "image/avif"],

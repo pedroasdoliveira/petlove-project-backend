@@ -66,8 +66,14 @@ const AllRadarUser = () => {
   const data1 = mountLastData();
 
   return (
-    <ResponsiveContainer width="100%" height="94%">
-      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data1}>
+    <ResponsiveContainer width="99%" height="88%">
+      <RadarChart
+        cx="50%"
+        cy="50%"
+        outerRadius="80%"
+        data={data1}
+        style={{ background: "rgba(6, 11, 40, 0.94)", borderRadius: "50px" }}
+      >
         <PolarGrid gridType="circle" />
         <PolarAngleAxis
           dataKey="subject"
@@ -100,7 +106,11 @@ const AllRadarUser = () => {
         })}
 
         <Tooltip
-          contentStyle={{ background: background, borderRadius: "10px" }}
+          contentStyle={{
+            background: "rgba(6, 11, 40, 0.94)",
+            borderRadius: "10px",
+            fontWeight: "bold",
+          }}
         />
         <Legend
           iconType="circle"

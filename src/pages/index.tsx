@@ -16,10 +16,18 @@ import LoginComponent from "../components/Login/Login";
 import RegisterComponent from "../components/RegisterComponent/RegisterComponent";
 import { useToggle } from "../hooks/useToggle";
 import { ToggleMode } from "../types/interfaces";
+import { useEffect } from "react";
+import { useAuth } from "../contexts/Auth";
+import Router from "next/router";
 
 const Login: NextPage = () => {
   const { toggleColorMode } = useColorMode();
   const { toggle, setToggle } = useToggle() as ToggleMode;
+  const { checkTokenExpiration, logged } = useAuth();
+
+  useEffect(() => {
+    if (logged) Router.push("/Homepage");
+  }, [logged]);
 
   const formBackground = useColorModeValue(
     "linear-gradient(111.58deg, #3B49DA 21.73%, rgba(59, 73, 218, 0.49) 52.68%)",

@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 const Specialty: NextPage = () => {
   const { checkTokenExpiration } = useAuth();
   const { handleGetTest } = useTest();
-  const { handleGetUsers, users, user } = useUsers();
+  const { users, user } = useUsers();
   const [newTest, setNewTest] = useState(false);
   const [contTest, setContTest] = useState(0);
 
@@ -23,7 +23,7 @@ const Specialty: NextPage = () => {
 
   useEffect(() => {
     if (user?.isAdmin) {
-      users?.map((user, index) => {
+      users?.map((user) => {
         if (user?.results?.at(-1)?.isValided === null) {
           setNewTest(true);
           setContTest(contTest + 1);

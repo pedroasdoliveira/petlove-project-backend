@@ -34,10 +34,19 @@ const Specialties = () => {
         >
           <Flex w={"50%"} h={"100%"}>
             {/* Grafico*/}
-            <LastRadarUserAdm testUser={specialty} type={"specialities"} />
+            <Flex
+              w={"100%"}
+              h={"100%"}
+              style={{
+                background: "rgba(6, 11, 40, 0.94)",
+                borderRadius: "10px",
+              }}
+            >
+              <LastRadarUserAdm testUser={specialty} type={"specialities"} />
+            </Flex>
           </Flex>
 
-          <Flex direction={"column"} w={"50%"}>
+          <Flex direction={"column"} w={"50%"} ml="1rem">
             {/* Informações*/}
             <Heading
               as="h2"

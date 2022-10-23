@@ -98,7 +98,7 @@ const Profile: NextPage<ProfileProps> = () => {
             position="relative"
           >
             <Heading fontWeight="normal" letterSpacing="tight">
-              Welcome back,{" "}
+              {"<"}Welcome back{"/>"}{" "}
               <Flex fontWeight="bold" display="inline-flex">
                 {user.name?.split(" ")[0]}
               </Flex>

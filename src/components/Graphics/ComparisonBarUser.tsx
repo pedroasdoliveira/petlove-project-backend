@@ -18,10 +18,6 @@ interface ComparisonBarUserProps {
 
 const ComparisonBarUser = ({ value, subject }: ComparisonBarUserProps) => {
   const { user } = useUsers();
-  const background = useColorModeValue(
-    "linear-gradient(111.58deg, #3B49DA 21.73%, rgba(59, 73, 218, 0.49) 52.68%)",
-    "linear-gradient(97.85deg, rgba(6, 11, 40, 0.94) 20.22%, rgba(10, 14, 35, 0.49) 100%)",
-  );
 
   const handleColor = (value: string) => {
     switch (value) {
@@ -70,7 +66,7 @@ const ComparisonBarUser = ({ value, subject }: ComparisonBarUserProps) => {
       <Text fontSize="2xl" fontWeight="bold" textAlign="center" mb="2">
         {subject}
       </Text>
-      <ResponsiveContainer width="60%" height="100%">
+      <ResponsiveContainer width="80%" height="100%">
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="createdAt" stroke={"white"} />
@@ -89,7 +85,10 @@ const ComparisonBarUser = ({ value, subject }: ComparisonBarUserProps) => {
           />
           <Tooltip
             cursor={{ fill: "transparent" }}
-            contentStyle={{ background: background, borderRadius: "10px" }}
+            contentStyle={{
+              background: "rgba(6, 11, 40, 0.94)",
+              borderRadius: "10px",
+            }}
           />
           <Legend
             iconType="circle"
