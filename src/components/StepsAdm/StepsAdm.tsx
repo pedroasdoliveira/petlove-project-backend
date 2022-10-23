@@ -47,6 +47,16 @@ const StepsAdmForm = ({
   const stepsColor = useColorModeValue("#cc1010", "#1d1d31");
   const stepsColorText = useColorModeValue("#10cc19", "#1d1d31");
 
+  const buttonColorReverse = useColorModeValue(
+    "rgba(6, 11, 40, 0.94)",
+    "#3B49DA",
+  );
+  const buttonColorReverseHover = useColorModeValue(
+    "#313bad",
+    "rgba(13, 24, 83, 0.94)",
+  );
+  const colorOption = useColorModeValue("#3B49DA", "rgba(6, 11, 40, 0.94)");
+
   const steps = [
     { label: "Sistemas", Content: test?.system },
     { label: "Processos", Content: test?.process },
@@ -217,6 +227,10 @@ const StepsAdmForm = ({
             <Button
               mx="auto"
               mt={6}
+              background={buttonColorReverse}
+              _hover={{
+                background: buttonColorReverseHover,
+              }}
               size="sm"
               onClick={() => {
                 setQuantity(0);
@@ -256,11 +270,20 @@ const StepsAdmForm = ({
     return (
       <Flex w={"100%"} h="100%" direction={"column"} alignItems="center">
         <Flex w={"100%"} h="90%" justifyContent="center">
-          <Flex w={"50%"} h="100%">
-            <LastRadarUserAdm testUser={lastTest} type="user" />
-          </Flex>
-          <Flex w={"50%"} h="100%">
-            <LastRadarUserAdm testUser={respostas} type="review" />
+          <Flex
+            w={"100%"}
+            h="99%"
+            style={{
+              background: "rgba(6, 11, 40, 0.94)",
+              borderRadius: "10px",
+            }}
+          >
+            <Flex w={"50%"} h="100%">
+              <LastRadarUserAdm testUser={lastTest} type="user" />
+            </Flex>
+            <Flex w={"50%"} h="100%">
+              <LastRadarUserAdm testUser={respostas} type="review" />
+            </Flex>
           </Flex>
         </Flex>
         <Flex w={"100%"} h="10%" justifyContent={"space-evenly"}>
@@ -269,6 +292,10 @@ const StepsAdmForm = ({
               handleResetRespostas();
               reset();
               handleHidden();
+            }}
+            background={buttonColorReverse}
+            _hover={{
+              background: buttonColorReverseHover,
             }}
           >
             Voltar
@@ -282,6 +309,10 @@ const StepsAdmForm = ({
                     lastTest.nextRole === speciality.name ? true : false
                   }
                   value={speciality.performance}
+                  style={{
+                    background: colorOption,
+                    color: "white",
+                  }}
                 >
                   {speciality.performance}
                 </option>
@@ -294,16 +325,43 @@ const StepsAdmForm = ({
               defaultValue={""}
               w={"80%"}
             >
-              <option disabled={true} value={""}>
+              <option
+                disabled={true}
+                value={""}
+                style={{
+                  background: colorOption,
+                  color: "#c0c0c0",
+                }}
+              >
                 Aprovado?
               </option>
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
+              <option
+                value="Sim"
+                style={{
+                  background: colorOption,
+                  color: "white",
+                }}
+              >
+                Sim
+              </option>
+              <option
+                value="Não"
+                style={{
+                  background: colorOption,
+                  color: "white",
+                }}
+              >
+                Não
+              </option>
             </Select>
 
             <Button
               w="40%"
               isLoading={requisition}
+              background={buttonColorReverse}
+              _hover={{
+                background: buttonColorReverseHover,
+              }}
               onClick={() => {
                 if (userValidate !== "") {
                   setRequisition(true);

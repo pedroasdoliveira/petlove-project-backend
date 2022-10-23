@@ -79,7 +79,10 @@ const ComparisonBarAdm = ({ value }: ComparisonBarUserProps) => {
 
           <Tooltip
             cursor={{ fill: "transparent" }}
-            contentStyle={{ background: background, borderRadius: "10px" }}
+            contentStyle={{
+              background: "rgba(6, 11, 40, 0.94)",
+              borderRadius: "10px",
+            }}
           />
           <Brush dataKey="total" stroke={"#8884d8"} height={25} x={50} />
         </BarChart>

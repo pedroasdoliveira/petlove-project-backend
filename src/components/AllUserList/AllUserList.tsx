@@ -5,7 +5,6 @@ import {
   Menu,
   MenuButton,
   MenuDivider,
-  MenuItem,
   MenuItemOption,
   MenuList,
   MenuOptionGroup,
@@ -31,7 +30,9 @@ import ProfileIcon from "../../../public/icon/Profile_Icon.svg";
 const AllUserList = () => {
   const { users } = useUsers();
   const { specialtyss } = useSpecialtyss();
+
   const color = useColorModeValue("whiteAlpha", "facebook");
+  const colorOption = useColorModeValue("#3B49DA", "rgba(6, 11, 40, 0.94)");
 
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
@@ -50,7 +51,7 @@ const AllUserList = () => {
   };
 
   const filteredData = users?.filter((item) => {
-    const speciality = specialtyss?.map((item) => item.name);
+    const speciality = specialtyss?.map((item) => item.performance);
 
     if (filter === "all") {
       return (
@@ -115,7 +116,12 @@ const AllUserList = () => {
               {filter === "all" ? "Todos" : filter === "new" ? "Novos" : filter}
             </MenuButton>
           </Flex>
-          <MenuList minWidth="240px">
+          <MenuList
+            minWidth="240px"
+            style={{
+              background: colorOption,
+            }}
+          >
             <MenuOptionGroup
               defaultValue="asc"
               title="Ordem"
@@ -148,16 +154,18 @@ const AllUserList = () => {
       </Flex>
       <TableContainer marginTop={6}>
         <Table variant="striped" size="md" colorScheme={color}>
-          <TableCaption>Detalhes dos usuários</TableCaption>
+          <TableCaption color="gray.200">Detalhes dos usuários</TableCaption>
           <Thead>
             <Tr>
-              <Th>#</Th>
-              <Th>Nome</Th>
-              <Th>Chapter</Th>
-              <Th>Função</Th>
-              <Th>Equipe</Th>
-              <Th>Testes</Th>
-              <Th w={"1rem"}>Detalhes</Th>
+              <Th color="gray.200">#</Th>
+              <Th color="gray.200">Nome</Th>
+              <Th color="gray.200">Chapter</Th>
+              <Th color="gray.200">Função</Th>
+              <Th color="gray.200">Equipe</Th>
+              <Th color="gray.200">Testes</Th>
+              <Th w={"1rem"} color="gray.200">
+                Detalhes
+              </Th>
             </Tr>
           </Thead>
           <Tbody>

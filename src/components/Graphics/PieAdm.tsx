@@ -40,7 +40,10 @@ const PieAdm = ({ quantity, names }: PieAdmProps) => {
           />
           <Tooltip
             cursor={{ fill: "transparent" }}
-            contentStyle={{ background: background, borderRadius: "10px" }}
+            contentStyle={{
+              background: "rgba(6, 11, 40, 0.94)",
+              borderRadius: "10px",
+            }}
             itemStyle={{ color: "white" }}
           />
           <Legend />

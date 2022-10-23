@@ -117,7 +117,10 @@ const AllRadarSpecialityAdm = ({ user }: any) => {
         />
 
         <Tooltip
-          contentStyle={{ background: background, borderRadius: "10px" }}
+          contentStyle={{
+            background: "rgba(6, 11, 40, 0.94)",
+            borderRadius: "10px",
+          }}
         />
         <Legend
           iconType="circle"

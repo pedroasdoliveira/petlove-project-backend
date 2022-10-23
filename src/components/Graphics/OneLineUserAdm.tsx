@@ -59,7 +59,10 @@ const OneLineUserAdm = ({ subject, user }: OneLineUserProps) => {
             dot={{ stroke: "white", strokeWidth: 0.5 }}
           />
           <Tooltip
-            contentStyle={{ background: background, borderRadius: "10px" }}
+            contentStyle={{
+              background: "rgba(6, 11, 40, 0.94)",
+              borderRadius: "10px",
+            }}
           />
           <Legend
             iconType="circle"

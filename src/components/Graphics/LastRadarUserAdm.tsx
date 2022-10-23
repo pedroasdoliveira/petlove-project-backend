@@ -11,11 +11,6 @@ import {
 } from "recharts";
 
 const LastRadarUserAdm = ({ testUser, type }: any) => {
-  const background = useColorModeValue(
-    "linear-gradient(111.58deg, #3B49DA 21.73%, rgba(59, 73, 218, 0.49) 52.68%)",
-    "linear-gradient(97.85deg, rgba(6, 11, 40, 0.94) 20.22%, rgba(10, 14, 35, 0.49) 100%)",
-  );
-
   let testUserAdm = testUser;
 
   const handleColor = (value: string) => {
@@ -32,6 +27,8 @@ const LastRadarUserAdm = ({ testUser, type }: any) => {
         return "cyan";
       case "Especialista":
         return "#0000FF";
+      default:
+        return "#e2e2e2";
     }
   };
 

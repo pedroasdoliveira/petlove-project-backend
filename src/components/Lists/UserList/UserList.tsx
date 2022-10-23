@@ -19,18 +19,20 @@ const UserList = () => {
   return (
     <TableContainer marginTop={6}>
       <Table variant="striped" size="md" colorScheme={color}>
-        <TableCaption>Testes dos usuários</TableCaption>
+        <TableCaption color="gray.200">Testes dos usuários</TableCaption>
         <Thead>
           <Tr>
-            <Th>Nome</Th>
-            <Th>Data do teste</Th>
-            <Th>Função atual</Th>
-            <Th>Teste</Th>
-            <Th w={"1rem"}>Validar</Th>
+            <Th color="gray.200">Nome</Th>
+            <Th color="gray.200">Data do teste</Th>
+            <Th color="gray.200">Função atual</Th>
+            <Th color="gray.200">Teste</Th>
+            <Th w={"1rem"} color="gray.200">
+              Validar
+            </Th>
           </Tr>
         </Thead>
         <Tbody>
-          {users?.map((user, index) => {
+          {users?.map((user) => {
             const lastResult = user.results.at(-1);
 
             const roleAtual = user.role;
