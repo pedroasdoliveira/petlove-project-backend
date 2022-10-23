@@ -1,0 +1,475 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>api-petlove documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">api-petlove documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Miscellaneous</li>
+  <li>Variables</li>
+</ol>
+
+<section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#LoggedUser" title="src/auth/logged-user.decorator.ts" ><b>LoggedUser</b>&nbsp;&nbsp;&nbsp;(src/.../logged-user.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#prisma" title="src/prisma/seed.ts" ><b>prisma</b>&nbsp;&nbsp;&nbsp;(src/.../seed.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#seeds" title="src/prisma/seed.ts" ><b>seeds</b>&nbsp;&nbsp;&nbsp;(src/.../seed.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#specialtie" title="src/prisma/seed/03-specialties.ts" ><b>specialtie</b>&nbsp;&nbsp;&nbsp;(src/.../03-specialties.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#specialties" title="src/prisma/seed/03-specialties.ts" ><b>specialties</b>&nbsp;&nbsp;&nbsp;(src/.../03-specialties.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#test" title="src/prisma/seed/02-Test-crud.ts" ><b>test</b>&nbsp;&nbsp;&nbsp;(src/.../02-Test-crud.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Tests" title="src/prisma/seed/02-Test-crud.ts" ><b>Tests</b>&nbsp;&nbsp;&nbsp;(src/.../02-Test-crud.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#user" title="src/prisma/seed/01-user.ts" ><b>user</b>&nbsp;&nbsp;&nbsp;(src/.../01-user.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#users" title="src/prisma/seed/01-user.ts" ><b>users</b>&nbsp;&nbsp;&nbsp;(src/.../01-user.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/auth/logged-user.decorator.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LoggedUser"></a>
+                    <span class="name">
+                        <span ><b>LoggedUser</b></span>
+                        <a href="#LoggedUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator((_, ctx: ExecutionContext) &#x3D;&gt; {
+  const request &#x3D; ctx.switchToHttp().getRequest();
+  const user &#x3D; request.user;
+
+  delete user.password;
+
+  return user;
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/prisma/seed.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prisma"></a>
+                    <span class="name">
+                        <span ><b>prisma</b></span>
+                        <a href="#prisma"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new PrismaClient()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="seeds"></a>
+                    <span class="name">
+                        <span ><b>seeds</b></span>
+                        <a href="#seeds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Object.entries({
+  ...require(&#x27;./seed/01-user&#x27;),
+  ...require(&#x27;./seed/02-Test-crud&#x27;),
+  ...require(&#x27;./seed/03-specialties&#x27;),
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/prisma/seed/03-specialties.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="specialtie"></a>
+                    <span class="name">
+                        <span ><b>specialtie</b></span>
+                        <a href="#specialtie"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>async (prisma: PrismaClient) &#x3D;&gt; {
+  for (const obj of Object.values(specialties)) {
+    await prisma.specialtie.upsert({
+      where: { performance: obj.performance },
+      update: {},
+      create: {
+        ...obj,
+      },
+    });
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="specialties"></a>
+                    <span class="name">
+                        <span ><b>specialties</b></span>
+                        <a href="#specialties"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Prisma.SpecialtieCreateInput[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  {
+    performance: &#x27;Inserir nome&#x27;,
+    description: &#x27;Inserir descrição&#x27;,
+    system: 0,
+    person: 0,
+    technology: 0,
+    process: 0,
+    influence: 0,
+  },
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/prisma/seed/02-Test-crud.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="test"></a>
+                    <span class="name">
+                        <span ><b>test</b></span>
+                        <a href="#test"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Test.html" target="_self" >Prisma.TestCreateInput[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+	{
+    title:&#x27;proeficiencia&#x27;,
+
+		system:[
+      &#x27;Você é capaz de implementar features simples e resolver pequenos bugs dentro da sua squad?&#x27;,
+      &#x27;Você desenha e implementa soluções de média e alta complexidade reduzindo débitos técnicos do time?&#x27;,
+      &#x27;Você é capaz de subir e controlar sistemas em produção e também monitora a qualidade olhando para SLAs?&#x27;,
+      &#x27;Você desenvolve arquitetura para futuras soluções e define SLAs?&#x27;,
+      &#x27;Você lidera as soluções técnicas com excelência e cria planos de contingências?&#x27;
+    ],
+    person:[
+      &#x27;Você está sempre aprendendo com os outros e estuda mais quando necessário?&#x27;,
+      &#x27;Você sempre ajuda as pessoas do seu time a terem sucesso em seus desafios&#x27;,
+      &#x27;Você organiza times, promove feedbacks e intermedeia discussões&#x27;,
+      &#x27;Você mentora outros em seu desenvolvimento e já foi coach na construção de PDI&#x27;,
+      &#x27;Você gerencia carreiras, expectativas, performances e nível de engajamento do seu time&#x27;
+    ],
+    test:[
+      &#x27;Você implementa teste unitário e também testa a sua solução manualmente considerando as definições do produto?&#x27;,
+      &#x27;Você simula comportamentos dos clientes no seu desenvolvimento, testa além do caminho feliz e analisa o impacto das mudanças&#x27;,
+      &#x27;Você implementa teste e2e, de integração que permita avaliar e monitorar o produto&#x27;
+    ],
+    design:[
+      &#x27;Você conhece e aplica os princípios do S.O.L.I.D (Ou algum outro pattern definido pelo seu chapter Manager) no seu código?&#x27;,
+      &#x27;Você conhece e aplica pelo menos outros 3 princípios de pattern no seu código e ajuda seus colegas de time a escolherem qual o melhor para a solução do problema&#x27;,
+      &#x27;Você já ajudou a definir padrões de projetos de times/produtos fora do seu time&#x27;
+    ],
+    toolshop:[
+      &#x27;Você conhece o conceito de código limpo (link) e aplica o conceito em pelo menos 50% do seu código. Conhece e desenvolve seguindo os nossos processos de CI/CD?&#x27;,
+      &#x27;Você Constrói códigos modulares e segue os conceitos de código limpo em 80% do seu código&#x27;,
+      &#x27;Você ajuda a definir processos de CI/CD do seu time e da sua área. Ensina seus colegas a importância de um código limpo e cobra isso nos PRs que revisa&#x27;
+    ],
+    process:[
+      &#x27;Você segue todo o flow (git, CI/CD, Jira..) de desenvolvimento entregando features consistentes em produção?&#x27;,
+      &#x27;Você sugere mudanças nos flows com consistência, sempre procurando caminhos para melhorar&#x27;,
+      &#x27;Você sempre chama o time para reavaliar os flows, garantindo que todos entendam os benefícios e impactos&#x27;,
+      &#x27;Você é o responsável por ajustar os flows do time, escutando feedbacks e guiando através das mudanças&#x27;,
+      &#x27;Você define os flows baseado na maturidade, agilidade e disciplina do time&#x27;
+    ],
+    computationalFundamentals:[
+      &#x27;Você Conhece e aplica estruturas de dados e multithreading?&#x27;,
+      &#x27;Você consegue desenhar a arquitetura de um sistema de complexidade média a alta&#x27;,
+      &#x27;Você consegue desenhar uma arquitetura multis sistêmica e para múltiplos times&#x27;
+    ]
+	},
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Tests"></a>
+                    <span class="name">
+                        <span ><b>Tests</b></span>
+                        <a href="#Tests"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>async (prisma: PrismaClient) &#x3D;&gt; {
+	for (const obj of Object.values(test)) {
+		await prisma.test.upsert({
+			where: { title: obj.title },
+			update: {},
+			create: {
+				...obj,
+			},
+		});
+	}
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/prisma/seed/01-user.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>async (prisma: PrismaClient) &#x3D;&gt; {
+	for (const obj of Object.values(users)) {
+		await prisma.user.upsert({
+			where: { email: obj.email },
+			update: {},
+			create: {
+				...obj,
+				password: await bcrypt.hash(obj.password, 10),
+			},
+		});
+	}
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="users"></a>
+                    <span class="name">
+                        <span ><b>users</b></span>
+                        <a href="#users"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >Prisma.UserCreateInput[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+	{
+		name: &quot;PetLove&quot;,
+		email: &quot;petlove@bootcamp.com&quot;,
+		password: &quot;Petlove@123&quot;,
+	},
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
