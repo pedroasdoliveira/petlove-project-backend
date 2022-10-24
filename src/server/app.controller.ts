@@ -1,20 +1,15 @@
 import { Controller, Get, Render, UseInterceptors } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AppService } from "./app.service";
 
-@ApiTags("Status")
+@ApiTags("Front-End")
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  /**
-   * Recebe uma requisição GET e retorna um objeto de status
-   * da aplicação com a URL de documentação
-   * @param req Objeto de Request do Express
-   * @returns Objeto de status da aplicação
-   */
   @Get("/")
   @Render("index")
+  @ApiOperation({ summary: "Retorna a página de login" })
   Home() {
     return {};
   }
@@ -22,6 +17,7 @@ export class AppController {
   @Get("/Homepage")
   @Render("/Homepage")
   @UseInterceptors()
+  @ApiOperation({ summary: "Retorna a Homepage" })
   Homepage() {
     return {};
   }
@@ -29,6 +25,7 @@ export class AppController {
   @Get("/Profile")
   @Render("/Profile")
   @UseInterceptors()
+  @ApiOperation({ summary: "Retorna a página do Perfil do usuário" })
   Profile() {
     return {};
   }
@@ -36,13 +33,25 @@ export class AppController {
   @Get("/Administration")
   @Render("/Administration")
   @UseInterceptors()
+  @ApiOperation({ summary: "Retorna a página de administração" })
   Administration() {
+    return {};
+  }
+
+  @Get("/ForgotPassword")
+  @Render("/ForgotPassword")
+  @UseInterceptors()
+  @ApiOperation({
+    summary: "Retorna a página de enviar email para recuperar a conta",
+  })
+  ForgotPassword() {
     return {};
   }
 
   @Get("/change/:token/:id")
   @Render("/change/[token]/[id]")
   @UseInterceptors()
+  @ApiOperation({ summary: "Retorna a página de trocar a senha" })
   Change() {
     return {};
   }
@@ -50,20 +59,15 @@ export class AppController {
   @Get("/Edit")
   @Render("/Edit")
   @UseInterceptors()
+  @ApiOperation({ summary: "Retorna a página de editar dados da conta " })
   Edit() {
-    return {};
-  }
-
-  @Get("/ForgotPassword")
-  @Render("/ForgotPassword")
-  @UseInterceptors()
-  ForgotPassword() {
     return {};
   }
 
   @Get("/History")
   @Render("/History")
   @UseInterceptors()
+  @ApiOperation({ summary: "Retorna a página de histórico do usuário" })
   History() {
     return {};
   }
@@ -71,6 +75,7 @@ export class AppController {
   @Get("/Interview")
   @Render("/Interview")
   @UseInterceptors()
+  @ApiOperation({ summary: "Retorna a página de Testes" })
   Interview() {
     return {};
   }
@@ -78,6 +83,7 @@ export class AppController {
   @Get("/Specialties")
   @Render("/Specialties")
   @UseInterceptors()
+  @ApiOperation({ summary: "Retorna a página de Especialidades" })
   Specialties() {
     return {};
   }
