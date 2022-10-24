@@ -266,7 +266,7 @@ const EditForm = () => {
           h="100%"
         >
           <Flex
-            flexDir="row"
+            flexDir={{ md: "row", sm: "column" }}
             gap="3.2rem"
             justifyContent={"center"}
             w="100%"
@@ -275,11 +275,11 @@ const EditForm = () => {
             {/* Input senha atual + nova senha + confirmar senha */}
             <Flex
               alignItems="center"
-              direction={"column"}
-              w="20%"
-              justifyContent={"center"}
+              direction={{ sm: "row", md: "column" }}
+              w={{ md: "20%", sm: "85%" }}
+              justify={{ sm: "center" }}
             >
-              <Text>senha atual:</Text>
+              <Text w={{ sm: "250px", md: "auto" }}>senha atual:</Text>
               <FormControl>
                 <Input
                   variant={"flushed"}
@@ -323,8 +323,12 @@ const EditForm = () => {
                 gap="1rem"
                 mt="1rem"
               >
-                <Flex alignItems="center" direction={"column"} w="40%">
-                  <Text>nova senha:</Text>
+                <Flex
+                  alignItems="center"
+                  direction={{ sm: "row", md: "column" }}
+                  w={{ md: "40%", sm: "85%" }}
+                >
+                  <Text w={{ sm: "250px", md: "auto" }}>nova senha:</Text>
                   <FormControl>
                     <Input
                       variant={"flushed"}
@@ -347,8 +351,12 @@ const EditForm = () => {
                     </ErrorMessage>
                   </FormControl>
                 </Flex>
-                <Flex alignItems="center" direction={"column"} w="40%">
-                  <Text>confirmar senha:</Text>
+                <Flex
+                  alignItems="center"
+                  direction={{ sm: "row", md: "column" }}
+                  w={{ md: "40%", sm: "85%" }}
+                >
+                  <Text w={{ sm: "250px", md: "auto" }}>confirmar senha:</Text>
                   <FormControl>
                     <Input
                       variant={"flushed"}

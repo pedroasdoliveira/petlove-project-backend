@@ -34,6 +34,8 @@ const Login: NextPage = () => {
     "linear-gradient(97.85deg, rgba(6, 11, 40, 0.94) 20.22%, rgba(10, 14, 35, 0.49) 100%)",
   );
 
+  const [tabIndex, setTabIndex] = useState<number>(0);
+
   return (
     <Flex
       h={"100vh"}
@@ -56,25 +58,35 @@ const Login: NextPage = () => {
         position={"relative"}
       >
         <Tabs
+         
+          data-testid='tab-index'
+          onChange={(index) => setTabIndex(index)}
+          index={tabIndex}
           isFitted
+         
           variant={"soft-rounded"}
+         
           colorScheme="blue"
+         
           ringColor={"cyan"}
+        
         >
           <TabList mb="2em" mt="-2em">
-            <Tab color={"white"}>Login</Tab>
-            <Tab color={"white"}>Registro</Tab>
+            <Tab data-testid='tab-login' color={"white"}>Login</Tab>
+            <Tab data-testid='tab-register' color={"white"}>Registro</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
               <LoginComponent />
             </TabPanel>
             <TabPanel p={0}>
-              <RegisterComponent />
+              <RegisterComponent setTabIndex={setTabIndex} />
             </TabPanel>
           </TabPanels>
         </Tabs>
+
         <Box
+          data-testid="icon"
           position={"absolute"}
           top={2}
           right={2}

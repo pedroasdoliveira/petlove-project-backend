@@ -39,13 +39,14 @@ const Administration: NextPage = () => {
   return (
     <Flex
       as="main"
+      display={"flex"}
       h="100vh"
       w="100vw"
-      px="50px"
+      px={{ xl: "5rem", lg: "1.5rem" }}
       py="30px"
-      justifyContent="space-between"
+      justifyContent={{ sm: "center", md: "space-between" }}
       position="relative"
-      cursor={"default"}
+      cursor="default"
     >
       <Head>
         <title>Admin - Self Awareness</title>
@@ -56,90 +57,113 @@ const Administration: NextPage = () => {
         <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
       </Head>
 
-      <Flex w={"100%"} direction={"column"}>
-        <MenuProfile path="Administrador" />
-
-        {/* #1 Accordion: Teste dos usuários */}
-        <Flex as="section" px={"3%"} w={"100%"} ml="20rem">
-          <Accordion w={"calc(100% - 20rem)"} defaultIndex={[0]} allowToggle>
-            <AccordionItem w={"100%"} border={"none"}>
-              <Flex
-                direction={"column"}
-                marginBottom={8}
-                p={8}
-                borderRadius={"15px"}
-                bg={background}
-                color={"white"}
-              >
-                <AccordionButton justifyContent={"space-between"}>
-                  <Flex direction={"column"} alignItems="start">
-                    <Heading as="h3">Testes para validar</Heading>
-                  </Flex>
-                  <AccordionIcon w={10} h={10} />
-                </AccordionButton>
-                <AccordionPanel pb={4}>
-                  <UserList />
-                </AccordionPanel>
-              </Flex>
-            </AccordionItem>
-          </Accordion>
+      <Flex w={"100%"}>
+        <Flex
+          w={{ xl: "20rem", lg: "15rem" }}
+          display={{ lg: "flex", sm: "none" }}
+          position="fixed"
+        >
+          <MenuProfile path="Administrador" />
         </Flex>
 
-        <Flex as="section" px={"3%"} w={"100%"} ml="20rem">
-          <Accordion w={"calc(100% - 20rem)"} defaultIndex={[0]} allowToggle>
-            <AccordionItem w={"100%"} border={"none"}>
-              <Flex
-                direction={"column"}
-                marginBottom={8}
-                p={8}
-                borderRadius={"15px"}
-                bg={background}
-                color={"white"}
-              >
-                <AccordionButton justifyContent={"space-between"}>
-                  <Flex direction={"column"} alignItems="start">
-                    <Heading as="h3">Usuários</Heading>
-                  </Flex>
-                  <AccordionIcon w={10} h={10} />
-                </AccordionButton>
-                <AccordionPanel pb={4}>
-                  <AllUserList />
-                </AccordionPanel>
-              </Flex>
-            </AccordionItem>
-          </Accordion>
+        <Flex
+          ml={{ xl: "350px", lg: "230px" }}
+          mr={{ lg: "30px", md: "60px" }}
+          w={{ xl: "calc(100% - 20rem)", lg: "80%", sm: "100%" }}
+          flexDir="column"
+          px="3%"
+          py={{ sm: "20%", md: "2%" }}
+        >
+          {/* #1 Accordion: Teste dos usuários */}
+
+          <Flex as="section" w={"100%"}>
+            <Accordion w="100%" defaultIndex={[0]} allowToggle>
+              <AccordionItem w={"100%"} border={"none"}>
+                <Flex
+                  direction={"column"}
+                  marginBottom={8}
+                  py={8}
+                  px={{ sm: 3, md: 8 }}
+                  borderRadius={"15px"}
+                  bg={background}
+                  color={"white"}
+                >
+                  <AccordionButton justifyContent={"space-between"}>
+                    <Flex direction={"column"} alignItems="start">
+                      <Heading as="h3" fontSize={{ sm: "lg", md: "xl" }}>
+                        Testes para validar
+                      </Heading>
+                    </Flex>
+                    <AccordionIcon w={10} h={10} />
+                  </AccordionButton>
+                  <AccordionPanel pb={4}>
+                    <UserList />
+                  </AccordionPanel>
+                </Flex>
+              </AccordionItem>
+            </Accordion>
+          </Flex>
+
+          <Flex as="section" w={"100%"}>
+            <Accordion w={"100%"} defaultIndex={[0]} allowToggle>
+              <AccordionItem w={"100%"} border={"none"}>
+                <Flex
+                  direction={"column"}
+                  marginBottom={8}
+                  py={8}
+                  px={{ sm: 3, md: 8 }}
+                  borderRadius={"15px"}
+                  bg={background}
+                  color={"white"}
+                >
+                  <AccordionButton justifyContent={"space-between"}>
+                    <Flex direction={"column"} alignItems="start">
+                      <Heading as="h3" fontSize={{ sm: "lg", md: "xl" }}>
+                        Usuários
+                      </Heading>
+                    </Flex>
+                    <AccordionIcon w={10} h={10} />
+                  </AccordionButton>
+                  <AccordionPanel pb={4}>
+                    <AllUserList />
+                  </AccordionPanel>
+                </Flex>
+              </AccordionItem>
+            </Accordion>
+          </Flex>
+
+          {/* #3 Accordion: Comparações entre usuários */}
+          <Flex as="section" w={"100%"}>
+            <Accordion w={"100%"} defaultIndex={[0]} allowToggle>
+              <AccordionItem w={"100%"} border={"none"}>
+                <Flex
+                  direction={"column"}
+                  marginBottom={8}
+                  py={8}
+                  px={{ sm: 3, md: 8 }}
+                  borderRadius={"15px"}
+                  bg={background}
+                  color={"white"}
+                >
+                  <AccordionButton justifyContent={"space-between"}>
+                    <Flex direction={"row"} alignItems="start">
+                      <Heading as="h3">Comparações</Heading>
+                    </Flex>
+                    <AccordionIcon w={10} h={10} />
+                  </AccordionButton>
+                  <AccordionPanel pb={4}>
+                    <Flex direction={"column"}>
+                      <UserComparisons />
+                    </Flex>
+                  </AccordionPanel>
+                </Flex>
+              </AccordionItem>
+            </Accordion>
+          </Flex>
         </Flex>
 
-        {/* #3 Accordion: Comparações entre usuários */}
-        <Flex as="section" px={"3%"} w={"100%"} ml="20rem">
-          <Accordion w={"calc(100% - 20rem)"} defaultIndex={[0]} allowToggle>
-            <AccordionItem w={"100%"} border={"none"}>
-              <Flex
-                direction={"column"}
-                marginBottom={8}
-                p={8}
-                borderRadius={"15px"}
-                bg={background}
-                color={"white"}
-              >
-                <AccordionButton justifyContent={"space-between"}>
-                  <Flex direction={"row"} alignItems="start">
-                    <Heading as="h3">Comparações</Heading>
-                  </Flex>
-                  <AccordionIcon w={10} h={10} />
-                </AccordionButton>
-                <AccordionPanel pb={4}>
-                  <Flex direction={"column"}>
-                    <UserComparisons />
-                  </Flex>
-                </AccordionPanel>
-              </Flex>
-            </AccordionItem>
-          </Accordion>
-        </Flex>
+        <AsideMenu currentPage="Administrador" />
       </Flex>
-
-      <AsideMenu direction="column" />
     </Flex>
   );
 };

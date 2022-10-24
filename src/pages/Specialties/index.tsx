@@ -38,9 +38,9 @@ const Specialty: NextPage = () => {
       display={"flex"}
       h="100vh"
       w="100vw"
-      px="50px"
+      px={{xl: "5rem", lg: "1.5rem"}}
       py="30px"
-      justifyContent="space-between"
+      justifyContent={{sm: 'center', md: 'space-between'}}
       position="relative"
     >
       <Head>
@@ -53,23 +53,26 @@ const Specialty: NextPage = () => {
         <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
       </Head>
 
-      <Flex w="100%" direction={"column"}>
+      <Flex w="100%">
         {/* Column 1 - Menu */}
-        <MenuProfile path="Especialidades" />
+
+        <Flex w={{xl: '20rem', lg: '15rem'}} display={{lg: 'flex', sm: 'none'}} position="fixed">
+          <MenuProfile path="Especialidades" />
+        </Flex>
 
         {/* Column 2 - Content */}
         <Flex
-          w={"calc(100% - 20rem)"}
-          h="auto"
+          ml={{xl: '350px', lg: "230px"}}
+          mr={{lg: '30px', md: '60px'} }
+          w={{xl: "calc(100% - 20rem)", lg: "80%", sm: '100%'}}
+          flexDir="column"
           px="3%"
-          py="2%"
-          ml="20rem"
-          direction={"column"}
+          py={{sm: '20%', md: '2%'}}
         >
           <Specialties />
         </Flex>
       </Flex>
-      <AsideMenu direction="column" />
+      <AsideMenu currentPage="Especialidades"/>
     </Flex>
   );
 };

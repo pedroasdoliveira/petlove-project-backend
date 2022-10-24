@@ -18,10 +18,10 @@ const Interview: NextPage = () => {
       flexDir="column"
       h="100vh"
       w="100vw"
-      px="50px"
+      px={{xl: "30px", md: "25px", sm: "2px"}}
       py="30px"
-      justifyContent="space-between"
       position="relative"
+      overflow="hidden"
     >
       <Head>
         <title>Teste - Self Awareness</title>
@@ -31,7 +31,7 @@ const Interview: NextPage = () => {
 
       <StepsForm />
 
-      <AsideMenu direction="column" path="Interview" />
+      <AsideMenu currentPage="Administrador" direction="column" path="Interview"/>
     </Flex>
   );
 };
