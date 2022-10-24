@@ -320,7 +320,6 @@ const UserComparisons = () => {
                   >
                     <Tooltip
                       label={`Função com mais devs na equipe, ou seja, devs na função majoritária`}
-                      aria-label=""
                       hasArrow
                     >
                       {`${
@@ -332,14 +331,12 @@ const UserComparisons = () => {
 
                     <Tooltip
                       label={`quantidade de devs na função majoritária`}
-                      aria-label=""
                       hasArrow
                     >
                       {`(${specialityFiltered[0][1]})`}
                     </Tooltip>
                     <Tooltip
                       label={`devs na função majoritária que fizeram pelo menos um teste`}
-                      aria-label=""
                       hasArrow
                     >
                       {`(${teamLength})`}
