@@ -66,7 +66,7 @@ const AllRadarUser = () => {
   const data1 = mountLastData();
 
   return (
-    <ResponsiveContainer width="99%" height="88%">
+    <ResponsiveContainer width="99%" height="85%">
       <RadarChart
         cx="50%"
         cy="50%"

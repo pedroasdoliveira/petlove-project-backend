@@ -55,7 +55,7 @@ const registerSchema = yup.object().shape({
   terms: yup.boolean().oneOf([true]),
 });
 
-const RegisterComponent: NextPage = () => {
+const RegisterComponent = ({ setTabIndex }) => {
   const checkboxColor = useColorModeValue("#000000", "#ffffff");
   const buttonBackground = useColorModeValue("#230d88", "#5030dd");
   const buttonHover = useColorModeValue("#383838", "#dee0e3");

@@ -87,15 +87,21 @@ const Homepage: NextPage = () => {
           direction={"row"}
           w={"100%"}
           h={"100%"}
-          justifyContent={{md: 'space-between', sm: 'center'}}
+          justifyContent={{ md: "space-between", sm: "center" }}
           alignItems={"center"}
-          mx={8}
+          mx={3}
           color={"white"}
         >
-          <Heading display={{md: 'block', sm: 'none'}} as="h2" fontSize={"2xl"} fontWeight="medium" ml={"2"}>
+          <Heading
+            display={{ md: "block", sm: "none" }}
+            as="h2"
+            fontSize={"2xl"}
+            fontWeight="medium"
+            ml={"2"}
+          >
             Questionário
           </Heading>
-          <Flex position="absolute" right="300" top="0.2">
+          <Flex position="absolute" right="310" top="0.2">
             <Image
               src={image ? image : ProfileIcon}
               alt="Imagem de perfil"
@@ -111,8 +117,8 @@ const Homepage: NextPage = () => {
               colorScheme="green"
               style={{
                 position: "absolute",
-                top: "2.5rem",
-                right: "6.5rem",
+                top: "2.4rem",
+                right: "6rem",
                 zIndex: 2,
                 width: "22px",
                 height: "21px",
@@ -132,7 +138,7 @@ const Homepage: NextPage = () => {
             </Badge>
           )}
 
-          <AsideMenu direction="row"/>
+          <AsideMenu direction="row" />
         </Flex>
       </Flex>
 
@@ -158,90 +164,94 @@ const Homepage: NextPage = () => {
         </Text>
       </Flex>
 
-        <Grid templateColumns={{lg: "repeat(3, 1fr)", sm: "repeat(1, 1fr)"}} gap={8} my={12}>
-          <GridItem
-            bg={bgCardColor}
-            w={{lg: "285px", md: '500px', sm:'285px'}}
-            h={"340px"}
-            borderRadius={"15px"}
-            boxShadow={`10px 5px 15px ${shadowColor}`}
+      <Grid
+        templateColumns={{ lg: "repeat(3, 1fr)", sm: "repeat(1, 1fr)" }}
+        gap={8}
+        my={12}
+      >
+        <GridItem
+          bg={bgCardColor}
+          w={{ lg: "285px", md: "500px", sm: "285px" }}
+          h={"340px"}
+          borderRadius={"15px"}
+          boxShadow={`10px 5px 15px ${shadowColor}`}
+        >
+          <Flex
+            direction={"column"}
+            alignItems={"center"}
+            justifyContent={"space-around"}
+            wrap={"wrap"}
+            p={4}
+            w="full"
+            h="full"
           >
-            <Flex
-              direction={"column"}
-              alignItems={"center"}
-              justifyContent={"space-around"}
-              wrap={"wrap"}
-              p={4}
-              w="full"
-              h="full"
-            >
-              <Image src={CheckIcon} width={"60px"} height={"60px"} />
+            <Image src={CheckIcon} width={"60px"} height={"60px"} />
 
-              <Text textAlign={"center"} color={textColor} lineHeight={"165%"}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-                vitae ullam odit voluptates id explicabo aperiam saepe ipsa,
-                magnam, esse voluptas! Accusantium adipisci optio recusandae?
-                Nam nostrum velit vitae autem.
-              </Text>
-            </Flex>
-          </GridItem>
+            <Text textAlign={"center"} color={textColor} lineHeight={"165%"}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
+              vitae ullam odit voluptates id explicabo aperiam saepe ipsa,
+              magnam, esse voluptas! Accusantium adipisci optio recusandae? Nam
+              nostrum velit vitae autem.
+            </Text>
+          </Flex>
+        </GridItem>
 
-          <GridItem
-            bg={bgCardColor}
-            w={{lg: "285px", md: '500px', sm:'285px'}}
-            h={"340px"}
-            borderRadius={"15px"}
-            boxShadow={`9px 5px 15px ${shadowColor}`}
+        <GridItem
+          bg={bgCardColor}
+          w={{ lg: "285px", md: "500px", sm: "285px" }}
+          h={"340px"}
+          borderRadius={"15px"}
+          boxShadow={`9px 5px 15px ${shadowColor}`}
+        >
+          <Flex
+            direction={"column"}
+            alignItems={"center"}
+            justifyContent={"space-around"}
+            wrap={"wrap"}
+            p={4}
+            w="full"
+            h="full"
           >
-            <Flex
-              direction={"column"}
-              alignItems={"center"}
-              justifyContent={"space-around"}
-              wrap={"wrap"}
-              p={4}
-              w="full"
-              h="full"
-            >
-              <Image src={ClockIcon} width={"60px"} height={"60px"} />
+            <Image src={ClockIcon} width={"60px"} height={"60px"} />
 
-              <Text textAlign={"center"} color={textColor} lineHeight={"165%"}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-                vitae ullam odit voluptates id explicabo aperiam saepe ipsa,
-                magnam, esse voluptas! Accusantium adipisci optio recusandae?
-                Nam nostrum velit vitae autem.
-              </Text>
-            </Flex>
-          </GridItem>
+            <Text textAlign={"center"} color={textColor} lineHeight={"165%"}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
+              vitae ullam odit voluptates id explicabo aperiam saepe ipsa,
+              magnam, esse voluptas! Accusantium adipisci optio recusandae? Nam
+              nostrum velit vitae autem.
+            </Text>
+          </Flex>
+        </GridItem>
 
-          <GridItem
-            bg={bgCardColor}
-            w={{lg: "285px", md: '500px', sm:'285px'}}
-            h={"340px"}
-            borderRadius={"15px"}
-            boxShadow={`10px 5px 15px ${shadowColor}`}
+        <GridItem
+          bg={bgCardColor}
+          w={{ lg: "285px", md: "500px", sm: "285px" }}
+          h={"340px"}
+          borderRadius={"15px"}
+          boxShadow={`10px 5px 15px ${shadowColor}`}
+        >
+          <Flex
+            direction={"column"}
+            alignItems={"center"}
+            justifyContent={"space-around"}
+            wrap={"wrap"}
+            p={4}
+            w="full"
+            h="full"
           >
-            <Flex
-              direction={"column"}
-              alignItems={"center"}
-              justifyContent={"space-around"}
-              wrap={"wrap"}
-              p={4}
-              w="full"
-              h="full"
-            >
-              <Image src={ProfileIcon} width={"60px"} height={"60px"} />
+            <Image src={ProfileIcon} width={"60px"} height={"60px"} />
 
-              <Text textAlign={"center"} color={textColor} lineHeight={"165%"}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-                vitae ullam odit voluptates id explicabo aperiam saepe ipsa,
-                magnam, esse voluptas! Accusantium adipisci optio recusandae?
-                Nam nostrum velit vitae autem.
-              </Text>
-            </Flex>
-          </GridItem>
-        </Grid>
+            <Text textAlign={"center"} color={textColor} lineHeight={"165%"}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
+              vitae ullam odit voluptates id explicabo aperiam saepe ipsa,
+              magnam, esse voluptas! Accusantium adipisci optio recusandae? Nam
+              nostrum velit vitae autem.
+            </Text>
+          </Flex>
+        </GridItem>
+      </Grid>
 
-        <DefaultButton valueButton="Realizar teste" />
+      <DefaultButton valueButton="Realizar teste" />
 
       <Footer />
     </Flex>

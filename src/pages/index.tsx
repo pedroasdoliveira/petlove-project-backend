@@ -16,7 +16,7 @@ import LoginComponent from "../components/Login/Login";
 import RegisterComponent from "../components/RegisterComponent/RegisterComponent";
 import { useToggle } from "../hooks/useToggle";
 import { ToggleMode } from "../types/interfaces";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/Auth";
 import Router from "next/router";
 
@@ -58,22 +58,21 @@ const Login: NextPage = () => {
         position={"relative"}
       >
         <Tabs
-         
-          data-testid='tab-index'
+          data-testid="tab-index"
           onChange={(index) => setTabIndex(index)}
           index={tabIndex}
           isFitted
-         
           variant={"soft-rounded"}
-         
           colorScheme="blue"
-         
           ringColor={"cyan"}
-        
         >
           <TabList mb="2em" mt="-2em">
-            <Tab data-testid='tab-login' color={"white"}>Login</Tab>
-            <Tab data-testid='tab-register' color={"white"}>Registro</Tab>
+            <Tab data-testid="tab-login" color={"white"}>
+              Login
+            </Tab>
+            <Tab data-testid="tab-register" color={"white"}>
+              Registro
+            </Tab>
           </TabList>
           <TabPanels>
             <TabPanel>

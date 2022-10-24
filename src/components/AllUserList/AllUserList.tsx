@@ -19,6 +19,7 @@ import {
   Tr,
   useColorModeValue,
   Badge,
+  Tooltip,
 } from "@chakra-ui/react";
 import ModalUserAdm from "../../components/ModalUserAdm/ModalUserAdm";
 import { useSpecialtyss } from "../../contexts/specialtyss";
@@ -201,14 +202,24 @@ const AllUserList = () => {
                     </Flex>
                   </Td>
                   <Td>
-                    {user.name}{" "}
                     {roleAtual === null &&
                       chapterAtual === null &&
                       teamAtual === null && (
-                        <Badge colorScheme="green" variant="solid">
+                        <Badge colorScheme="green" variant="solid" mr="-2.3rem">
                           Novo
                         </Badge>
                       )}
+                    {user.name.length > 25 ? (
+                      <Tooltip
+                        label={user.name}
+                        aria-label="A tooltip"
+                        placement="top"
+                      >
+                        <Text>{user.name.slice(0, 25)}...</Text>
+                      </Tooltip>
+                    ) : (
+                      <Text>{user.name}</Text>
+                    )}
                   </Td>
                   {chapterAtual === null ? (
                     <Td>...</Td>
