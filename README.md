@@ -37,11 +37,53 @@ To learn more about Next.js, take a look at the following resources:
 ```yarn build``` & ```yarn start```
 --------------------------------------------------------------------------------------
 
-## 🛠️ Construído com
-* JavaScript
+## Instalação
+
+```
+npm install
+```
+
+## Criando tabelas no banco de dados local
+
+```
+npx prisma db push
+```
+
+## Rodando o app
+
+```
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+```
+
+## Compodoc
+
+```
+# Install
+npm i -D @compodoc/compodoc
+
+# Doc Generate , run and Doc update
+npx @compodoc/compodoc -p tsconfig.json -s
+```
+
+## Priscipais ferramentas utilizadas
+
+* NodeJS
 * TypeScript
-* Nest.js
-* npm
+* NestJS
+* PostgreSQL
+* Swagger
+* railway / Vercel / Heroku
+* Compodoc
+* Cors
+* JWT
+* Bcrypt
 --------------------------------------------------------------------------------------
 
 ## ✒️ Autores

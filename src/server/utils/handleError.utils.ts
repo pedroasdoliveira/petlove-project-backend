@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { UnprocessableEntityException } from '@nestjs/common';
+import { UnprocessableEntityException } from "@nestjs/common";
 
 export function handleError(error: Error): undefined {
-  const errorLines = error.message?.split('\n');
+  const errorLines = error.message?.split("\n");
   const lastErrorLine = errorLines[errorLines.length - 1]?.trim();
 
   if (!lastErrorLine) {
@@ -10,6 +10,6 @@ export function handleError(error: Error): undefined {
   }
 
   throw new UnprocessableEntityException(
-    lastErrorLine || 'Algum erro ocorreu ao executar a operação',
+    lastErrorLine || "Algum erro ocorreu ao executar a operação",
   );
 }

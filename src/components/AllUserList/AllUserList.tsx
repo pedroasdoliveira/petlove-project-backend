@@ -67,8 +67,8 @@ const AllUserList = () => {
     if (filter === "new") {
       return (
         (item.role === null || item.chapter === null || item.team === null) &&
-        (item.name!.toLowerCase().includes(search.toLowerCase()) ||
-          item.email!.toLowerCase().includes(search.toLowerCase()))
+        (item.name?.toLowerCase().includes(search.toLowerCase()) ||
+          item.email?.toLowerCase().includes(search.toLowerCase()))
       );
     }
 
@@ -129,8 +129,22 @@ const AllUserList = () => {
               type="radio"
               onChange={handleOrder}
             >
-              <MenuItemOption value="asc">crescente</MenuItemOption>
-              <MenuItemOption value="desc">decrescente</MenuItemOption>
+              <MenuItemOption
+                value="asc"
+                _focus={{
+                  background: "gray.600",
+                }}
+              >
+                crescente
+              </MenuItemOption>
+              <MenuItemOption
+                value="desc"
+                _focus={{
+                  background: "gray.600",
+                }}
+              >
+                decrescente
+              </MenuItemOption>
             </MenuOptionGroup>
             <MenuDivider />
             <MenuOptionGroup
@@ -139,13 +153,33 @@ const AllUserList = () => {
               title="Filtrar por:"
               onChange={handleFilter}
             >
-              <MenuItemOption value="all">Todos</MenuItemOption>
-              <MenuItemOption value="new">Novos usuários</MenuItemOption>
+              <MenuItemOption
+                value="all"
+                _focus={{
+                  background: "gray.600",
+                }}
+              >
+                Todos
+              </MenuItemOption>
+              <MenuItemOption
+                value="new"
+                _focus={{
+                  background: "gray.600",
+                }}
+              >
+                Novos usuários
+              </MenuItemOption>
               <Text m={"0.5rem"} fontWeight="500">
                 Função:
               </Text>
               {specialtyss?.map((item) => (
-                <MenuItemOption value={item.performance} key={item.id}>
+                <MenuItemOption
+                  value={item.performance}
+                  key={item.id}
+                  _focus={{
+                    background: "gray.600",
+                  }}
+                >
                   {item.performance}
                 </MenuItemOption>
               ))}

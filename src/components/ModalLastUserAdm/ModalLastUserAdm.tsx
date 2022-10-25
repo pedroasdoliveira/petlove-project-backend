@@ -545,7 +545,7 @@ const ModalLastUserAdm = ({ value, user }: any) => {
 
                                 api
                                   .patch(`/Result/${value.id}`, data, headers)
-                                  .then((response) => {
+                                  .then(() => {
                                     toast.success(
                                       "Função atualizada com sucesso!",
                                     );
@@ -553,7 +553,7 @@ const ModalLastUserAdm = ({ value, user }: any) => {
                                     handleGetUsers();
                                     onClose();
                                   })
-                                  .catch((error) => {
+                                  .catch(() => {
                                     toast.error("Erro ao atualizar função!");
                                     setRequisition(false);
                                   });
@@ -734,7 +734,7 @@ const ModalLastUserAdm = ({ value, user }: any) => {
 
                               api
                                 .patch(`/Result/${value.id}`, data, headers)
-                                .then((response) => {
+                                .then(() => {
                                   toast.success(
                                     "Função atualizada com sucesso!",
                                   );
@@ -742,7 +742,7 @@ const ModalLastUserAdm = ({ value, user }: any) => {
                                   handleGetUsers();
                                   onClose();
                                 })
-                                .catch((error) => {
+                                .catch(() => {
                                   toast.error("Erro ao atualizar função!");
                                   setRequisition(false);
                                 });
@@ -936,13 +936,13 @@ const ModalLastUserAdm = ({ value, user }: any) => {
 
                             api
                               .patch(`/Result/${value.id}`, data, headers)
-                              .then((response) => {
+                              .then(() => {
                                 toast.success("Função atualizada com sucesso!");
                                 setRequisition(false);
                                 handleGetUsers();
                                 onClose();
                               })
-                              .catch((error) => {
+                              .catch(() => {
                                 toast.error("Erro ao atualizar função!");
                                 setRequisition(false);
                               });

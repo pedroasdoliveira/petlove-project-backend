@@ -35,7 +35,7 @@ const StepsAdmForm = ({
   const { requisition, setRequisition } = useAuth();
 
   const { handleGetUsers } = useUsers();
-  const { nextStep, prevStep, reset, activeStep } = useSteps({
+  const { nextStep, reset, activeStep } = useSteps({
     initialStep: 0,
   });
 
@@ -97,7 +97,7 @@ const StepsAdmForm = ({
     setHidden(!hidden);
   };
 
-  const { value, getRootProps, getRadioProps, setValue } = useRadioGroup({
+  const { getRootProps, getRadioProps, setValue } = useRadioGroup({
     name: "option",
     defaultValue: "none",
     onChange: changeValueRadio,
@@ -131,7 +131,7 @@ const StepsAdmForm = ({
             fontSize: "1.2rem",
           }}
         >
-          {steps.map(({ label, Content }, index) => (
+          {steps.map(({ label, Content }) => (
             <Step label={label} key={label} height={"1%"}>
               <Flex
                 flexDir={"column"}
@@ -397,13 +397,13 @@ const StepsAdmForm = ({
 
                   api
                     .patch(`/Result/${lastTest.id}`, data, headers)
-                    .then((response) => {
+                    .then(() => {
                       toast.success("Função atualizada com sucesso!");
                       handleGetUsers();
                       setRequisition(false);
                       onClose();
                     })
-                    .catch((error) => {
+                    .catch(() => {
                       toast.error("Erro ao atualizar função!");
                       setRequisition(false);
                     });

@@ -97,7 +97,7 @@ const AsideMenu = ({ path, direction, currentPage }: Prop) => {
           border={`1px solid ${borderColor}`}
           p="3px"
           borderRadius="10px"
-          h={{ md: path === "Interview" ? "6%" : "25%", sm: "10%" }}
+          h={{ md: path === "Interview" ? "6%" : "40%", sm: "10%" }}
           alignItems="center"
           direction={{ sm: "row", md: "column" }}
           justifyContent="space-between"
@@ -131,6 +131,13 @@ const AsideMenu = ({ path, direction, currentPage }: Prop) => {
                   <Icon as={AiFillProfile} />
                 </Button>
               </Link>
+              <Button
+                m={{ md: "1.5rem 0 0 0", sm: "" }}
+                onClick={logout}
+                alignItems="center"
+              >
+                <Icon as={AiOutlineLogout} />
+              </Button>
               <DrawerMenu path={currentPage} />
             </>
           )}

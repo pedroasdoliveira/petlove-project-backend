@@ -9,7 +9,7 @@ import { useEffect } from "react";
 const Interview: NextPage = () => {
   const { checkTokenExpiration } = useAuth();
   useEffect(() => {
-    checkTokenExpiration!();
+    checkTokenExpiration?.();
   }, []);
 
   return (
@@ -18,7 +18,7 @@ const Interview: NextPage = () => {
       flexDir="column"
       h="100vh"
       w="100vw"
-      px={{xl: "30px", md: "25px", sm: "2px"}}
+      px={{ xl: "30px", md: "25px", sm: "2px" }}
       py="30px"
       position="relative"
       overflow="hidden"
@@ -31,7 +31,11 @@ const Interview: NextPage = () => {
 
       <StepsForm />
 
-      <AsideMenu currentPage="Administrador" direction="column" path="Interview"/>
+      <AsideMenu
+        currentPage="Administrador"
+        direction="column"
+        path="Interview"
+      />
     </Flex>
   );
 };

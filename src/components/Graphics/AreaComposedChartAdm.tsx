@@ -1,10 +1,7 @@
-import { useColorModeValue } from "@chakra-ui/react";
 import { useSpecialtyss } from "../../contexts/specialtyss";
 import {
   ComposedChart,
-  Line,
   Area,
-  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -24,7 +21,7 @@ const AreaComposedChartAdm = ({ user }: any) => {
       return {
         createdAt: `${new Date(item.createdAt).toLocaleDateString()}`,
         nextRole: item.nextRole,
-        allSpecialities: [...speciality!],
+        allSpecialities: [...speciality],
       };
     });
 

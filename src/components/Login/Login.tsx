@@ -1,7 +1,6 @@
 import {
   Button,
   Checkbox,
-  CircularProgress,
   Flex,
   FormControl,
   Heading,
@@ -71,7 +70,7 @@ const LoginComponent: NextPage = () => {
 
         api.get(`User/${data.email}`, headers).then((res) => {
           const user = res.data;
-          loginAuth!({ token: response.data.token, user: user });
+          loginAuth?.({ token: response.data.token, user: user });
           setRequisition(false);
           reset();
           Router.push("/Homepage");

@@ -34,7 +34,7 @@ const respostas = {
 };
 
 const StepsForm = () => {
-  const { nextStep, prevStep, reset, activeStep } = useSteps({
+  const { nextStep, reset, activeStep } = useSteps({
     initialStep: 0,
   });
 
@@ -87,7 +87,7 @@ const StepsForm = () => {
     }
   };
 
-  const { value, getRootProps, getRadioProps, setValue } = useRadioGroup({
+  const { getRootProps, getRadioProps, setValue } = useRadioGroup({
     name: "option",
     defaultValue: "none",
     onChange: changeValueRadio,
@@ -255,14 +255,14 @@ const StepsForm = () => {
 
                 api
                   .post("/Result", data, headers)
-                  .then((response) => {
+                  .then(() => {
                     setQuantity(0);
                     handleReset();
                     handleGetUsers();
                     setRequisition(false);
                     toast.success("Resultado enviado com sucesso!");
                   })
-                  .catch((error) => {
+                  .catch(() => {
                     handleReset();
                     setRequisition(false);
                     toast.error("Erro ao enviar resultado!");

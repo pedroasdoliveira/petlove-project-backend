@@ -15,7 +15,7 @@ interface SettingsMenuProps {
 }
 
 const MenuProfile = ({ path }: SettingsMenuProps) => {
-  const { user, users, handleGetUsers } = useUsers();
+  const { user, users } = useUsers();
   const [newTest, setNewTest] = useState(false);
 
   useEffect(() => {

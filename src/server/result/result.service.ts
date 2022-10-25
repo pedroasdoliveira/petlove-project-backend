@@ -152,6 +152,12 @@ export class ResultService {
 
         const allNull = emails.every((email) => email === null);
 
+        if (allNull) {
+          return result;
+        }
+
+        console.log(allNull);
+
         const transporter = nodemailer.createTransport({
           host: "smtp.gmail.com",
           port: 587,
@@ -411,7 +417,8 @@ export class ResultService {
       .catch(handleError);
   }
 
-  async remove(id: string) {
+  async remove(id: string, user: User) {
+    isAdmin(user);
     await this.prisma.result.delete({ where: { id } }).catch(handleError);
     return { message: "Institute successfully deleted" };
   }

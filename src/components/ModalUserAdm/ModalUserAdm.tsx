@@ -4,7 +4,6 @@ import {
   Divider,
   Flex,
   FormControl,
-  Heading,
   Input,
   Menu,
   MenuButton,
@@ -17,7 +16,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Select,
   Tab,
   Table,
   TableContainer,
@@ -37,7 +35,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import LastRadarUserAdm from "../../components/Graphics/LastRadarUserAdm";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import AllRadarUserAdm from "../../components/Graphics/AllRadarUserAdm";
@@ -143,14 +141,14 @@ const ModalLastUserAdm = ({ value, user }: any) => {
 
     api
       .patch(`/User/${user.email}`, data, headers)
-      .then((response) => {
+      .then(() => {
         toast.success("Usuário editado com sucesso!");
         handleGetUsers();
         setRequisition(false);
         reset();
         onClose();
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("Erro ao editar usuário!");
         setRequisition(false);
       });

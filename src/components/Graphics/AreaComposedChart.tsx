@@ -3,9 +3,7 @@ import { useSpecialtyss } from "../../contexts/specialtyss";
 import { useUsers } from "../../contexts/Users";
 import {
   ComposedChart,
-  Line,
   Area,
-  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -31,7 +29,7 @@ const AreaComposedChart = () => {
       return {
         nextRole: item.nextRole,
         createdAt: `${new Date(item.createdAt).toLocaleDateString()}`,
-        allSpecialities: [...speciality!],
+        allSpecialities: [...speciality],
       };
     });
 

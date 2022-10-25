@@ -7,7 +7,6 @@ import {
   Input,
   useColorModeValue,
 } from "@chakra-ui/react";
-import type { NextPage } from "next";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -55,7 +54,7 @@ const registerSchema = yup.object().shape({
   terms: yup.boolean().oneOf([true]),
 });
 
-const RegisterComponent = ({ setTabIndex }) => {
+const RegisterComponent = () => {
   const checkboxColor = useColorModeValue("#000000", "#ffffff");
   const buttonBackground = useColorModeValue("#230d88", "#5030dd");
   const buttonHover = useColorModeValue("#383838", "#dee0e3");
@@ -76,12 +75,12 @@ const RegisterComponent = ({ setTabIndex }) => {
     setRequisition(true);
     api
       .post("/User/create", data)
-      .then((response) => {
+      .then(() => {
         toast.success("Usuário criado com sucesso! Faça login para continuar");
         setRequisition(false);
         reset();
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("Erro ao criar usuário");
         setRequisition(false);
       });

@@ -6,7 +6,6 @@ import {
   ViewIcon,
 } from "@chakra-ui/icons";
 import {
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -18,7 +17,6 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import MenuProfile from "../../components/MenuProfile/MenuProfile";
 import React from "react";
 import { ImUserTie } from "react-icons/im";
 
