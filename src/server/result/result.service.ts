@@ -2,20 +2,59 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from 'src/user/entities/user.entity';
-import { handleError } from 'src/utils/handleError.utils';
-import { isAdmin } from 'src/utils/isAdmin.utils';
-import { CreateResultDto } from './dto/create-result.dto';
-import { UpdateResultDto } from './dto/update-result.dto';
-import * as nodemailer from 'nodemailer';
+  UnauthorizedException,
+} from "@nestjs/common";
+import { Prisma } from "@prisma/client";
+import { PrismaService } from "src/server/prisma/prisma.service";
+import { User } from "src/server/user/entities/user.entity";
+import { handleError } from "src/server/utils/handleError.utils";
+import { isAdmin } from "src/server/utils/isAdmin.utils";
+import { CreateResultDto } from "./dto/create-result.dto";
+import { UpdateResultDto } from "./dto/update-result.dto";
+import * as nodemailer from "nodemailer";
+import { DateTime } from "luxon";
+import {
+  emailTestResult,
+  emailTestValidation,
+  emailTestValidationAdm,
+} from "src/server/utils/emailsTemplates.utils";
 
 @Injectable()
 export class ResultService {
   constructor(private readonly prisma: PrismaService) {}
+
   async create(user: User, dto: CreateResultDto) {
+    const userTest = await this.prisma.user.findUnique({
+      where: { id: user.id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        team: true,
+        role: true,
+        chapter: true,
+        results: true,
+        createdAt: true,
+        isAdmin: true,
+      },
+    });
+    const lastTestUser = userTest.results.at(-1);
+
+    // verificar se a data do ultimo teste é menor do que 3 meses da data atual e se o ultimo teste foi validado
+
+    if (lastTestUser) {
+      const now = DateTime.now();
+      const lastTestUser2 = DateTime.fromJSDate(lastTestUser.createdAt);
+
+      if (lastTestUser2.diff(now, "months").months < 3) {
+        throw new UnauthorizedException("Insufficient completion time!");
+      }
+
+      if (lastTestUser.isValided === null) {
+        throw new UnauthorizedException("Last test not validated!");
+      }
+    }
+
     const technology =
       (dto.toolshop + dto.design + dto.test + dto.computationalFundamentals) *
       (5 / 12);
@@ -26,7 +65,7 @@ export class ResultService {
     const specialtys = await this.prisma.specialtie.findMany();
 
     if (specialtys.length === 0) {
-      throw new NotFoundException('Não existem especialidades cadastradas.');
+      throw new NotFoundException("Não existem especialidades cadastradas.");
     }
 
     const result = specialtys.map((specialy) => {
@@ -96,11 +135,11 @@ export class ResultService {
         });
 
         const emails = adms.map((adm) => {
-          if (adm.emailNotification === 'all') {
+          if (adm.emailNotification === "all") {
             return adm.email;
           }
 
-          if (adm.emailNotification === 'team' && adm.team === user.team) {
+          if (adm.emailNotification === "team" && adm.team === user.team) {
             return adm.email;
           }
 
@@ -120,27 +159,48 @@ export class ResultService {
         console.log(allNull);
 
         const transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com',
+          host: "smtp.gmail.com",
           port: 587,
-          service: 'gmail',
+          service: "gmail",
           auth: {
-            user: 'projetopetlover@gmail.com',
-            pass: 'skbfwjaibimleyou',
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASSWORD,
           },
         });
 
         const mailData = {
-          from: 'Pet Love <projetopetlover@gmail.com>',
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: emails,
-          subject: 'Novo teste realizado',
-          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+          subject: "Novo teste realizado",
+          html: emailTestValidation(user.name.split(" ")[0]),
         };
 
         transporter.sendMail(mailData, function (err, info) {
           if (err) {
             console.log(err);
 
-            throw new BadRequestException('Error sending email');
+            throw new BadRequestException("Error sending email");
+          } else {
+            console.log(info);
+          }
+        });
+
+        if (allNull) {
+          return result;
+        }
+
+        const mailDataAdm = {
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
+          to: emails,
+          subject: "Novos testes para avaliação",
+          html: emailTestValidationAdm(user.name.split(" ")[0]),
+        };
+
+        transporter.sendMail(mailDataAdm, function (err, info) {
+          if (err) {
+            console.log(err);
+
+            throw new BadRequestException("Error sending email");
           } else {
             console.log(info);
           }
@@ -167,7 +227,7 @@ export class ResultService {
     });
 
     if (allResults.length === 0) {
-      throw new NotFoundException('Não existem resultados cadastrados.');
+      throw new NotFoundException("Não existem resultados cadastrados.");
     }
 
     return allResults;
@@ -218,6 +278,7 @@ export class ResultService {
             system: true,
             technology: true,
             influence: true,
+            isValided: true,
           },
         })
         .then(async (result) => {
@@ -227,31 +288,44 @@ export class ResultService {
             where: { id: result.userId },
             select: {
               email: true,
+              name: true,
             },
           });
 
           const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
+            host: "smtp.gmail.com",
             port: 587,
-            service: 'gmail',
+            service: "gmail",
             auth: {
-              user: 'projetopetlover@gmail.com',
-              pass: 'skbfwjaibimleyou',
+              user: process.env.USER_EMAIL,
+              pass: process.env.USER_PASSWORD,
             },
           });
 
+          const emote = result.isValided === "Sim" ? "😀" : "😢";
+          const message =
+            result.isValided === "Sim"
+              ? "Parabéns, você foi promovido, continue assim!"
+              : "Infelizmente você não foi promovido, continue se esforçando que você vai conseguir.";
+
           const mailData = {
-            from: 'Pet Love <projetopetlover@gmail.com>',
+            from: `Pet Love <${process.env.USER_EMAIL}>`,
             to: user.email,
-            subject: 'Resultado do teste',
-            html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+            subject: "Resultado do teste",
+            html: emailTestResult(
+              user.name.split(" ")[0],
+              result.nextRole,
+              emote,
+              message,
+              result.isValided,
+            ),
           };
 
           transporter.sendMail(mailData, function (err, info) {
             if (err) {
               console.log(err);
 
-              throw new BadRequestException('Error sending email');
+              throw new BadRequestException("Error sending email");
             } else {
               console.log(info);
             }
@@ -285,6 +359,7 @@ export class ResultService {
           system: true,
           technology: true,
           influence: true,
+          isValided: true,
         },
       })
       .then(async (result) => {
@@ -294,31 +369,44 @@ export class ResultService {
           where: { id: result.userId },
           select: {
             email: true,
+            name: true,
           },
         });
 
         const transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com',
+          host: "smtp.gmail.com",
           port: 587,
-          service: 'gmail',
+          service: "gmail",
           auth: {
-            user: 'projetopetlover@gmail.com',
-            pass: 'skbfwjaibimleyou',
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASSWORD,
           },
         });
 
+        const emote = result.isValided === "Sim" ? "😀" : "😢";
+        const message =
+          result.isValided === "Sim"
+            ? "Parabéns, você foi promovido, continue assim!"
+            : "Infelizmente você não foi promovido, continue se esforçando que você vai conseguir.";
+
         const mailData = {
-          from: 'Pet Love <projetopetlover@gmail.com>',
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: user.email,
-          subject: 'Resultado do teste (modificado pelo administrador)',
-          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+          subject: "Resultado do teste (modificado pelo administrador)",
+          html: emailTestResult(
+            user.name.split(" ")[0],
+            result.nextRole,
+            emote,
+            message,
+            result.isValided,
+          ),
         };
 
         transporter.sendMail(mailData, function (err, info) {
           if (err) {
             console.log(err);
 
-            throw new BadRequestException('Error sending email');
+            throw new BadRequestException("Error sending email");
           } else {
             console.log(info);
           }
@@ -329,9 +417,8 @@ export class ResultService {
       .catch(handleError);
   }
 
-  async remove(id:string,user:User) {
-    isAdmin(user);
-    await this.prisma.result.delete({where:{id:id}});
-    return { message: 'Result deleted successfully' };
+  async remove(id: string) {
+    await this.prisma.result.delete({ where: { id } }).catch(handleError);
+    return { message: "Institute successfully deleted" };
   }
 }

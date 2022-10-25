@@ -1,12 +1,12 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from 'src/user/entities/user.entity';
-import { handleError } from 'src/utils/handleError.utils';
-import { isAdmin } from 'src/utils/isAdmin.utils';
-import { CreateSpecialtyDto } from './dto/create-specialty.dto';
-import { UpdateSpecialtyDto } from './dto/update-specialty.dto';
-import { Specialty } from './entities/specialty.entity';
+import { Injectable, UnprocessableEntityException } from "@nestjs/common";
+import { Prisma } from "@prisma/client";
+import { PrismaService } from "src/server/prisma/prisma.service";
+import { User } from "src/server/user/entities/user.entity";
+import { handleError } from "src/server/utils/handleError.utils";
+import { isAdmin } from "src/server/utils/isAdmin.utils";
+import { CreateSpecialtyDto } from "./dto/create-specialty.dto";
+import { UpdateSpecialtyDto } from "./dto/update-specialty.dto";
+import { Specialty } from "./entities/specialty.entity";
 
 @Injectable()
 export class SpecialtiesService {
@@ -20,7 +20,7 @@ export class SpecialtiesService {
 
   async findAll(user: User) {
     if (!user) {
-      throw new UnprocessableEntityException('Usuário não está logado');
+      throw new UnprocessableEntityException("Usuário não está logado");
     }
 
     return await this.prisma.specialtie.findMany().catch(handleError);
@@ -28,7 +28,7 @@ export class SpecialtiesService {
 
   async findOne(id: string, user: User) {
     if (!user) {
-      throw new UnprocessableEntityException('Usuário não está logado');
+      throw new UnprocessableEntityException("Usuário não está logado");
     }
 
     return await this.prisma.specialtie
@@ -50,6 +50,6 @@ export class SpecialtiesService {
   async remove(id: string, user: User) {
     isAdmin(user);
     await this.prisma.specialtie.delete({ where: { id } }).catch(handleError);
-    return { message: 'specialty deleted successfully' };
+    return { message: "specialty deleted successfully" };
   }
 }

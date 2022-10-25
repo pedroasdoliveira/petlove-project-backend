@@ -1,19 +1,19 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsString } from 'class-validator';
+import { ApiProperty } from "@nestjs/swagger";
+import { IsNumber, IsString } from "class-validator";
 
 export class CreateSpecialtyDto {
   @IsString()
   @ApiProperty({
     description:
-      'Professional level (Trainee, Junior, Pleno, Senior, Especialista, Tech-lead)',
-    example: 'Junior',
+      "Professional level (Trainee, Junior, Pleno, Senior, Especialista, Tech-lead)",
+    example: "Junior",
   })
   performance: string;
 
   @IsString()
   @ApiProperty({
-    description: 'Description of the specialty',
-    example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    description: "Description of the specialty",
+    example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   })
   description: string;
 
@@ -21,7 +21,7 @@ export class CreateSpecialtyDto {
     maxDecimalPlaces: 2,
   })
   @ApiProperty({
-    description: 'Systems score',
+    description: "Systems score",
     example: 2,
   })
   system: number;
@@ -30,7 +30,7 @@ export class CreateSpecialtyDto {
     maxDecimalPlaces: 2,
   })
   @ApiProperty({
-    description: 'Persons score',
+    description: "Persons score",
     example: 3,
   })
   person: number;
@@ -39,7 +39,7 @@ export class CreateSpecialtyDto {
     maxDecimalPlaces: 2,
   })
   @ApiProperty({
-    description: 'technology score',
+    description: "technology score",
     example: 4,
   })
   technology: number;
@@ -48,7 +48,7 @@ export class CreateSpecialtyDto {
     maxDecimalPlaces: 2,
   })
   @ApiProperty({
-    description: 'Process score',
+    description: "Process score",
     example: 5,
   })
   process: number;
@@ -57,7 +57,7 @@ export class CreateSpecialtyDto {
     maxDecimalPlaces: 2,
   })
   @ApiProperty({
-    description: 'Influence score',
+    description: "Influence score",
     example: 2,
   })
   influence: number;

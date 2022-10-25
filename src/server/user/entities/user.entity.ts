@@ -8,7 +8,7 @@ export class User {
   role?: string;
   isAdmin?: boolean;
   isVerified?: boolean;
-  emailNotification?: 'none' | 'team' | 'all';
+  emailNotification?: "none" | "team" | "all";
   createdAt: Date;
   updatedAt: Date;
 }

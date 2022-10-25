@@ -3,14 +3,14 @@ import {
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
-} from '@nestjs/common';
-import { Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from 'src/user/entities/user.entity';
-import { handleError } from 'src/utils/handleError.utils';
-import { isAdmin } from 'src/utils/isAdmin.utils';
-import { CreateTestDto } from './dto/create-test.dto';
-import { UpdateTestDto } from './dto/update-test.dto';
+} from "@nestjs/common";
+import { Prisma } from "@prisma/client";
+import { PrismaService } from "src/server/prisma/prisma.service";
+import { User } from "src/server/user/entities/user.entity";
+import { handleError } from "src/server/utils/handleError.utils";
+import { isAdmin } from "src/server/utils/isAdmin.utils";
+import { CreateTestDto } from "./dto/create-test.dto";
+import { UpdateTestDto } from "./dto/update-test.dto";
 
 @Injectable()
 export class TestService {
@@ -48,7 +48,7 @@ export class TestService {
 
   async findAll(user: User) {
     if (!user) {
-      throw new UnprocessableEntityException('Usuário não está logado');
+      throw new UnprocessableEntityException("Usuário não está logado");
     }
 
     return await this.prisma.test.findMany().catch(handleError);
@@ -95,7 +95,7 @@ export class TestService {
       throw new NotFoundException(`id:${id} não encontrado`);
     } else {
       await this.prisma.test.delete({ where: { id: id } });
-      throw new HttpException('Teste deletado com sucesso!', 200);
+      throw new HttpException("Test deletado com sucesso!", 200);
     }
   }
 }

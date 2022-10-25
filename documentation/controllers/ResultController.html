@@ -111,7 +111,7 @@
 </section>
 
             <section>
-    
+
     <h3 id="methods">
         Methods
     </h3>
@@ -142,8 +142,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="32"
-                            class="link-to-prism">src/result/result.controller.ts:32</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/result/result.controller.ts:28</a></div>
                 </td>
             </tr>
 
@@ -153,7 +153,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -197,7 +197,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Result</p>
 
                     </div>
                 </td>
@@ -231,8 +230,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">src/result/result.controller.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="34"
+                            class="link-to-prism">src/result/result.controller.ts:34</a></div>
                 </td>
             </tr>
 
@@ -242,7 +241,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -274,7 +273,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Results</p>
 
                     </div>
                 </td>
@@ -308,8 +306,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="52"
-                            class="link-to-prism">src/result/result.controller.ts:52</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/result/result.controller.ts:40</a></div>
                 </td>
             </tr>
 
@@ -319,7 +317,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -351,7 +349,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Result</p>
 
                     </div>
                 </td>
@@ -371,7 +368,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>remove(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, user: <a href="../classes/User.html" target="_self">User</a>)</code>
+<code>remove(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -385,8 +382,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="71"
-                            class="link-to-prism">src/result/result.controller.ts:71</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">src/result/result.controller.ts:51</a></div>
                 </td>
             </tr>
 
@@ -396,7 +393,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -418,18 +415,6 @@
 
 
                                 </tr>
-                                <tr>
-                                    <td>user</td>
-                                    <td>
-                                                <code><a href="../classes/User.html" target="_self" >User</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -440,7 +425,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>message: &#39;Result deleted successfully&#39;</p>
 
                     </div>
                 </td>
@@ -474,8 +458,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="62"
-                            class="link-to-prism">src/result/result.controller.ts:62</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/result/result.controller.ts:46</a></div>
                 </td>
             </tr>
 
@@ -485,7 +469,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -529,7 +513,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Result</p>
 
                     </div>
                 </td>
@@ -565,53 +548,33 @@ import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
 export class ResultController {
   constructor(private readonly resultService: ResultService) {}
 
-    /**
-	 * @param req
-	 * @returns  Result
-	 */
   @Post()
   @ApiOperation({ summary: &#x27;Create test result&#x27; })
   create(@LoggedUser() user: User, @Body() dto: CreateResultDto) {
     return this.resultService.create(user, dto);
   }
 
-    /**
-	 * @param req
-	 * @returns  Results
-	 */
   @Get()
   @ApiOperation({ summary: &#x27;List all results&#x27; })
   findAll(@LoggedUser() user: User) {
     return this.resultService.findAll(user);
   }
 
-   /**
-	 * @param req
-	 * @returns Result
-	 */
   @Get(&#x27;:id&#x27;)
   @ApiOperation({ summary: &#x27;To find a test result by id&#x27; })
   findOne(@Param(&#x27;id&#x27;) id: string) {
     return this.resultService.findOne(id);
   }
 
-   /**
-	 * @param req
-	 * @returns  Result
-	 */
   @Patch(&#x27;:id&#x27;)
   @ApiOperation({ summary: &#x27;To change data from a test performed&#x27; })
   update(@Param(&#x27;id&#x27;) id: string, @Body() dto: UpdateResultDto) {
     return this.resultService.update(id, dto);
   }
 
-   /**
-	 * @param req
-	 * @returns message: &#x27;Result deleted successfully&#x27;
-	 */
   @Delete(&#x27;:id&#x27;)
-  remove(@Param(&#x27;id&#x27;) id: string, @LoggedUser() user:User) {
-    return this.resultService.remove(id,user);
+  remove(@Param(&#x27;id&#x27;) id: string) {
+    return this.resultService.remove(id);
   }
 }
 </code></pre>

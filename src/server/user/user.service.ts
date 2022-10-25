@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   BadRequestException,
   HttpException,
@@ -5,19 +6,24 @@ import {
   NotAcceptableException,
   NotFoundException,
   UnauthorizedException,
-} from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { ChangePasswordDto, UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import * as bcrypt from 'bcrypt';
-import { handleError } from 'src/utils/handleError.utils';
-import { Prisma } from '@prisma/client';
-import { isAdmin } from 'src/utils/isAdmin.utils';
-import { User } from './entities/user.entity';
-import * as nodemailer from 'nodemailer';
-import { JwtPayload } from './entities/jwtChangePassword.entity';
-import { JwtService } from '@nestjs/jwt';
-import * as crypto from 'crypto-js';
+} from "@nestjs/common";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { ChangePasswordDto, UpdateUserDto } from "./dto/update-user.dto";
+import { PrismaService } from "src/server/prisma/prisma.service";
+import * as bcrypt from "bcrypt";
+import { handleError } from "src/server/utils/handleError.utils";
+import { Prisma } from "@prisma/client";
+import { isAdmin } from "src/server/utils/isAdmin.utils";
+import { User } from "./entities/user.entity";
+import * as nodemailer from "nodemailer";
+import { JwtPayload } from "./entities/jwtChangePassword.entity";
+import { JwtService } from "@nestjs/jwt";
+import * as crypto from "crypto-js";
+import {
+  emailChangePassword,
+  emailConfirmChangePassword,
+  emailVerify,
+} from "src/server/utils/emailsTemplates.utils";
 
 @Injectable()
 export class UserService {
@@ -28,7 +34,7 @@ export class UserService {
 
   async create(dto: CreateUserDto) {
     if (dto.password != dto.confirmPassword) {
-      throw new BadRequestException('As senhas informadas não são iguais.');
+      throw new BadRequestException("As senhas informadas não são iguais.");
     }
 
     delete dto.confirmPassword;
@@ -55,27 +61,27 @@ export class UserService {
       })
       .then((user) => {
         const transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com',
+          host: "smtp.gmail.com",
           port: 587,
-          service: 'gmail',
+          service: "gmail",
           auth: {
-            user: 'projetopetlover@gmail.com',
-            pass: 'skbfwjaibimleyou',
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASSWORD,
           },
         });
 
         const mailData = {
-          from: 'Pet Love <projetopetlover@gmail.com>',
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: user.email,
-          subject: 'Verify Email',
-          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+          subject: "Verify Email",
+          html: emailVerify(user.id, user.name.split(" ")[0]),
         };
 
         transporter.sendMail(mailData, function (err, info) {
           if (err) {
             console.log(err);
 
-            throw new BadRequestException('Error sending email');
+            throw new BadRequestException("Error sending email");
           } else {
             console.log(info);
           }
@@ -99,7 +105,7 @@ export class UserService {
     });
 
     if (user.isVerified) {
-      throw new NotAcceptableException('Email already verified');
+      throw new NotAcceptableException("Email already verified");
     }
 
     const data: Prisma.UserUpdateInput = {
@@ -112,7 +118,7 @@ export class UserService {
         data,
       })
       .then(() => {
-        return 'Email verified! You can close this page and login';
+        return "Email verified! You can close this page and login";
       })
       .catch(handleError);
   }
@@ -124,6 +130,7 @@ export class UserService {
         select: {
           id: true,
           email: true,
+          name: true,
         },
       })
       .catch(handleError);
@@ -144,32 +151,32 @@ export class UserService {
     ).toString();
 
     const tokenToUrl = await tokenCrypt
-      .replace(/\+/g, 'p1L2u3S')
-      .replace(/\//g, 's1L2a3S4h')
-      .replace(/=/g, 'e1Q2u3A4l');
+      .replace(/\+/g, "p1L2u3S")
+      .replace(/\//g, "s1L2a3S4h")
+      .replace(/=/g, "e1Q2u3A4l");
 
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
+      host: "smtp.gmail.com",
       port: 587,
-      service: 'gmail',
+      service: "gmail",
       auth: {
-        user: 'projetopetlover@gmail.com',
-        pass: 'skbfwjaibimleyou',
+        user: process.env.USER_EMAIL,
+        pass: process.env.USER_PASSWORD,
       },
     });
 
     const mailData = {
-      from: 'Pet Love <projetopetlover@gmail.com>',
+      from: `Pet Love <${process.env.USER_EMAIL}>`,
       to: user.email,
-      subject: 'Reset your password',
-      html: `<div><h1>oi1</h1> <p>token:${tokenToUrl}, id:${user.id}, url: http://localhost:3000/Change/${tokenToUrl}/${user.id}</p></div>`,
+      subject: "Reset your password",
+      html: emailChangePassword(user.id, tokenToUrl, user.name.split(" ")[0]),
     };
 
     transporter.sendMail(mailData, async function (err, info) {
       if (err) {
         console.log(err);
 
-        throw new BadRequestException('Error sending email');
+        throw new BadRequestException("Error sending email");
       } else {
         console.log(info);
       }
@@ -180,7 +187,7 @@ export class UserService {
       data: { resetToken: token },
     });
 
-    return 'Email sent';
+    return "Email sent";
   }
 
   async changePassword(
@@ -197,14 +204,13 @@ export class UserService {
     }
 
     if (!user.resetToken) {
-      throw new BadRequestException('Token not found');
+      throw new BadRequestException("Token not found");
     }
-    console.log(resetToken);
 
     const resetTokenToText = resetToken
-      .replace(/p1L2u3S/g, '+')
-      .replace(/s1L2a3S4h/g, '/')
-      .replace(/e1Q2u3A4l/g, '=');
+      .replace(/p1L2u3S/g, "+")
+      .replace(/s1L2a3S4h/g, "/")
+      .replace(/e1Q2u3A4l/g, "=");
 
     const resetTokenDecrypted = crypto.AES.decrypt(
       resetTokenToText,
@@ -212,25 +218,25 @@ export class UserService {
     ).toString(crypto.enc.Utf8);
 
     if (resetTokenDecrypted != user.resetToken) {
-      throw new UnauthorizedException('Invalid token');
+      throw new UnauthorizedException("Invalid token");
     }
     let jwtVerify: JwtPayload;
     try {
       jwtVerify = this.jwtService.verify(user.resetToken);
     } catch (error) {
-      throw new UnauthorizedException('Invalid token');
+      throw new UnauthorizedException("Invalid token");
     }
 
     if (!jwtVerify.id || jwtVerify.id != id) {
-      throw new UnauthorizedException('Invalid token');
+      throw new UnauthorizedException("Invalid token");
     }
 
     if (!dto.password || !dto.confirmPassword) {
-      throw new BadRequestException('Informe a nova senha.');
+      throw new BadRequestException("Informe a nova senha.");
     }
 
     if (dto.password !== dto.confirmPassword) {
-      throw new BadRequestException('As senhas informadas não são iguais.');
+      throw new BadRequestException("As senhas informadas não são iguais.");
     }
 
     const hashedPassword = await bcrypt.hash(dto.password, 8);
@@ -247,32 +253,32 @@ export class UserService {
       })
       .then((user) => {
         const transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com',
+          host: "smtp.gmail.com",
           port: 587,
-          service: 'gmail',
+          service: "gmail",
           auth: {
-            user: 'projetopetlover@gmail.com',
-            pass: 'skbfwjaibimleyou',
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASSWORD,
           },
         });
 
         const mailData = {
-          from: 'Pet Love <projetopetlover@gmail.com>',
+          from: `Pet Love <${process.env.USER_EMAIL}>`,
           to: user.email,
-          subject: 'Password Changed',
-          html: '<div><h1>oi1</h1> <p>oi2</p></div>',
+          subject: "Password Changed",
+          html: emailConfirmChangePassword(user.name.split(" ")[0]),
         };
 
         transporter.sendMail(mailData, function (err, info) {
           if (err) {
             console.log(err);
 
-            throw new BadRequestException('Error sending email');
+            throw new BadRequestException("Error sending email");
           } else {
             console.log(info);
           }
         });
-        return { message: 'Password changed' };
+        return { message: "Password changed" };
       })
       .catch(handleError);
   }
@@ -289,11 +295,12 @@ export class UserService {
         chapter: true,
         results: true,
         createdAt: true,
+        profilePicture: true,
       },
     });
 
     if (allUsers.length === 0) {
-      throw new NotFoundException('Não existem usuários cadastrados.');
+      throw new NotFoundException("Não existem usuários cadastrados.");
     }
 
     const allUsersSort = allUsers.map((user) => {
@@ -320,6 +327,7 @@ export class UserService {
         createdAt: true,
         isAdmin: true,
         emailNotification: true,
+        profilePicture: true,
       },
     });
 
@@ -337,7 +345,7 @@ export class UserService {
       return record;
     } else {
       throw new UnauthorizedException(
-        'Você não tem permissão para acessar essa área!',
+        "Você não tem permissão para acessar essa área!",
       );
     }
   }
@@ -345,12 +353,12 @@ export class UserService {
   async update(email: string, updateUserDto: UpdateUserDto, user: User) {
     if (user.email === email && updateUserDto.newPassword) {
       if (!updateUserDto.password) {
-        throw new BadRequestException('A senha atual não pode ser vazia.');
+        throw new BadRequestException("A senha atual não pode ser vazia.");
       }
 
       if (updateUserDto.newPassword !== updateUserDto.confirmPassword) {
         throw new BadRequestException(
-          'As novas senhas informadas não são iguais.',
+          "As novas senhas informadas não são iguais.",
         );
       }
 
@@ -399,7 +407,7 @@ export class UserService {
     }
 
     throw new UnauthorizedException(
-      'Você não tem permissão para acessar essa área!',
+      "Você não tem permissão para acessar essa área!",
     );
   }
 
@@ -410,7 +418,7 @@ export class UserService {
       throw new NotFoundException(`email:${email} não encontrado`);
     } else {
       await this.prisma.user.findUnique({ where: { email: email } });
-      throw new HttpException('Usuário deletado com sucesso!', 200);
+      throw new HttpException("Usuário deletado com sucesso!", 200);
     }
   }
 }

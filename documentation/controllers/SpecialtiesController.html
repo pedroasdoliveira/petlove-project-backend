@@ -111,7 +111,7 @@
 </section>
 
             <section>
-    
+
     <h3 id="methods">
         Methods
     </h3>
@@ -142,8 +142,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="32"
-                            class="link-to-prism">src/specialties/specialties.controller.ts:32</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/specialties/specialties.controller.ts:28</a></div>
                 </td>
             </tr>
 
@@ -153,7 +153,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -197,7 +197,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Specialtie</p>
 
                     </div>
                 </td>
@@ -231,8 +230,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">src/specialties/specialties.controller.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="34"
+                            class="link-to-prism">src/specialties/specialties.controller.ts:34</a></div>
                 </td>
             </tr>
 
@@ -242,7 +241,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -274,7 +273,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Specialties</p>
 
                     </div>
                 </td>
@@ -308,8 +306,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="52"
-                            class="link-to-prism">src/specialties/specialties.controller.ts:52</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/specialties/specialties.controller.ts:40</a></div>
                 </td>
             </tr>
 
@@ -319,7 +317,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -363,7 +361,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Specialtie</p>
 
                     </div>
                 </td>
@@ -397,8 +394,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">src/specialties/specialties.controller.ts:76</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="56"
+                            class="link-to-prism">src/specialties/specialties.controller.ts:56</a></div>
                 </td>
             </tr>
 
@@ -408,7 +405,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -452,7 +449,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>message: &#39;specialty deleted successfully&#39;</p>
 
                     </div>
                 </td>
@@ -486,8 +482,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="62"
-                            class="link-to-prism">src/specialties/specialties.controller.ts:62</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/specialties/specialties.controller.ts:46</a></div>
                 </td>
             </tr>
 
@@ -497,7 +493,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -553,7 +549,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Specialtie</p>
 
                     </div>
                 </td>
@@ -589,40 +584,24 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;
 export class SpecialtiesController {
   constructor(private readonly specialty: SpecialtiesService) {}
 
-    /**
-	 * @param req
-	 * @returns Specialtie
-	 */
   @Post()
   @ApiOperation({ summary: &#x27;create a specialty&#x27; })
   create(@Body() dto: CreateSpecialtyDto, @LoggedUser() user: User) {
     return this.specialty.create(dto, user);
   }
 
-    /**
-	 * @param req
-	 * @returns Specialties
-	 */
   @Get()
   @ApiOperation({ summary: &#x27;List all specialties&#x27; })
   findAll(@LoggedUser() user: User) {
     return this.specialty.findAll(user);
   }
 
-    /**
-	 * @param req
-	 * @returns Specialtie
-	 */
   @Get(&#x27;:id&#x27;)
   @ApiOperation({ summary: &#x27;Find a specific specialty through the id&#x27; })
   findOne(@Param(&#x27;id&#x27;) id: string, @LoggedUser() user: User) {
     return this.specialty.findOne(id, user);
   }
 
-  /**
-	 * @param req
-	 * @returns Specialtie
-	 */
   @Patch(&#x27;:id&#x27;)
   @ApiOperation({ summary: &#x27;Change or update information about a specialty&#x27; })
   update(
@@ -633,10 +612,6 @@ export class SpecialtiesController {
     return this.specialty.update(id, dto, user);
   }
 
-  /**
-	 * @param req
-	 * @returns  message: &#x27;specialty deleted successfully&#x27; 
-	 */
   @Delete(&#x27;:id&#x27;)
   @ApiOperation({ summary: &#x27;delete a specialty&#x27; })
   remove(@Param(&#x27;id&#x27;) id: string, @LoggedUser() user: User) {
