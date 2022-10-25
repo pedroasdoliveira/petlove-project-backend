@@ -1,4 +1,4 @@
-import { Flex, useColorModeValue } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import {
   ResponsiveContainer,
   Tooltip,
@@ -15,11 +15,6 @@ interface ComparisonBarUserProps {
 }
 
 const ComparisonBarAdmTeams = ({ teamMapFiltered }: ComparisonBarUserProps) => {
-  const background = useColorModeValue(
-    "linear-gradient(111.58deg, #3B49DA 21.73%, rgba(59, 73, 218, 0.49) 52.68%)",
-    "linear-gradient(97.85deg, rgba(6, 11, 40, 0.94) 20.22%, rgba(10, 14, 35, 0.49) 100%)",
-  );
-
   const comparisonData = teamMapFiltered?.map((item) => {
     let teamLength = 0;
     //fazer a media de cada team
@@ -45,7 +40,7 @@ const ComparisonBarAdmTeams = ({ teamMapFiltered }: ComparisonBarUserProps) => {
     const media = (plus / (teamLength === 0 ? 1 : teamLength)).toFixed(2);
 
     return {
-      name: item![0].team ? item![0].team : "Sem equipe",
+      name: item?.[0].team ? item?.[0].team : "Sem equipe",
       media,
     };
   });

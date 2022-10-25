@@ -23,7 +23,7 @@ import Router from "next/router";
 const Login: NextPage = () => {
   const { toggleColorMode } = useColorMode();
   const { toggle, setToggle } = useToggle() as ToggleMode;
-  const { checkTokenExpiration, logged } = useAuth();
+  const { logged } = useAuth();
 
   useEffect(() => {
     if (logged) Router.push("/Homepage");
@@ -79,7 +79,7 @@ const Login: NextPage = () => {
               <LoginComponent />
             </TabPanel>
             <TabPanel p={0}>
-              <RegisterComponent setTabIndex={setTabIndex} />
+              <RegisterComponent />
             </TabPanel>
           </TabPanels>
         </Tabs>

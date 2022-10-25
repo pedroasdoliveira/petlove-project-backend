@@ -44,7 +44,7 @@ const ChangePasswordComponent = ({ query }: any) => {
   const buttonHover = useColorModeValue("#383838", "#dee0e3");
   const buttonColor = useColorModeValue("#dee0e3", "#000000");
 
-  const { login: loginAuth, requisition, setRequisition } = useAuth();
+  const { requisition, setRequisition } = useAuth();
 
   const [viewPassword, setViewPassword] = useState(false);
 
@@ -61,13 +61,13 @@ const ChangePasswordComponent = ({ query }: any) => {
     setRequisition(true);
     api
       .patch(`User/change/password/${query?.[0]}/${query?.[1]}`, data)
-      .then((response) => {
+      .then(() => {
         setRequisition(false);
         reset();
         toast.success("Senha alterada com sucesso! Faça login para continuar");
         Router.push("/");
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("Erro ao alterar senha");
         setRequisition(false);
       });

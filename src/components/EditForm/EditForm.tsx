@@ -10,7 +10,6 @@ import {
   RadioGroup,
   Stack,
   Icon,
-  Divider,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../contexts/Auth";
@@ -114,7 +113,7 @@ const EditForm = () => {
 
     api
       .patch(`/User/${user.email}`, dataToSend, headers)
-      .then((response) => {
+      .then(() => {
         toast.success("Dados alterados com sucesso!");
         handleGetUsers();
         setRequisition(false);
@@ -211,7 +210,7 @@ const EditForm = () => {
                       setImage(response.data.data.link);
                       setLoading(false);
                     })
-                    .catch((error) => {
+                    .catch(() => {
                       toast.error("Erro ao enviar imagem");
                       setLoading(false);
                     });

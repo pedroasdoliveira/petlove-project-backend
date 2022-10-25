@@ -7,7 +7,7 @@ interface ErrorMessageProps {
 const red = "#ff0000";
 
 export const ErrorMessage = styled.p<ErrorMessageProps>`
-  ${({ theme, color }) => css`
+  ${({ color }) => css`
     display: flex;
     color: ${color || red};
     text-align: center;
@@ -20,32 +20,10 @@ export const ErrorMessage = styled.p<ErrorMessageProps>`
 `;
 
 export const CheckboxLeft = styled.div`
-  ${({ theme }) => css`
+  ${() => css`
     display: flex;
     width: 100%;
     align-items: center;
     text-align: end;
   `}
 `;
-
-// export const OptionSelect = styled.select`
-//   width: 260px;
-//   height: auto;
-//   text-align: center;
-//   font-size: 1.2rem;
-//   outline: none;
-//   color: #f4f5f9;
-//   background-color: transparent;
-//   border-radius: 10px;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   cursor: pointer;
-// `;
-
-// export const Options = styled.option`
-//   color: #f4f5f9;
-//   background-color: transparent;
-//   font-weight: 400;
-// `

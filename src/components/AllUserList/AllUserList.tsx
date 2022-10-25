@@ -67,8 +67,8 @@ const AllUserList = () => {
     if (filter === "new") {
       return (
         (item.role === null || item.chapter === null || item.team === null) &&
-        (item.name!.toLowerCase().includes(search.toLowerCase()) ||
-          item.email!.toLowerCase().includes(search.toLowerCase()))
+        (item.name?.toLowerCase().includes(search.toLowerCase()) ||
+          item.email?.toLowerCase().includes(search.toLowerCase()))
       );
     }
 

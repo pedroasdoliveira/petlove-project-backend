@@ -24,11 +24,11 @@ const Administration: NextPage = () => {
   const { handleGetUsers } = useUsers();
 
   useEffect(() => {
-    checkTokenExpiration!();
+    checkTokenExpiration?.();
   }, []);
 
   useEffect(() => {
-    if (logged) handleGetUsers!();
+    if (logged) handleGetUsers?.();
   }, [logged]);
 
   const background = useColorModeValue(

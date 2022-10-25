@@ -1,4 +1,4 @@
-import { useColorModeValue, Text, Flex } from "@chakra-ui/react";
+import { Text, Flex } from "@chakra-ui/react";
 import { useUsers } from "../../contexts/Users";
 import {
   Legend,
@@ -36,17 +36,17 @@ const ComparisonBarUser = ({ value, subject }: ComparisonBarUserProps) => {
     }
   };
 
-  const lastData = user.results![user.results?.length - 1];
+  const lastData = user.results?.[user.results?.length - 1];
 
   const mountComparisonData = (subName: string) => {
     const dataToChart = [
       {
         createdAt: `${new Date(value.createdAt).toLocaleDateString()}`,
-        A: value![subName.toLowerCase() as keyof typeof value],
+        A: value?.[subName.toLowerCase() as keyof typeof value],
       },
       {
         createdAt: `${new Date(lastData.createdAt).toLocaleDateString()}`,
-        B: lastData![subName?.toLowerCase() as keyof typeof lastData],
+        B: lastData?.[subName?.toLowerCase() as keyof typeof lastData],
       },
     ];
 

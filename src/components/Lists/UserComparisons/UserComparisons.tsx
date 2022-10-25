@@ -1,4 +1,3 @@
-import { ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   Badge,
   Table,
@@ -302,11 +301,11 @@ const UserComparisons = () => {
               });
 
               return (
-                <Tr key={item![0].id}>
+                <Tr key={item?.[0].id}>
                   <Th p="1rem" color="gray.200">
                     {media?.toFixed(2)}
                   </Th>
-                  <Td>{item![0].team ? item![0].team : "Sem equipe"}</Td>
+                  <Td>{item?.[0].team ? item?.[0].team : "Sem equipe"}</Td>
                   <Td>{item?.length}</Td>
                   <Td>{back?.length}</Td>
                   <Td>{front?.length}</Td>
@@ -395,7 +394,7 @@ const UserComparisons = () => {
             </Text>
 
             <Flex w={"100%"} h="100%">
-              <ComparisonBarAdm value={removedNull!} />
+              <ComparisonBarAdm value={removedNull} />
             </Flex>
           </SwiperSlide>
           <SwiperSlide>
@@ -423,7 +422,7 @@ const UserComparisons = () => {
               </Text>
             </Flex>
             <Flex w={"100%"} h="100%">
-              <PieAdm names={teamMapFiltered!} quantity={teamMapFiltered2!} />
+              <PieAdm names={teamMapFiltered} quantity={teamMapFiltered2} />
             </Flex>
           </SwiperSlide>
           <SwiperSlide>
@@ -438,7 +437,7 @@ const UserComparisons = () => {
             </Text>
 
             <Flex w={"100%"} h="100%">
-              <ComparisonBarAdmTeams teamMapFiltered={teamMapFiltered2!} />
+              <ComparisonBarAdmTeams teamMapFiltered={teamMapFiltered2} />
             </Flex>
           </SwiperSlide>
         </Swiper>

@@ -15,20 +15,20 @@ interface ProfileProps {
 }
 
 const Profile: NextPage<ProfileProps> = () => {
-  const { checkTokenExpiration, logged } = useAuth();
-  const { user, handleGetUsers, users } = useUsers();
+  const { checkTokenExpiration } = useAuth();
+  const { user, users } = useUsers();
   const [image, setImage] = useState("");
   const [newTest, setNewTest] = useState(false);
   const [contTest, setContTest] = useState(0);
 
   useEffect(() => {
-    checkTokenExpiration!();
+    checkTokenExpiration?.();
   }, []);
 
   useEffect(() => {
     setImage(user?.profilePicture ?? "");
     if (user?.isAdmin) {
-      users?.map((user, index) => {
+      users?.map((user) => {
         if (user?.results?.at(-1)?.isValided === null) {
           setNewTest(true);
           setContTest(contTest + 1);

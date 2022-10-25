@@ -67,10 +67,10 @@ export const AuthContextProvider = ({ children }: Props) => {
 
       await api
         .get(`/User/${user.email}`, headers)
-        .then((response) => {
+        .then(() => {
           setLogged(true);
         })
-        .catch((error) => {
+        .catch(() => {
           toast.error("Sessão expirada, faça login novamente!");
           logout();
         });
