@@ -108,7 +108,7 @@
 </section>
 
             <section>
-    
+
     <h3 id="methods">
         Methods
     </h3>
@@ -139,8 +139,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="25"
-                            class="link-to-prism">src/Test-crud/test.controller.ts:25</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="19"
+                            class="link-to-prism">src/Test-crud/test.controller.ts:19</a></div>
                 </td>
             </tr>
 
@@ -150,7 +150,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -194,7 +194,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Test</p>
 
                     </div>
                 </td>
@@ -228,8 +227,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="35"
-                            class="link-to-prism">src/Test-crud/test.controller.ts:35</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">src/Test-crud/test.controller.ts:25</a></div>
                 </td>
             </tr>
 
@@ -239,7 +238,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -271,7 +270,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Tests</p>
 
                     </div>
                 </td>
@@ -305,8 +303,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="55"
-                            class="link-to-prism">src/Test-crud/test.controller.ts:55</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">src/Test-crud/test.controller.ts:39</a></div>
                 </td>
             </tr>
 
@@ -316,7 +314,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -360,7 +358,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Message: &#39;Teste deletado com sucesso!&#39;</p>
 
                     </div>
                 </td>
@@ -394,8 +391,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="45"
-                            class="link-to-prism">src/Test-crud/test.controller.ts:45</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/Test-crud/test.controller.ts:32</a></div>
                 </td>
             </tr>
 
@@ -405,7 +402,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
-                        
+
                         <table class="params">
                             <thead>
                                 <tr>
@@ -461,7 +458,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Test</p>
 
                     </div>
                 </td>
@@ -481,7 +477,6 @@ import { LoggedUser } from &#x27;src/auth/logged-user.decorator&#x27;;
 import { User } from &#x27;src/user/entities/user.entity&#x27;;
 import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
 
-
 @ApiTags(&#x27;Test&#x27;)
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
@@ -489,41 +484,26 @@ import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
 export class TestController {
   constructor(private readonly testService: TestService) {}
 
-
-   /**
-	 * @param req
-	 * @returns Test
-	 */
   @Post(&#x27;/create&#x27;)
   @ApiOperation({ summary: &#x27;Create a complete test&#x27; })
   create(@Body() dto: CreateTestDto,@LoggedUser() user:User) {
     return this.testService.create(dto,user);
   }
 
-  /**
-	 * @param req
-	 * @returns Tests
-	 */
   @Get(&#x27;/allTests&#x27;)
   @ApiOperation({summary: &#x60;To list all tests&#x60;})
   findAll(@LoggedUser() user:User) {
     return this.testService.findAll(user);
   }
 
-    /**
-	 * @param req
-	 * @returns Test
-	 */
+
   @Patch(&#x27;:id&#x27;)
   @ApiOperation({summary: &#x60;To make changes to a test&#x60;})
   update(@Param(&#x27;id&#x27;) id: string, @Body() dto: UpdateTestDto,@LoggedUser() user:User) {
     return this.testService.update(id,dto,user);
   }
 
-    /**
-	 * @param req
-	 * @returns Message: &#x27;Teste deletado com sucesso!&#x27;
-	 */
+
   @Delete(&#x27;:id&#x27;)
   @ApiOperation({summary: &#x60;To delete a test&#x60;})
   remove(@Param(&#x27;id&#x27;) id:string,@LoggedUser() user:User) {
