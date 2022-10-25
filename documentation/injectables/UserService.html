@@ -210,8 +210,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="177"
-                            class="link-to-prism">src/user/user.service.ts:177</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="186"
+                            class="link-to-prism">src/user/user.service.ts:186</a></div>
                 </td>
             </tr>
 
@@ -376,8 +376,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="271"
-                            class="link-to-prism">src/user/user.service.ts:271</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="280"
+                            class="link-to-prism">src/user/user.service.ts:280</a></div>
                 </td>
             </tr>
 
@@ -447,8 +447,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="293"
-                            class="link-to-prism">src/user/user.service.ts:293</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="309"
+                            class="link-to-prism">src/user/user.service.ts:309</a></div>
                 </td>
             </tr>
 
@@ -530,8 +530,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="379"
-                            class="link-to-prism">src/user/user.service.ts:379</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="406"
+                            class="link-to-prism">src/user/user.service.ts:406</a></div>
                 </td>
             </tr>
 
@@ -613,8 +613,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="111"
-                            class="link-to-prism">src/user/user.service.ts:111</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="120"
+                            class="link-to-prism">src/user/user.service.ts:120</a></div>
                 </td>
             </tr>
 
@@ -684,8 +684,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="322"
-                            class="link-to-prism">src/user/user.service.ts:322</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="345"
+                            class="link-to-prism">src/user/user.service.ts:345</a></div>
                 </td>
             </tr>
 
@@ -779,8 +779,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="87"
-                            class="link-to-prism">src/user/user.service.ts:87</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="89"
+                            class="link-to-prism">src/user/user.service.ts:89</a></div>
                 </td>
             </tr>
 
@@ -910,6 +910,8 @@ export class UserService {
         transporter.sendMail(mailData, function (err, info) {
           if (err) {
             console.log(err);
+
+            throw new BadRequestException(&#x27;Error sending email&#x27;);
           } else {
             console.log(info);
           }
@@ -923,6 +925,13 @@ export class UserService {
   async verifyUserEmail(id: string) {
     const user: User &#x3D; await this.prisma.user.findUnique({
       where: { id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
 
     if (user.isVerified) {
@@ -1123,7 +1132,14 @@ export class UserService {
       throw new NotFoundException(&#x27;Não existem usuários cadastrados.&#x27;);
     }
 
-    return allUsers;
+    const allUsersSort &#x3D; allUsers.map((user) &#x3D;&gt; {
+      user.results &#x3D; user.results.sort((a, b) &#x3D;&gt; {
+        return b.createdAt &lt; a.createdAt ? 1 : -1;
+      });
+      return user;
+    });
+
+    return allUsersSort;
   }
 
   async findOne(email: string, user: User) {
@@ -1139,6 +1155,7 @@ export class UserService {
         results: true,
         createdAt: true,
         isAdmin: true,
+        emailNotification: true,
       },
     });
 
@@ -1147,6 +1164,12 @@ export class UserService {
     }
 
     if (user.email &#x3D;&#x3D; email || user.isAdmin &#x3D;&#x3D; true) {
+      const usersSort &#x3D; record.results.sort((a, b) &#x3D;&gt; {
+        return b.createdAt &lt; a.createdAt ? 1 : -1;
+      });
+
+      record.results &#x3D; usersSort;
+
       return record;
     } else {
       throw new UnauthorizedException(
@@ -1190,6 +1213,10 @@ export class UserService {
     }
 
     if (user.isAdmin &#x3D;&#x3D;&#x3D; true) {
+      delete updateUserDto.confirmPassword;
+      delete updateUserDto.newPassword;
+      delete updateUserDto.password;
+
       const data &#x3D; { ...updateUserDto };
 
       return this.prisma.user
