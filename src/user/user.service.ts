@@ -74,6 +74,8 @@ export class UserService {
         transporter.sendMail(mailData, function (err, info) {
           if (err) {
             console.log(err);
+
+            throw new BadRequestException('Error sending email');
           } else {
             console.log(info);
           }
@@ -87,6 +89,13 @@ export class UserService {
   async verifyUserEmail(id: string) {
     const user: User = await this.prisma.user.findUnique({
       where: { id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
 
     if (user.isVerified) {
@@ -287,7 +296,14 @@ export class UserService {
       throw new NotFoundException('Não existem usuários cadastrados.');
     }
 
-    return allUsers;
+    const allUsersSort = allUsers.map((user) => {
+      user.results = user.results.sort((a, b) => {
+        return b.createdAt < a.createdAt ? 1 : -1;
+      });
+      return user;
+    });
+
+    return allUsersSort;
   }
 
   async findOne(email: string, user: User) {
@@ -303,6 +319,7 @@ export class UserService {
         results: true,
         createdAt: true,
         isAdmin: true,
+        emailNotification: true,
       },
     });
 
@@ -311,6 +328,12 @@ export class UserService {
     }
 
     if (user.email == email || user.isAdmin == true) {
+      const usersSort = record.results.sort((a, b) => {
+        return b.createdAt < a.createdAt ? 1 : -1;
+      });
+
+      record.results = usersSort;
+
       return record;
     } else {
       throw new UnauthorizedException(
@@ -354,6 +377,10 @@ export class UserService {
     }
 
     if (user.isAdmin === true) {
+      delete updateUserDto.confirmPassword;
+      delete updateUserDto.newPassword;
+      delete updateUserDto.password;
+
       const data = { ...updateUserDto };
 
       return this.prisma.user
