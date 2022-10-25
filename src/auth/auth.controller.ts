@@ -20,6 +20,10 @@ import { LoggedUser } from './logged-user.decorator';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  /**
+	 * @param req
+	 * @returns Token
+	 */
   @Post()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -29,6 +33,10 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
+  /**
+	 * @param req
+	 * @returns message: Usuário autenticado com sucesso!
+	 */
   @Get()
   @ApiOperation({
     summary: 'Returns the currently authenticated user'

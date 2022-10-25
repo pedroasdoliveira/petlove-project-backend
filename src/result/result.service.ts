@@ -329,7 +329,9 @@ export class ResultService {
       .catch(handleError);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} result`;
+  async remove(id:string,user:User) {
+    isAdmin(user);
+    await this.prisma.result.delete({where:{id:id}});
+    return { message: 'Result deleted successfully' };
   }
 }
