@@ -417,7 +417,8 @@ export class ResultService {
       .catch(handleError);
   }
 
-  async remove(id: string) {
+  async remove(id: string, user: User) {
+    isAdmin(user);
     await this.prisma.result.delete({ where: { id } }).catch(handleError);
     return { message: "Institute successfully deleted" };
   }
