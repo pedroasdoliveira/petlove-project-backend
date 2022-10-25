@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export const emailTestResult = (
   name: string,
   role: string,
