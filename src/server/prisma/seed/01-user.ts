@@ -1,5 +1,5 @@
-/* export {};
-
+export {};
+/*
 import { Prisma, PrismaClient } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 
