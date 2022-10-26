@@ -282,6 +282,17 @@ export class ResultService {
           },
         })
         .then(async (result) => {
+          // fazer update de role do user se for aprovado
+
+          if (result.isValided === "Sim") {
+            await this.prisma.user.update({
+              where: { id: result.userId },
+              data: {
+                role: result.nextRole,
+              },
+            });
+          }
+
           // enviar email para o usuário
 
           const user = await this.prisma.user.findUnique({
