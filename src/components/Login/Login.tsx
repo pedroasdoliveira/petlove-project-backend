@@ -148,7 +148,7 @@ const LoginComponent: NextPage = () => {
             </Checkbox>
           </Flex>
         </FormControl>
-        <Flex justifyContent="end" width="100%">
+        <Flex justifyContent="center" width="100%" marginTop={2}>
           <Button
             variant={"link"}
             color={useColorModeValue("#000000", "#ffffff")}
