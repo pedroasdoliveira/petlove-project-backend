@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { ResultService } from "./result.service";
 import { ResultController } from "./result.controller";
 import { PassportModule } from "@nestjs/passport";
-import { PrismaModule } from "src/server/prisma/prisma.module";
+import { PrismaModule } from "../../server/prisma/prisma.module";
 
 @Module({
   imports: [PrismaModule, PassportModule.register({ defaultStrategy: "jwt" })],

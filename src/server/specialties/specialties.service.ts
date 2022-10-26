@@ -1,9 +1,9 @@
 import { Injectable, UnprocessableEntityException } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
-import { PrismaService } from "src/server/prisma/prisma.service";
-import { User } from "src/server/user/entities/user.entity";
-import { handleError } from "src/server/utils/handleError.utils";
-import { isAdmin } from "src/server/utils/isAdmin.utils";
+import { PrismaService } from "../../server/prisma/prisma.service";
+import { User } from "../../server/user/entities/user.entity";
+import { handleError } from "../../server/utils/handleError.utils";
+import { isAdmin } from "../../server/utils/isAdmin.utils";
 import { CreateSpecialtyDto } from "./dto/create-specialty.dto";
 import { UpdateSpecialtyDto } from "./dto/update-specialty.dto";
 import { Specialty } from "./entities/specialty.entity";
