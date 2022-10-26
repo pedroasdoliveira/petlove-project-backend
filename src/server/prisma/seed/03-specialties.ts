@@ -1,6 +1,4 @@
-export {};
-
-/* import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
@@ -25,4 +23,3 @@ export const specialtie = async (prisma: PrismaClient) => {
     });
   }
 };
- */

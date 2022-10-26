@@ -1,6 +1,4 @@
-export {};
-
-/* import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 export const test: Prisma.TestCreateInput[] = [
   {
@@ -61,4 +59,3 @@ export const Tests = async (prisma: PrismaClient) => {
     });
   }
 };
- */

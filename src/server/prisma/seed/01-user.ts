@@ -1,5 +1,4 @@
-export {};
-/* import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 
 export const users: Prisma.UserCreateInput[] = [
@@ -21,4 +20,4 @@ export const user = async (prisma: PrismaClient) => {
       },
     });
   }
-}; */
+};
