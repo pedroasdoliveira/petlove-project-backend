@@ -11,8 +11,8 @@ import {
 import { SpecialtiesService } from "./specialties.service";
 import { CreateSpecialtyDto } from "./dto/create-specialty.dto";
 import { UpdateSpecialtyDto } from "./dto/update-specialty.dto";
-import { User } from "../../server/user/entities/user.entity";
-import { LoggedUser } from "../../server/auth/logged-user.decorator";
+import { User } from "src/server/user/entities/user.entity";
+import { LoggedUser } from "src/server/auth/logged-user.decorator";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 

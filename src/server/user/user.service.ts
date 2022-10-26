@@ -9,11 +9,11 @@ import {
 } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { ChangePasswordDto, UpdateUserDto } from "./dto/update-user.dto";
-import { PrismaService } from "../../server/prisma/prisma.service";
+import { PrismaService } from "src/server/prisma/prisma.service";
 import * as bcrypt from "bcrypt";
-import { handleError } from "../../server/utils/handleError.utils";
+import { handleError } from "src/server/utils/handleError.utils";
 import { Prisma } from "@prisma/client";
-import { isAdmin } from "../../server/utils/isAdmin.utils";
+import { isAdmin } from "src/server/utils/isAdmin.utils";
 import { User } from "./entities/user.entity";
 import * as nodemailer from "nodemailer";
 import { JwtPayload } from "./entities/jwtChangePassword.entity";
@@ -23,7 +23,7 @@ import {
   emailChangePassword,
   emailConfirmChangePassword,
   emailVerify,
-} from "../../server/utils/emailsTemplates.utils";
+} from "src/server/utils/emailsTemplates.utils";
 
 @Injectable()
 export class UserService {

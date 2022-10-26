@@ -14,7 +14,7 @@ import { ChangePasswordDto, UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
-import { LoggedUser } from "../../server/auth/logged-user.decorator";
+import { LoggedUser } from "src/server/auth/logged-user.decorator";
 
 @ApiTags("User")
 @Controller("User")
