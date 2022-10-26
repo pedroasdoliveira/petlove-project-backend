@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { UserController } from "./user.controller";
-import { PrismaModule } from "src/server/prisma/prisma.module";
+import { PrismaModule } from "../../server/prisma/prisma.module";
 import { PassportModule } from "@nestjs/passport";
 import { JwtModule } from "@nestjs/jwt";
 

@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+export {};
+/* import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -27,3 +28,4 @@ const seeds = Object.entries({
   .finally(async () => {
     await prisma.$disconnect();
   });
+ */
