@@ -8,6 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "yarn build:next && yarn build:nest",
+    "postinstall": "npx prisma generate",
     "build:next": "next build",
     "build:nest": "nest build --path ./tsconfig.server.json",
     "start": "node ./dist/server/main.js",
