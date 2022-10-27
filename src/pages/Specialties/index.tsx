@@ -16,10 +16,10 @@ const Specialty: NextPage = () => {
   const [newTest, setNewTest] = useState(false);
   const [contTest, setContTest] = useState(0);
 
-  // useEffect(() => {
-  //   checkTokenExpiration?.();
-  //   handleGetTest?.();
-  // }, []);
+  useEffect(() => {
+    checkTokenExpiration?.();
+    handleGetTest?.();
+  }, []);
 
   useEffect(() => {
     if (user?.isAdmin) {

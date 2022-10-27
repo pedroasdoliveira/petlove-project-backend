@@ -31,9 +31,9 @@ const History: NextPage = () => {
   const [newTest, setNewTest] = useState(false);
   const [contTest, setContTest] = useState(0);
 
-  // useEffect(() => {
-  //   checkTokenExpiration?.();
-  // }, []);
+  useEffect(() => {
+    checkTokenExpiration?.();
+  }, []);
 
   useEffect(() => {
     if (logged) handleGetUsers?.();

@@ -23,9 +23,9 @@ const Administration: NextPage = () => {
   const { checkTokenExpiration, logged } = useAuth();
   const { handleGetUsers } = useUsers();
 
-  // useEffect(() => {
-  //   checkTokenExpiration?.();
-  // }, []);
+  useEffect(() => {
+    checkTokenExpiration?.();
+  }, []);
 
   useEffect(() => {
     if (logged) handleGetUsers?.();
@@ -147,7 +147,7 @@ const Administration: NextPage = () => {
                 >
                   <AccordionButton justifyContent={"space-between"}>
                     <Flex direction={"row"} alignItems="start">
-                      <Heading as="h3">Comparações</Heading>
+                      <Heading as="h3" fontSize={{ sm: "lg", md: "xl" }}>Comparações</Heading>
                     </Flex>
                     <AccordionIcon w={10} h={10} />
                   </AccordionButton>

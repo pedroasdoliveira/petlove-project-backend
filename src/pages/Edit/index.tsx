@@ -18,9 +18,9 @@ const Edit: NextPage<ProfileProps> = () => {
   const [newTest, setNewTest] = useState(false);
   const [contTest, setContTest] = useState(0);
 
-  // useEffect(() => {
-  //   checkTokenExpiration?.();
-  // }, []);
+  useEffect(() => {
+    checkTokenExpiration?.();
+  }, []);
 
   useEffect(() => {
     if (user?.isAdmin) {
