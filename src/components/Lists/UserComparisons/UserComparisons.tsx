@@ -367,7 +367,10 @@ const UserComparisons = () => {
         w={"100%"}
         h="100%"
         style={{
-          background: "rgba(6, 11, 40, 0.94)",
+          background: useColorModeValue(
+            "linear-gradient(111.58deg, rgba(37,27,113, .40) 21.73%, rgba(37, 29, 103, 0.50) 78.27%)",
+            "linear-gradient(126.97deg, rgba(6, 12, 41, .3) 28.26%, rgba(4, 12, 48, 0.3) 91.2%)",
+          ),
           borderRadius: "10px",
         }}
         direction={"column"}

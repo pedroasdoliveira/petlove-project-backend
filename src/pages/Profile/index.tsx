@@ -21,9 +21,9 @@ const Profile: NextPage<ProfileProps> = () => {
   const [newTest, setNewTest] = useState(false);
   const [contTest, setContTest] = useState(0);
 
-  useEffect(() => {
-    checkTokenExpiration?.();
-  }, []);
+  // useEffect(() => {
+  //   checkTokenExpiration?.();
+  // }, []);
 
   useEffect(() => {
     setImage(user?.profilePicture ?? "");
@@ -38,7 +38,7 @@ const Profile: NextPage<ProfileProps> = () => {
   }, [user]);
 
   const background = useColorModeValue(
-    "linear-gradient(111.58deg, #3B49DA 21.73%, rgba(59, 73, 218, 0.49) 52.68%)",
+    "linear-gradient(111.58deg, rgba(37,27,113, .40) 21.73%, rgba(37, 29, 103, 0.50) 78.27%)",
     "linear-gradient(97.85deg, rgba(6, 11, 40, 0.94) 20.22%, rgba(10, 14, 35, 0.49) 100%)",
   );
 
@@ -106,18 +106,9 @@ const Profile: NextPage<ProfileProps> = () => {
             w="100%"
             justify={{ sm: "center", md: "initial" }}
             position="relative"
+            alignItems={"center"}
           >
-            <Heading
-              fontWeight="normal"
-              letterSpacing="tight"
-              fontSize={{ sm: "xl", md: "2xl" }}
-            >
-              {"<"}Welcome back{"/>"}{" "}
-              <Flex fontWeight="bold" display="inline-flex">
-                {user.name?.split(" ")[0]}
-              </Flex>
-            </Heading>
-            <Flex position="absolute" right="20" top="-4">
+            <Flex mr={4}>
               <Image
                 src={image ? image : ProfileIcon}
                 alt="Imagem de perfil"
@@ -127,6 +118,17 @@ const Profile: NextPage<ProfileProps> = () => {
                 style={{ borderRadius: "50%", background: "#dee0e3" }}
               />
             </Flex>
+            <Heading
+              fontWeight="bold"
+              letterSpacing="2%"
+              fontSize={{ sm: "xl", md: "2xl" }}
+              lineHeight={1.5}
+            >
+              {"<"}Welcome back{"/>"}{" "}
+              <Flex fontWeight="normal">
+                Valgas
+              </Flex>
+            </Heading>
           </Flex>
           <Flex
             flexDir={{ sm: "column", md: "row" }}
