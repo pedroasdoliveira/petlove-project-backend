@@ -1,6 +1,6 @@
 const dto = {
   id: 1,
-  name: 'John',
+  name: "John",
   nextRole: null,
   system: 3,
   person: 3,
@@ -11,8 +11,8 @@ const dto = {
 
 const specialys = [
   {
-    performance: 'Trainee',
-    description: 'Trainee',
+    performance: "Trainee",
+    description: "Trainee",
     system: 1,
     person: 2,
     technology: 0.8,
@@ -20,8 +20,8 @@ const specialys = [
     influence: 1.4,
   },
   {
-    performance: 'Junior',
-    description: 'Junior',
+    performance: "Junior",
+    description: "Junior",
     system: 1.8,
     person: 2.3,
     technology: 2.6,
@@ -29,8 +29,8 @@ const specialys = [
     influence: 2,
   },
   {
-    performance: 'Pleno',
-    description: 'Pleno',
+    performance: "Pleno",
+    description: "Pleno",
     system: 3.1,
     person: 2.4,
     technology: 3.1,
@@ -38,8 +38,8 @@ const specialys = [
     influence: 2.6,
   },
   {
-    performance: 'Senior',
-    description: 'Senior',
+    performance: "Senior",
+    description: "Senior",
     system: 3.6,
     person: 2.7,
     technology: 3.4,
@@ -47,8 +47,8 @@ const specialys = [
     influence: 2.8,
   },
   {
-    performance: 'Especialista',
-    description: 'Especialista',
+    performance: "Especialista",
+    description: "Especialista",
     system: 4.7,
     person: 2.2,
     technology: 4.2,
@@ -56,8 +56,8 @@ const specialys = [
     influence: 2.8,
   },
   {
-    performance: 'Tech-Lead',
-    description: 'Tech Lead',
+    performance: "Tech-Lead",
+    description: "Tech Lead",
     system: 3.8,
     person: 3.6,
     technology: 3.7,

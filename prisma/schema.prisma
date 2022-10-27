@@ -64,9 +64,9 @@ id                          String                          @id @default(uuid())
 user                        User?                           @relation(fields: [userId], references: [id], onDelete: Cascade)
 userId                      String?
 nextRole                    String?                         @map("next_role")
-system                      Int
-person                      Int
-process                     Int
+system                      Float?
+person                      Float?
+process                     Float?
 technology                  Float?
 influence                   Float?
 isValided                   String?                         @map("is_valided")
