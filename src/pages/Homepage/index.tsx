@@ -27,9 +27,9 @@ const Homepage: NextPage = () => {
   const [newTest, setNewTest] = useState(false);
   const [contTest, setContTest] = useState(0);
 
-  useEffect(() => {
-    checkTokenExpiration?.();
-  }, []);
+  // useEffect(() => {
+  //   checkTokenExpiration?.();
+  // }, []);
 
   useEffect(() => {
     setImage(user?.profilePicture ?? "");
@@ -46,7 +46,7 @@ const Homepage: NextPage = () => {
   const borderColor = useColorModeValue("#1d1d31", "#8e6dd1");
   const textColor = "white";
   const bgCardColor = useColorModeValue(
-    "linear-gradient(111.58deg, #3B49DA 21.73%, rgba(59, 73, 218, 0.49) 52.68%)",
+    "linear-gradient(111.58deg, rgba(37,27,113, .40) 21.73%, rgba(37, 29, 103, 0.50) 78.27%)",
     "linear-gradient(97.85deg, rgba(6, 11, 40, 0.94) 20.22%, rgba(10, 14, 35, 0.49) 100%)",
   );
   const shadowColor = useColorModeValue("#1d1d31", "#8e6dd1");
@@ -160,7 +160,7 @@ const Homepage: NextPage = () => {
           fontWeight="normal"
           color={textColor}
         >
-          Faça um teste agora mesmo
+          Descubra o seu potencial
         </Text>
       </Flex>
 
@@ -188,10 +188,8 @@ const Homepage: NextPage = () => {
             <Image src={CheckIcon} width={"60px"} height={"60px"} />
 
             <Text textAlign={"center"} color={textColor} lineHeight={"165%"}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-              vitae ullam odit voluptates id explicabo aperiam saepe ipsa,
-              magnam, esse voluptas! Accusantium adipisci optio recusandae? Nam
-              nostrum velit vitae autem.
+              Testes suas competências e capacidades como profissional e avalie
+              seus pontos de melhoria para a sua evolução.
             </Text>
           </Flex>
         </GridItem>
@@ -215,10 +213,8 @@ const Homepage: NextPage = () => {
             <Image src={ClockIcon} width={"60px"} height={"60px"} />
 
             <Text textAlign={"center"} color={textColor} lineHeight={"165%"}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-              vitae ullam odit voluptates id explicabo aperiam saepe ipsa,
-              magnam, esse voluptas! Accusantium adipisci optio recusandae? Nam
-              nostrum velit vitae autem.
+              Tenha acesso a seu histórico de evolução de forma rápida com o
+              comparativo com seu crescimento profissional.
             </Text>
           </Flex>
         </GridItem>
@@ -242,10 +238,8 @@ const Homepage: NextPage = () => {
             <Image src={ProfileIcon} width={"60px"} height={"60px"} />
 
             <Text textAlign={"center"} color={textColor} lineHeight={"165%"}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-              vitae ullam odit voluptates id explicabo aperiam saepe ipsa,
-              magnam, esse voluptas! Accusantium adipisci optio recusandae? Nam
-              nostrum velit vitae autem.
+              Administradores tem acesso a diferentes funções com os usuários
+              cadastrados, desde o histórico de evolução até o cadastro de cada time.
             </Text>
           </Flex>
         </GridItem>

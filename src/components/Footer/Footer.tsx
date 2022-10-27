@@ -24,10 +24,11 @@ const Footer = () => {
         <Image src={HorizontalBar} width="200px" height="10px" />
 
         <Text textAlign={"center"} lineHeight={"165%"} color={"white"}>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          Reprehenderit neque cupiditate ipsam, inventore minus non id corrupti
-          dolor laborum animi rerum accusamus nihil, similique quaerat deserunt
-          deleniti assumenda dicta! Soluta.
+          A plataforma em conjunto com os administradores, que representam os
+          lideres de cada equipe e setor, tem como objetivo avaliar o
+          crescimento das habilidades de cada profissional com o passar de sua
+          evolução e de exibir o seu potencial sobre cada categoria que é
+          demonstrado.
         </Text>
       </Flex>
 
