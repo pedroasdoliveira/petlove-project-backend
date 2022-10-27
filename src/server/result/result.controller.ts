@@ -12,8 +12,8 @@ import { ResultService } from "./result.service";
 import { CreateResultDto } from "./dto/create-result.dto";
 import { UpdateResultDto } from "./dto/update-result.dto";
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
-import { LoggedUser } from "src/server/auth/logged-user.decorator";
-import { User } from "src/server/user/entities/user.entity";
+import { LoggedUser } from "../../server/auth/logged-user.decorator";
+import { User } from "../../server/user/entities/user.entity";
 import { AuthGuard } from "@nestjs/passport";
 
 @ApiTags("Result")
