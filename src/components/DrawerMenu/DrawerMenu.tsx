@@ -37,8 +37,8 @@ const DrawerMenu = ({ path }: SettingsMenuProps) => {
     "rgba(27, 28, 51, 0.71)",
   );
   const pageBackground = useColorModeValue(
-    "linear-gradient(123deg, #3B49DA 42.33%, rgba(59, 73, 218, 0.49) 73.76%)",
-    "linear-gradient(130.87deg, rgba(6, 11, 40, 0.94) 40.59%, rgba(10, 14, 35, 0.49) 64.14%)",
+    "linear-gradient(111.58deg, rgba(37,27,113, .95) 35%, rgba(37, 29, 103, 0.50) 78.27%)",
+    "linear-gradient(97.85deg, rgba(6, 11, 40, 0.94) 20.22%, rgba(10, 14, 35, 0.49) 100%)",
   );
 
   return (
