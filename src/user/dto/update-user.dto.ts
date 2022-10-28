@@ -38,7 +38,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @ApiProperty({
     description: "URL da foto do usuário",
     example:
-      "https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg",
+      "https://i.imgur.com/DL9HxNB.jpeg",
   })
   profilePicture: string;
 }

@@ -24,6 +24,8 @@ emailNotification           String?                         @default("all") @map
 results                     Result[]
 createdAt                   DateTime                        @default(now()) @map("created_at")
 updatedAt                   DateTime                        @default(now()) @map("updated_at")
+isDeleted                   Boolean?                        @default(false) @map("is_deleted")
+deletedAt                   DateTime?                       @map("deleted_at")
 
 @@map("users")
 }
