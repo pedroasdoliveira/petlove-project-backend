@@ -7,11 +7,7 @@ Projeto de bootcamp desenvolvido para a equipe da Petlove, referente a uma aplic
 Boa parte sobre toda a documentação da aplicação se encontra em nosso Gitbook no link:
 [self-awareness-test-doc](https://pedros-organization-1.gitbook.io/self-awareness-test/)
 
-## Pré-requisitos
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-### 👯‍ Clonando o projeto
+## 👯‍ Clonando o projeto
 
 Clone o projeto na sua maquina utilizando o comando do git:
 
@@ -19,11 +15,9 @@ Clone o projeto na sua maquina utilizando o comando do git:
 
 Ou através do Github Desktop:
 
-## Learn More
-
 `gh repo clone pedroasdoliveira/petlove-project-backend`
 
-### 🔧 Instalação
+## 🔧 Instalação
 
 `npm install`
 
@@ -35,31 +29,28 @@ Ou através do Github Desktop:
 
 ## Rodando o app
 
-`
-
-# development
+- development
 
 $ npm run start
 
-# watch mode
+- watch mode
 
 $ npm run start:dev
 
-# production mode
+- production mode
 
 $ npm run build
 $ npm run start:prod
-`
 
 ## Compodoc
 
-# Install
+### Instalação
 
 `npm i -D @compodoc/compodoc`
 
-# Doc Generate , run and Doc update
+### Doc Generate , run and Doc update
 
-`npx @compodoc/compodoc -p tsconfig.json -s `
+`npx @compodoc/compodoc -p tsconfig.json -s`
 
 ## Principais ferramentas utilizadas
 
