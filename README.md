@@ -7,7 +7,9 @@ Projeto de bootcamp desenvolvido para a equipe da Petlove, referente a uma aplic
 Boa parte sobre toda a documentação da aplicação se encontra em nosso Gitbook no link:
 [self-awareness-test-doc](https://pedros-organization-1.gitbook.io/self-awareness-test/)
 
-## 👯‍ Clonando o projeto
+## Pré-requisitos
+
+### 👯‍ Clonando o projeto
 
 Clone o projeto na sua maquina utilizando o comando do git:
 
