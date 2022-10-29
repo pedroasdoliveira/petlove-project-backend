@@ -80,6 +80,12 @@ $ npm run start:prod
 
 [Render](https://api-petlove-backend.onrender.com/api)
 
+## Front-end
+
+Repositório: [front-end](https://github.com/pedroasdoliveira/petlove-project-frontend)
+
+Deploy: [vercel](https://petlove-project-frontend.vercel.app)
+
 ## ✒️ Autores
 
 - **Pedro Oliveira** (Github: https://github.com/pedroasdoliveira | Linkedin: https://www.linkedin.com/in/pedro-augusto-silva-de-oliveira/);
