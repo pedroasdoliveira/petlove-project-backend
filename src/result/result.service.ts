@@ -18,6 +18,7 @@ import {
   emailTestValidation,
   emailTestValidationAdm,
 } from "src/utils/emailsTemplates.utils";
+import { Specialty } from "src/specialties/entities/specialty.entity";
 
 @Injectable()
 export class ResultService {
@@ -44,9 +45,9 @@ export class ResultService {
 
     if (lastTestUser) {
       const now = DateTime.now();
-      const lastTestUser2 = DateTime.fromJSDate(lastTestUser.createdAt);
+      const lastTestUserVerify = DateTime.fromJSDate(lastTestUser.createdAt);
 
-      if (lastTestUser2.diff(now, "months").months < 3) {
+      if (lastTestUserVerify.diff(now, "months").months < 3) {
         throw new UnauthorizedException("Insufficient completion time!");
       }
 
@@ -55,27 +56,59 @@ export class ResultService {
       }
     }
 
-    const technology =
-      (dto.toolshop + dto.design + dto.test + dto.computationalFundamentals) *
-      (5 / 12);
-    const influence = (dto.system + dto.process + 2 * dto.person) / 4;
+    const dtoToInt: CreateResultDto = {
+      person: Math.round(dto.person * 100),
+      process: Math.round(dto.process * 100),
+      system: Math.round(dto.system * 100),
+      computationalFundamentals: Math.round(
+        dto.computationalFundamentals * 100,
+      ),
+      design: Math.round(dto.design * 100),
+      test: Math.round(dto.test * 100),
+      toolshop: Math.round(dto.toolshop * 100),
+    };
 
-    let nextRoleValue = undefined;
+    const technologyDto = Math.round(
+      (dtoToInt.toolshop +
+        dtoToInt.design +
+        dtoToInt.test +
+        dtoToInt.computationalFundamentals) *
+        (5 / 12),
+    );
+    const influenceDto = Math.round(
+      (dtoToInt.system + dtoToInt.process + 2 * dtoToInt.person) / 4,
+    );
+
+    let nextRoleValue: string;
 
     const specialtys = await this.prisma.specialtie.findMany();
 
-    if (specialtys.length === 0) {
+    const specialtysToInt: Specialty[] = specialtys.map(
+      (specialty: Specialty) => {
+        return {
+          performance: specialty.performance,
+          description: specialty.description,
+          influence: Math.round(specialty.influence * 100),
+          technology: Math.round(specialty.technology * 100),
+          person: Math.round(specialty.person * 100),
+          process: Math.round(specialty.process * 100),
+          system: Math.round(specialty.system * 100),
+        };
+      },
+    );
+
+    if (specialtysToInt.length === 0) {
       throw new NotFoundException("Não existem especialidades cadastradas.");
     }
 
-    const result = specialtys.map((specialy) => {
+    const result = specialtysToInt.map((specialy) => {
       const { performance, system, person, technology, process, influence } =
         specialy;
-      const systemDiff = system - dto.system;
-      const personDiff = person - dto.person;
-      const technologyDiff = technology - technology;
-      const processDiff = process - dto.process;
-      const influenceDiff = influence - influence;
+      const systemDiff = system - dtoToInt.system;
+      const personDiff = person - dtoToInt.person;
+      const technologyDiff = technology - technologyDto;
+      const processDiff = process - dtoToInt.process;
+      const influenceDiff = influence - influenceDto;
 
       const totalDiff =
         Math.abs(systemDiff) +
@@ -99,11 +132,11 @@ export class ResultService {
         },
       },
       nextRole: nextRoleValue,
-      person: dto.person,
-      process: dto.process,
-      system: dto.system,
-      technology: Math.round(technology),
-      influence: Math.round(influence),
+      person: dtoToInt.person,
+      process: dtoToInt.process,
+      system: dtoToInt.system,
+      technology: technologyDto,
+      influence: influenceDto,
     };
 
     return this.prisma.result
@@ -206,6 +239,12 @@ export class ResultService {
           }
         });
 
+        result.system = result.system / 100;
+        result.person = result.person / 100;
+        result.technology = result.technology / 100;
+        result.process = result.process / 100;
+        result.influence = result.influence / 100;
+
         return result;
       })
       .catch(handleError);
@@ -213,18 +252,30 @@ export class ResultService {
 
   async findAll(user: User) {
     isAdmin(user);
-    const allResults = await this.prisma.result.findMany({
-      select: {
-        id: true,
-        nextRole: true,
-        person: true,
-        process: true,
-        system: true,
-        technology: true,
-        influence: true,
-        createdAt: true,
-      },
-    });
+    const allResults = await this.prisma.result
+      .findMany({
+        select: {
+          id: true,
+          nextRole: true,
+          person: true,
+          process: true,
+          system: true,
+          technology: true,
+          influence: true,
+          createdAt: true,
+        },
+      })
+      .then((results) => {
+        results.forEach((result) => {
+          result.system = result.system / 100;
+          result.person = result.person / 100;
+          result.technology = result.technology / 100;
+          result.process = result.process / 100;
+          result.influence = result.influence / 100;
+        });
+
+        return results;
+      });
 
     if (allResults.length === 0) {
       throw new NotFoundException("Não existem resultados cadastrados.");
@@ -233,9 +284,10 @@ export class ResultService {
     return allResults;
   }
 
-  async findOne(id: string) {
-    try {
-      return await this.prisma.result.findUnique({
+  async findOne(id: string, user: User) {
+    isAdmin(user);
+    const result = await this.prisma.result
+      .findUnique({
         where: { id: id },
         select: {
           id: true,
@@ -245,14 +297,37 @@ export class ResultService {
           system: true,
           technology: true,
           influence: true,
+          isValided: true,
         },
-      });
-    } catch (error) {
-      return handleError(error);
+      })
+      .then((result) => {
+        result.system = result.system / 100;
+        result.person = result.person / 100;
+        result.technology = result.technology / 100;
+        result.process = result.process / 100;
+        result.influence = result.influence / 100;
+
+        return result;
+      })
+      .catch(handleError);
+
+    if (!result) {
+      throw new NotFoundException("Resultado não encontrado.");
     }
+
+    return result;
   }
 
-  async update(id: string, dto: UpdateResultDto) {
+  async update(id: string, dto: UpdateResultDto, user: User) {
+    isAdmin(user);
+    const isValidedResult = await this.prisma.result.findUnique({
+      where: { id: id },
+      select: {
+        id: true,
+        isValided: true,
+      },
+    });
+
     if (
       dto.isValided &&
       dto.nextRole &&
@@ -294,7 +369,89 @@ export class ResultService {
           }
 
           // enviar email para o usuário
+          if (isValidedResult.isValided === null) {
+            const user = await this.prisma.user.findUnique({
+              where: { id: result.userId },
+              select: {
+                email: true,
+                name: true,
+              },
+            });
 
+            const transporter = nodemailer.createTransport({
+              host: "smtp.gmail.com",
+              port: 587,
+              service: "gmail",
+              auth: {
+                user: process.env.USER_EMAIL,
+                pass: process.env.USER_PASSWORD,
+              },
+            });
+
+            const emote = result.isValided === "Sim" ? "😀" : "😢";
+            const message =
+              result.isValided === "Sim"
+                ? "Parabéns, você foi promovido, continue assim!"
+                : "Infelizmente você não foi promovido, continue se esforçando que você vai conseguir.";
+
+            const mailData = {
+              from: `Pet Love <${process.env.USER_EMAIL}>`,
+              to: user.email,
+              subject: "Resultado do teste",
+              html: emailTestResult(
+                user.name.split(" ")[0],
+                result.nextRole,
+                emote,
+                message,
+                result.isValided,
+              ),
+            };
+
+            transporter.sendMail(mailData, function (err, info) {
+              if (err) {
+                console.log(err);
+
+                throw new BadRequestException("Error sending email");
+              } else {
+                console.log(info);
+              }
+            });
+          }
+
+          return result;
+        })
+        .catch(handleError);
+    }
+
+    const data: Prisma.ResultUpdateInput = {
+      isValided: dto.isValided,
+      nextRole: dto.nextRole,
+      person: dto.person ? Math.round(dto.person * 100) : undefined,
+      process: dto.process ? Math.round(dto.process * 100) : undefined,
+      system: dto.system ? Math.round(dto.system * 100) : undefined,
+      technology: dto.technology ? Math.round(dto.technology * 100) : undefined,
+      influence: dto.influence ? Math.round(dto.influence * 100) : undefined,
+    };
+
+    return this.prisma.result
+      .update({
+        data,
+        where: { id: id },
+        select: {
+          id: true,
+          userId: true,
+          nextRole: true,
+          person: true,
+          process: true,
+          system: true,
+          technology: true,
+          influence: true,
+          isValided: true,
+        },
+      })
+      .then(async (result) => {
+        // enviar email para o usuário
+        if (isValidedResult.isValided === null) {
           const user = await this.prisma.user.findUnique({
             where: { id: result.userId },
             select: {
@@ -322,7 +479,7 @@ export class ResultService {
           const mailData = {
             from: `Pet Love <${process.env.USER_EMAIL}>`,
             to: user.email,
-            subject: "Resultado do teste",
+            subject: "Resultado do teste (modificado pelo administrador)",
             html: emailTestResult(
               user.name.split(" ")[0],
               result.nextRole,
@@ -341,87 +498,12 @@ export class ResultService {
               console.log(info);
             }
           });
-
-          return result;
-        })
-        .catch(handleError);
-    }
-
-    const data: Prisma.ResultUpdateInput = {
-      isValided: dto.isValided,
-      nextRole: dto.nextRole,
-      person: dto.person,
-      process: dto.process,
-      system: dto.system,
-      technology: dto.technology,
-      influence: dto.influence,
-    };
-
-    return this.prisma.result
-      .update({
-        data,
-        where: { id: id },
-        select: {
-          id: true,
-          userId: true,
-          nextRole: true,
-          person: true,
-          process: true,
-          system: true,
-          technology: true,
-          influence: true,
-          isValided: true,
-        },
-      })
-      .then(async (result) => {
-        // enviar email para o usuário
-
-        const user = await this.prisma.user.findUnique({
-          where: { id: result.userId },
-          select: {
-            email: true,
-            name: true,
-          },
-        });
-
-        const transporter = nodemailer.createTransport({
-          host: "smtp.gmail.com",
-          port: 587,
-          service: "gmail",
-          auth: {
-            user: process.env.USER_EMAIL,
-            pass: process.env.USER_PASSWORD,
-          },
-        });
-
-        const emote = result.isValided === "Sim" ? "😀" : "😢";
-        const message =
-          result.isValided === "Sim"
-            ? "Parabéns, você foi promovido, continue assim!"
-            : "Infelizmente você não foi promovido, continue se esforçando que você vai conseguir.";
-
-        const mailData = {
-          from: `Pet Love <${process.env.USER_EMAIL}>`,
-          to: user.email,
-          subject: "Resultado do teste (modificado pelo administrador)",
-          html: emailTestResult(
-            user.name.split(" ")[0],
-            result.nextRole,
-            emote,
-            message,
-            result.isValided,
-          ),
-        };
-
-        transporter.sendMail(mailData, function (err, info) {
-          if (err) {
-            console.log(err);
-
-            throw new BadRequestException("Error sending email");
-          } else {
-            console.log(info);
-          }
-        });
+        }
+        result.system = result.system / 100;
+        result.person = result.person / 100;
+        result.technology = result.technology / 100;
+        result.process = result.process / 100;
+        result.influence = result.influence / 100;
 
         return result;
       })
@@ -431,6 +513,6 @@ export class ResultService {
   async remove(id: string, user: User) {
     isAdmin(user);
     await this.prisma.result.delete({ where: { id } }).catch(handleError);
-    return { message: "Institute successfully deleted" };
+    return { message: "Result successfully deleted" };
   }
 }

@@ -50,11 +50,11 @@ model Specialtie {
 id                          String                          @id @default(uuid())
 performance                 String                          @unique
 description                 String
-system                      Float
-person                      Float
-technology                  Float
-process                     Float
-influence                   Float
+system                      Int
+person                      Int
+technology                  Int
+process                     Int
+influence                   Int
 createdAt                   DateTime                        @default(now()) @map("created_at")
 updatedAt                   DateTime                        @default(now()) @map("updated_at")
 
@@ -66,11 +66,11 @@ id                          String                          @id @default(uuid())
 user                        User?                           @relation(fields: [userId], references: [id], onDelete: Cascade)
 userId                      String?
 nextRole                    String?                         @map("next_role")
-system                      Float?
-person                      Float?
-process                     Float?
-technology                  Float?
-influence                   Float?
+system                      Int?
+person                      Int?
+process                     Int?
+technology                  Int?
+influence                   Int?
 isValided                   String?                         @map("is_valided")
 createdAt                   DateTime                        @default(now()) @map("created_at")
 updatedAt                   DateTime                        @default(now()) @map("updated_at")

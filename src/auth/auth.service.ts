@@ -25,6 +25,10 @@ export class AuthService {
       throw new UnauthorizedException("User not verified");
     }
 
+    if (user.isDeleted === true) {
+      throw new UnauthorizedException("User deleted");
+    }
+
     const isHashValid = await bcrypt.compare(password, user.password);
     if (!isHashValid) {
       throw new UnauthorizedException("Invalid email and/or password");

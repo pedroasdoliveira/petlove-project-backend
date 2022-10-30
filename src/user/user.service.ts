@@ -461,6 +461,9 @@ export class UserService {
           updatedAt: true,
         },
       })
+      .then((user) => {
+        return { message: "Usuário excluído com sucesso.", ...user };
+      })
       .catch(handleError);
   }
 
@@ -537,6 +540,9 @@ export class UserService {
           password: false,
           updatedAt: true,
         },
+      })
+      .then((user) => {
+        return { message: "Usuário recuperado com sucesso.", ...user };
       })
       .catch(handleError);
   }
