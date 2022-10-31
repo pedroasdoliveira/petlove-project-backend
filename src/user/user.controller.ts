@@ -122,4 +122,40 @@ export class UserController {
   remove(@Param("email") email: string, @LoggedUser() user: User) {
     return this.userService.remove(email, user);
   }
+
+    /**
+   * @param req
+   * @returns user
+   */
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @Patch("/Soft-delete/:email")
+  @ApiOperation({ summary: "Soft delete a user (Adm)" })
+  softDelete(@Param("email") email: string, @LoggedUser() user: User) {
+    return this.userService.softDelete(email, user);
+  }
+
+    /**
+   * @param req
+   * @returns users
+   */
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @Get("/Soft-delete/all")
+  @ApiOperation({ summary: "List all soft deleted users (Adm)" })
+  getRemovedUsers(@LoggedUser() user: User) {
+    return this.userService.getRemovedUsers(user);
+  }
+
+    /**
+   * @param req
+   * @returns users
+   */
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @Patch("/Soft-delete/recovery/:email")
+  @ApiOperation({ summary: "Recovery a soft deleted user (Adm)" })
+  recoverSoftDelete(@Param("email") email: string, @LoggedUser() user: User) {
+    return this.userService.recoverSoftDelete(email, user);
+  }
 }

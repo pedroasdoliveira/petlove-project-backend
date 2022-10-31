@@ -286,6 +286,9 @@ export class UserService {
   async findAll(user: User) {
     isAdmin(user);
     const allUsers = await this.prisma.user.findMany({
+      where: {
+        isDeleted: false,
+      },
       select: {
         id: true,
         name: true,
@@ -351,7 +354,10 @@ export class UserService {
   }
 
   async update(email: string, updateUserDto: UpdateUserDto, user: User) {
-    if (user.email === email && updateUserDto.newPassword) {
+    if (
+      user.email === email &&
+      (updateUserDto.newPassword || updateUserDto.profilePicture)
+    ) {
       if (!updateUserDto.password) {
         throw new BadRequestException("A senha atual não pode ser vazia.");
       }
@@ -362,12 +368,14 @@ export class UserService {
         );
       }
 
-      const newPassword = await bcrypt.hash(updateUserDto.newPassword, 5);
-      delete updateUserDto.confirmPassword;
-      delete updateUserDto.newPassword;
-
       const data = { ...updateUserDto };
-      data.password = newPassword;
+
+      if (updateUserDto.newPassword) {
+        data.password = await bcrypt.hash(updateUserDto.newPassword, 5);
+
+        delete data.newPassword;
+        delete data.confirmPassword;
+      }
 
       return this.prisma.user
         .update({
@@ -376,6 +384,7 @@ export class UserService {
           select: {
             id: true,
             name: true,
+            profilePicture: true,
             email: true,
             password: false,
             updatedAt: true,
@@ -411,14 +420,146 @@ export class UserService {
     );
   }
 
+  async softDelete(email: string, user: User) {
+    isAdmin(user);
+
+    const record = await this.prisma.user.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        team: true,
+        role: true,
+        chapter: true,
+        results: true,
+        createdAt: true,
+        isAdmin: true,
+        emailNotification: true,
+        profilePicture: true,
+        isDeleted: true,
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException(`Email '${email}' não encontrado.`);
+    }
+
+    if (record.isDeleted === true) {
+      throw new BadRequestException("Usuário já foi excluído.");
+    }
+
+    return this.prisma.user
+      .update({
+        where: { email },
+        data: { deletedAt: new Date(), isDeleted: true },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          password: false,
+          updatedAt: true,
+        },
+      })
+      .then((user) => {
+        return { message: "Usuário excluído com sucesso.", ...user };
+      })
+      .catch(handleError);
+  }
+
+  async getRemovedUsers(user: User) {
+    isAdmin(user);
+
+    const allUsers = await this.prisma.user.findMany({
+      where: { isDeleted: true },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        team: true,
+        role: true,
+        chapter: true,
+        results: true,
+        createdAt: true,
+        isAdmin: true,
+        emailNotification: true,
+        profilePicture: true,
+        isDeleted: true,
+        deletedAt: true,
+      },
+    });
+
+    if (allUsers.length === 0) {
+      throw new NotFoundException("Não existem usuários deletados.");
+    }
+
+    const allUsersSort = allUsers.sort((a, b) => {
+      return b.deletedAt < a.deletedAt ? 1 : -1;
+    });
+
+    return allUsersSort;
+  }
+
+  async recoverSoftDelete(email: string, user: User) {
+    isAdmin(user);
+
+    const record = await this.prisma.user.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        team: true,
+        role: true,
+        chapter: true,
+        results: true,
+        createdAt: true,
+        isAdmin: true,
+        emailNotification: true,
+        profilePicture: true,
+        isDeleted: true,
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException(`Email '${email}' não encontrado.`);
+    }
+
+    if (record.isDeleted === false) {
+      throw new BadRequestException("Usuário não está deletado.");
+    }
+
+    return this.prisma.user
+      .update({
+        where: { email },
+        data: { deletedAt: null, isDeleted: false },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          password: false,
+          updatedAt: true,
+        },
+      })
+      .then((user) => {
+        return { message: "Usuário recuperado com sucesso.", ...user };
+      })
+      .catch(handleError);
+  }
+
   async remove(email: string, user: User) {
     isAdmin(user);
 
     if (!email) {
       throw new NotFoundException(`email:${email} não encontrado`);
-    } else {
-      await this.prisma.user.findUnique({ where: { email: email } });
-      throw new HttpException("Usuário deletado com sucesso!", 200);
     }
+
+    await this.prisma.user.findUnique({ where: { email: email } });
+
+    return this.prisma.user
+      .delete({
+        where: { email },
+      })
+      .catch(handleError);
   }
 }
