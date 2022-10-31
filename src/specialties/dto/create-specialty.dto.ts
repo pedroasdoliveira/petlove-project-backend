@@ -22,7 +22,7 @@ export class CreateSpecialtyDto {
   })
   @ApiProperty({
     description: "Systems score",
-    example: 2,
+    example: 1.8,
   })
   system: number;
 
@@ -31,7 +31,7 @@ export class CreateSpecialtyDto {
   })
   @ApiProperty({
     description: "Persons score",
-    example: 3,
+    example: 2.3,
   })
   person: number;
 
@@ -40,7 +40,7 @@ export class CreateSpecialtyDto {
   })
   @ApiProperty({
     description: "technology score",
-    example: 4,
+    example: 2.6,
   })
   technology: number;
 
@@ -49,7 +49,7 @@ export class CreateSpecialtyDto {
   })
   @ApiProperty({
     description: "Process score",
-    example: 5,
+    example: 1.6,
   })
   process: number;
 

@@ -1,8 +1,7 @@
 import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { IsNumber, IsOptional, IsString } from "class-validator";
-import { CreateResultDto } from "./create-result.dto";
 
-export class UpdateResultDto extends PartialType(CreateResultDto) {
+export class UpdateResultDto {
   @IsString()
   @ApiProperty({
     description: "Para escolher a categoria do usuário",
@@ -33,7 +32,37 @@ export class UpdateResultDto extends PartialType(CreateResultDto) {
   @IsOptional()
   @ApiProperty({
     description: "Technology test result",
-    example: 3,
+    example: 1.5,
   })
   technology: number;
+
+  @IsNumber({
+    maxDecimalPlaces: 2,
+  })
+  @IsOptional()
+  @ApiProperty({
+    description: "System test result",
+    example: 0.8,
+  })
+  system: number;
+
+  @IsNumber({
+    maxDecimalPlaces: 2,
+  })
+  @IsOptional()
+  @ApiProperty({
+    description: "Process test result",
+    example: 1,
+  })
+  process: number;
+
+  @IsNumber({
+    maxDecimalPlaces: 2,
+  })
+  @IsOptional()
+  @ApiProperty({
+    description: "Technology test result",
+    example: 1.3,
+  })
+  person: number;
 }

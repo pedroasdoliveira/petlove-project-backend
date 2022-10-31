@@ -66,6 +66,63 @@ const specialys = [
   },
 ];
 
+const specialys2 = [
+  {
+    performance: "Trainee",
+    description: "Trainee",
+    system: 100,
+    person: 200,
+    technology: 80,
+    process: 100,
+    influence: 140,
+  },
+  {
+    performance: "Junior",
+    description: "Junior",
+    system: 180,
+    person: 230,
+    technology: 260,
+    process: 160,
+    influence: 200,
+  },
+  {
+    performance: "Pleno",
+    description: "Pleno",
+    system: 310,
+    person: 240,
+    technology: 310,
+    process: 230,
+    influence: 260,
+  },
+  {
+    performance: "Senior",
+    description: "Senior",
+    system: 360,
+    person: 270,
+    technology: 340,
+    process: 230,
+    influence: 280,
+  },
+  {
+    performance: "Especialista",
+    description: "Especialista",
+    system: 470,
+    person: 220,
+    technology: 420,
+    process: 230,
+    influence: 280,
+  },
+  {
+    performance: "Tech-Lead",
+    description: "Tech Lead",
+    system: 380,
+    person: 360,
+    technology: 370,
+    process: 380,
+    influence: 370,
+  },
+];
+
 const result = specialys.map((specialy) => {
   const { performance, system, person, technology, process, influence } =
     specialy;
@@ -81,7 +138,7 @@ const result = specialys.map((specialy) => {
     Math.abs(technologyDiff) +
     Math.abs(processDiff) +
     Math.abs(influenceDiff);
-  return { performance, totalDiff };
+  return { performance, totalDiff: (totalDiff / 100) };
 });
 
 console.log(result);
@@ -91,3 +148,14 @@ const min = result.reduce((prev, current) =>
 );
 
 console.log(min);
+
+const teste = {
+  system: 1 + 2 + 3 + 1 + 290,
+  ...dto
+}
+
+console.log(teste)
+console.log(teste.system / 100)
+console.log(.99999992345)
+
+console.log(Math.round(teste.system / 100))

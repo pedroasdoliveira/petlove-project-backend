@@ -93,9 +93,8 @@ export class TestService {
 
     if (!id) {
       throw new NotFoundException(`id:${id} não encontrado`);
-    } else {
-      await this.prisma.test.delete({ where: { id: id } });
-      throw new HttpException("Test deletado com sucesso!", 200);
     }
+    await this.prisma.test.delete({ where: { id: id } });
+    return { message: "Teste deletado com sucesso" };
   }
 }
