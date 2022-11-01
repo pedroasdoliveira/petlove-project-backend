@@ -158,4 +158,28 @@ export class UserController {
   recoverSoftDelete(@Param("email") email: string, @LoggedUser() user: User) {
     return this.userService.recoverSoftDelete(email, user);
   }
+
+  /**
+   * @param req
+   * @returns user
+   */
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @Patch("/userAdmin/:email")
+  @ApiOperation({ summary: "Change user to admin (Adm)" })
+  userAdmin(@Param("email") email: string, @LoggedUser() user: User) {
+    return this.userService.userAdmin(email, user);
+  }
+
+  /**
+   * @param req
+   * @returns user
+   */
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @Patch("/userNormal/:email")
+  @ApiOperation({ summary: "Change user to normal (Adm)" })
+  userNotAdmin(@Param("email") email: string, @LoggedUser() user: User) {
+    return this.userService.userNotAdmin(email, user);
+  }
 }

@@ -307,6 +307,14 @@ export class UserService {
     }
 
     const allUsersSort = allUsers.map((user) => {
+      user.results.forEach((result) => {
+        result.system = result.system / 100;
+        result.person = result.person / 100;
+        result.technology = result.technology / 100;
+        result.process = result.process / 100;
+        result.influence = result.influence / 100;
+      });
+
       user.results = user.results.sort((a, b) => {
         return b.createdAt < a.createdAt ? 1 : -1;
       });
@@ -335,7 +343,7 @@ export class UserService {
     });
 
     if (!record) {
-      throw new NotFoundException(`Registro: '${email}' não encontrado.`);
+      throw new NotFoundException(`email: '${email}' não encontrado.`);
     }
 
     if (user.email == email || user.isAdmin == true) {
@@ -345,12 +353,20 @@ export class UserService {
 
       record.results = usersSort;
 
+      usersSort.forEach((result) => {
+        result.system = result.system / 100;
+        result.person = result.person / 100;
+        result.technology = result.technology / 100;
+        result.process = result.process / 100;
+        result.influence = result.influence / 100;
+      });
+
       return record;
-    } else {
-      throw new UnauthorizedException(
-        "Você não tem permissão para acessar essa área!",
-      );
     }
+
+    throw new UnauthorizedException(
+      "Você não tem permissão para acessar essa área!",
+    );
   }
 
   async update(email: string, updateUserDto: UpdateUserDto, user: User) {
@@ -559,6 +575,108 @@ export class UserService {
     return this.prisma.user
       .delete({
         where: { email },
+      })
+      .catch(handleError);
+  }
+
+  async userAdmin(email: string, user: User) {
+    isAdmin(user);
+
+    const record = await this.prisma.user.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        team: true,
+        role: true,
+        chapter: true,
+        results: true,
+        createdAt: true,
+        isAdmin: true,
+        emailNotification: true,
+        profilePicture: true,
+        isDeleted: true,
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException(`Email '${email}' não encontrado.`);
+    }
+
+    if (record.isAdmin === true) {
+      throw new BadRequestException("Usuário já é administrador.");
+    }
+
+    if (record.isDeleted === true) {
+      throw new BadRequestException("Usuário deletado não pode ser administrador.");
+    }
+
+    return this.prisma.user
+      .update({
+        where: { email },
+        data: { isAdmin: true },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          password: false,
+          updatedAt: true,
+        },
+      })
+      .then((user) => {
+        return { message: "Usuário agora é administrador.", ...user };
+      })
+      .catch(handleError);
+  }
+
+  async userNotAdmin(email: string, user: User) {
+    isAdmin(user);
+
+    const record = await this.prisma.user.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        team: true,
+        role: true,
+        chapter: true,
+        results: true,
+        createdAt: true,
+        isAdmin: true,
+        emailNotification: true,
+        profilePicture: true,
+        isDeleted: true,
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException(`Email '${email}' não encontrado.`);
+    }
+
+    if (record.isAdmin === false) {
+      throw new BadRequestException("Usuário já não é administrador.");
+    }
+
+    if (record.isDeleted === true) {
+      throw new BadRequestException("Usuário deletado não pode ser administrador.");
+    }
+
+    return this.prisma.user
+      .update({
+        where: { email },
+        data: { isAdmin: false },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          password: false,
+          updatedAt: true,
+        },
+      })
+      .then((user) => {
+        return { message: "Usuário agora não é administrador.", ...user };
       })
       .catch(handleError);
   }
