@@ -15,6 +15,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { LoggedUser } from "src/auth/logged-user.decorator";
 import { User } from "src/user/entities/user.entity";
 import { AuthGuard } from "@nestjs/passport";
+import { Result } from "./entities/result.entity";
 
 @ApiTags("Result")
 @UseGuards(AuthGuard())
@@ -29,7 +30,10 @@ export class ResultController {
    */
   @Post()
   @ApiOperation({ summary: "Create test result" })
-  create(@LoggedUser() user: User, @Body() dto: CreateResultDto) {
+  create(
+    @LoggedUser() user: User,
+    @Body() dto: CreateResultDto,
+  ): Promise<Result> {
     return this.resultService.create(user, dto);
   }
 
@@ -39,7 +43,7 @@ export class ResultController {
    */
   @Get()
   @ApiOperation({ summary: "List all results" })
-  findAll(@LoggedUser() user: User) {
+  findAll(@LoggedUser() user: User): Promise<Result[]> {
     return this.resultService.findAll(user);
   }
 
@@ -49,7 +53,7 @@ export class ResultController {
    */
   @Get(":id")
   @ApiOperation({ summary: "To find a test result by id" })
-  findOne(@Param("id") id: string, @LoggedUser() user: User) {
+  findOne(@Param("id") id: string, @LoggedUser() user: User): Promise<Result> {
     return this.resultService.findOne(id, user);
   }
 
@@ -59,7 +63,11 @@ export class ResultController {
    */
   @Patch(":id")
   @ApiOperation({ summary: "To change data from a test performed" })
-  update(@Param("id") id: string, @Body() dto: UpdateResultDto, @LoggedUser() user: User) {
+  update(
+    @Param("id") id: string,
+    @Body() dto: UpdateResultDto,
+    @LoggedUser() user: User,
+  ): Promise<Result> {
     return this.resultService.update(id, dto, user);
   }
 
@@ -68,7 +76,7 @@ export class ResultController {
    * @returns message: 'Result deleted successfully'
    */
   @Delete(":id")
-  remove(@Param("id") id: string, @LoggedUser() user: User) {
+  remove(@Param("id") id: string, @LoggedUser() user: User): Promise<{message: string}> {
     return this.resultService.remove(id, user);
   }
 }

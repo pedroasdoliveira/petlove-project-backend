@@ -6,7 +6,7 @@ export class Result {
   process: number;
   technology?: number;
   influence?: number;
-  isValided?: "Sim" | "Não";
+  isValided?: string;
   userId?: string;
   createdAt?: Date;
   updatedAt?: Date;

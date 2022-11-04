@@ -1,3 +1,5 @@
+import { Result } from "src/result/entities/result.entity";
+
 export class User {
   id?: string;
   name: string;
@@ -8,7 +10,9 @@ export class User {
   role?: string;
   isAdmin?: boolean;
   isVerified?: boolean;
-  emailNotification?: "none" | "team" | "all";
-  createdAt: Date;
-  updatedAt: Date;
+  emailNotification?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  profilePicture?: string;
+  results?: Result[];
 }

@@ -12,7 +12,7 @@ import { ChangePasswordDto, UpdateUserDto } from "./dto/update-user.dto";
 import { PrismaService } from "src/prisma/prisma.service";
 import * as bcrypt from "bcrypt";
 import { handleError } from "src/utils/handleError.utils";
-import { Prisma } from "@prisma/client";
+import { Prisma, Result } from "@prisma/client";
 import { isAdmin } from "src/utils/isAdmin.utils";
 import { User } from "./entities/user.entity";
 import * as nodemailer from "nodemailer";
@@ -32,7 +32,7 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async create(dto: CreateUserDto) {
+  async create(dto: CreateUserDto): Promise<User> {
     if (dto.password != dto.confirmPassword) {
       throw new BadRequestException("As senhas informadas não são iguais.");
     }
@@ -92,7 +92,7 @@ export class UserService {
       .catch(handleError);
   }
 
-  async verifyUserEmail(id: string) {
+  async verifyUserEmail(id: string): Promise<string> {
     const user: User = await this.prisma.user.findUnique({
       where: { id },
       select: {
@@ -283,7 +283,7 @@ export class UserService {
       .catch(handleError);
   }
 
-  async findAll(user: User) {
+  async findAll(user: User): Promise<User[]> {
     isAdmin(user);
     const allUsers = await this.prisma.user.findMany({
       where: {
@@ -306,8 +306,8 @@ export class UserService {
       throw new NotFoundException("Não existem usuários cadastrados.");
     }
 
-    const allUsersSort = allUsers.map((user) => {
-      user.results.forEach((result) => {
+    const allUsersSort = allUsers.map((user: User) => {
+      user.results.forEach((result: Result) => {
         result.system = result.system / 100;
         result.person = result.person / 100;
         result.technology = result.technology / 100;
@@ -324,7 +324,7 @@ export class UserService {
     return allUsersSort;
   }
 
-  async findOne(email: string, user: User) {
+  async findOne(email: string, user: User): Promise<User> {
     const record = await this.prisma.user.findUnique({
       where: { email },
       select: {
@@ -353,7 +353,7 @@ export class UserService {
 
       record.results = usersSort;
 
-      usersSort.forEach((result) => {
+      usersSort.forEach((result: Result) => {
         result.system = result.system / 100;
         result.person = result.person / 100;
         result.technology = result.technology / 100;
@@ -369,7 +369,7 @@ export class UserService {
     );
   }
 
-  async update(email: string, updateUserDto: UpdateUserDto, user: User) {
+  async update(email: string, updateUserDto: UpdateUserDto, user: User): Promise<User> {
     if (
       user.email === email &&
       (updateUserDto.newPassword || updateUserDto.profilePicture)
@@ -436,7 +436,7 @@ export class UserService {
     );
   }
 
-  async softDelete(email: string, user: User) {
+  async softDelete(email: string, user: User): Promise<User> {
     isAdmin(user);
 
     const record = await this.prisma.user.findUnique({
@@ -483,7 +483,7 @@ export class UserService {
       .catch(handleError);
   }
 
-  async getRemovedUsers(user: User) {
+  async getRemovedUsers(user: User): Promise<User[]> {
     isAdmin(user);
 
     const allUsers = await this.prisma.user.findMany({
@@ -516,7 +516,7 @@ export class UserService {
     return allUsersSort;
   }
 
-  async recoverSoftDelete(email: string, user: User) {
+  async recoverSoftDelete(email: string, user: User): Promise<User> {
     isAdmin(user);
 
     const record = await this.prisma.user.findUnique({
@@ -563,7 +563,7 @@ export class UserService {
       .catch(handleError);
   }
 
-  async remove(email: string, user: User) {
+  async remove(email: string, user: User): Promise<User> {
     isAdmin(user);
 
     if (!email) {
@@ -579,7 +579,7 @@ export class UserService {
       .catch(handleError);
   }
 
-  async userAdmin(email: string, user: User) {
+  async userAdmin(email: string, user: User): Promise<User> {
     isAdmin(user);
 
     const record = await this.prisma.user.findUnique({
@@ -630,7 +630,7 @@ export class UserService {
       .catch(handleError);
   }
 
-  async userNotAdmin(email: string, user: User) {
+  async userNotAdmin(email: string, user: User): Promise<User> {
     isAdmin(user);
 
     const record = await this.prisma.user.findUnique({

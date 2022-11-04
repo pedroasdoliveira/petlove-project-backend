@@ -19,12 +19,13 @@ import {
   emailTestValidationAdm,
 } from "src/utils/emailsTemplates.utils";
 import { Specialty } from "src/specialties/entities/specialty.entity";
+import { Result } from "./entities/result.entity";
 
 @Injectable()
 export class ResultService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(user: User, dto: CreateResultDto) {
+  async create(user: User, dto: CreateResultDto): Promise<Result> {
     const userTest = await this.prisma.user.findUnique({
       where: { id: user.id },
       select: {
@@ -83,25 +84,23 @@ export class ResultService {
 
     const specialtys = await this.prisma.specialtie.findMany();
 
-    const specialtysToInt: Specialty[] = specialtys.map(
-      (specialty: Specialty) => {
-        return {
-          performance: specialty.performance,
-          description: specialty.description,
-          influence: Math.round(specialty.influence * 100),
-          technology: Math.round(specialty.technology * 100),
-          person: Math.round(specialty.person * 100),
-          process: Math.round(specialty.process * 100),
-          system: Math.round(specialty.system * 100),
-        };
-      },
-    );
+    const specialtysToInt = specialtys.map((specialty: Specialty) => {
+      return {
+        performance: specialty.performance,
+        description: specialty.description,
+        influence: Math.round(specialty.influence * 100),
+        technology: Math.round(specialty.technology * 100),
+        person: Math.round(specialty.person * 100),
+        process: Math.round(specialty.process * 100),
+        system: Math.round(specialty.system * 100),
+      };
+    });
 
     if (specialtysToInt.length === 0) {
       throw new NotFoundException("Não existem especialidades cadastradas.");
     }
 
-    const result = specialtysToInt.map((specialy) => {
+    const result = specialtysToInt.map((specialy: Specialty) => {
       const { performance, system, person, technology, process, influence } =
         specialy;
       const systemDiff = system - dtoToInt.system;
@@ -153,7 +152,7 @@ export class ResultService {
           influence: true,
         },
       })
-      .then(async (result) => {
+      .then(async (result: Result) => {
         // enviar email para todos os administradores
 
         const adms = await this.prisma.user.findMany({
@@ -179,8 +178,6 @@ export class ResultService {
           return null;
         });
 
-        console.log(emails);
-
         // verificar se todos do map retornaram null
 
         const allNull = emails.every((email) => email === null);
@@ -188,8 +185,6 @@ export class ResultService {
         if (allNull) {
           return result;
         }
-
-        console.log(allNull);
 
         const transporter = nodemailer.createTransport({
           host: "smtp.gmail.com",
@@ -250,7 +245,7 @@ export class ResultService {
       .catch(handleError);
   }
 
-  async findAll(user: User) {
+  async findAll(user: User): Promise<Result[]> {
     isAdmin(user);
     const allResults = await this.prisma.result
       .findMany({
@@ -265,7 +260,7 @@ export class ResultService {
           createdAt: true,
         },
       })
-      .then((results) => {
+      .then((results: Result[]) => {
         results.forEach((result) => {
           result.system = result.system / 100;
           result.person = result.person / 100;
@@ -284,7 +279,7 @@ export class ResultService {
     return allResults;
   }
 
-  async findOne(id: string, user: User) {
+  async findOne(id: string, user: User): Promise<Result> {
     isAdmin(user);
     const result = await this.prisma.result
       .findUnique({
@@ -300,7 +295,7 @@ export class ResultService {
           isValided: true,
         },
       })
-      .then((result) => {
+      .then((result: Result) => {
         result.system = result.system / 100;
         result.person = result.person / 100;
         result.technology = result.technology / 100;
@@ -318,7 +313,7 @@ export class ResultService {
     return result;
   }
 
-  async update(id: string, dto: UpdateResultDto, user: User) {
+  async update(id: string, dto: UpdateResultDto, user: User): Promise<Result> {
     isAdmin(user);
     const isValidedResult = await this.prisma.result.findUnique({
       where: { id: id },
@@ -356,7 +351,7 @@ export class ResultService {
             isValided: true,
           },
         })
-        .then(async (result) => {
+        .then(async (result: Result) => {
           // fazer update de role do user se for aprovado
 
           if (result.isValided === "Sim") {
@@ -449,7 +444,7 @@ export class ResultService {
           isValided: true,
         },
       })
-      .then(async (result) => {
+      .then(async (result: Result) => {
         // enviar email para o usuário
         if (isValidedResult.isValided === null) {
           const user = await this.prisma.user.findUnique({
@@ -510,7 +505,7 @@ export class ResultService {
       .catch(handleError);
   }
 
-  async remove(id: string, user: User) {
+  async remove(id: string, user: User): Promise<{message: string}> {
     isAdmin(user);
     await this.prisma.result.delete({ where: { id } }).catch(handleError);
     return { message: "Result successfully deleted" };
