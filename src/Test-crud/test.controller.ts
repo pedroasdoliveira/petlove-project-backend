@@ -15,6 +15,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { LoggedUser } from "src/auth/logged-user.decorator";
 import { User } from "src/user/entities/user.entity";
 import { AuthGuard } from "@nestjs/passport";
+import { Test } from "./entities/test.entity";
 
 @ApiTags("Test")
 @UseGuards(AuthGuard())
@@ -29,7 +30,7 @@ export class TestController {
    */
   @Post("/create")
   @ApiOperation({ summary: "Create a complete test" })
-  create(@Body() dto: CreateTestDto, @LoggedUser() user: User) {
+  create(@Body() dto: CreateTestDto, @LoggedUser() user: User): Promise<Test> {
     return this.testService.create(dto, user);
   }
 
@@ -39,7 +40,7 @@ export class TestController {
    */
   @Get("/allTests")
   @ApiOperation({ summary: `To list all tests` })
-  findAll(@LoggedUser() user: User) {
+  findAll(@LoggedUser() user: User): Promise<Test[]> {
     return this.testService.findAll(user);
   }
 
@@ -53,7 +54,7 @@ export class TestController {
     @Param("id") id: string,
     @Body() dto: UpdateTestDto,
     @LoggedUser() user: User,
-  ) {
+  ): Promise<Test> {
     return this.testService.update(id, dto, user);
   }
 
@@ -63,7 +64,7 @@ export class TestController {
    */
   @Delete(":id")
   @ApiOperation({ summary: `To delete a test` })
-  remove(@Param("id") id: string, @LoggedUser() user: User) {
+  remove(@Param("id") id: string, @LoggedUser() user: User): Promise<{message: string}> {
     return this.testService.remove(id, user);
   }
 }

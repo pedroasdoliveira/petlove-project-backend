@@ -11,12 +11,13 @@ import { handleError } from "src/utils/handleError.utils";
 import { isAdmin } from "src/utils/isAdmin.utils";
 import { CreateTestDto } from "./dto/create-test.dto";
 import { UpdateTestDto } from "./dto/update-test.dto";
+import { Test } from "./entities/test.entity";
 
 @Injectable()
 export class TestService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateTestDto, user: User) {
+  async create(dto: CreateTestDto, user: User): Promise<Test> {
     isAdmin(user);
 
     const data: Prisma.TestCreateInput = {
@@ -46,7 +47,7 @@ export class TestService {
       .catch(handleError);
   }
 
-  async findAll(user: User) {
+  async findAll(user: User): Promise<Test[]> {
     if (!user) {
       throw new UnprocessableEntityException("Usuário não está logado");
     }
@@ -54,7 +55,7 @@ export class TestService {
     return await this.prisma.test.findMany().catch(handleError);
   }
 
-  async update(id: string, dto: UpdateTestDto, user: User) {
+  async update(id: string, dto: UpdateTestDto, user: User): Promise<Test> {
     isAdmin(user);
 
     if (!id) {
@@ -83,12 +84,13 @@ export class TestService {
           toolshop: true,
           design: true,
           updatedAt: true,
+          computationalFundamentals: true,
         },
       })
       .catch(handleError);
   }
 
-  async remove(id: string, user: User) {
+  async remove(id: string, user: User): Promise<{message: string}> {
     isAdmin(user);
 
     if (!id) {

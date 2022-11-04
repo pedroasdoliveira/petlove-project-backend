@@ -19,7 +19,7 @@ async function bootstrap() {
     .setDescription(
       "Projeto de BootCamp realizado pela equipe 1 da Blue EdTech, com o intuito de criar uma aplicação fullstack para verificação dos níveis de conhecimento dos desenvolvedores.",
     )
-    .setVersion("2.3.0")
+    .setVersion("2.5.4 evo+")
     .addTag("Status")
     .addTag("Auth")
     .addTag("User")

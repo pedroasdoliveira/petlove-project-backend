@@ -27,7 +27,7 @@ export class UserController {
    */
   @Post("/create")
   @ApiOperation({ summary: "create user" })
-  create(@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.create(createUserDto);
   }
 
@@ -79,7 +79,7 @@ export class UserController {
   @ApiBearerAuth()
   @Get()
   @ApiOperation({ summary: "List all users" })
-  findAll(@LoggedUser() user: User) {
+  findAll(@LoggedUser() user: User): Promise<User[]> {
     return this.userService.findAll(user);
   }
 
@@ -91,7 +91,7 @@ export class UserController {
   @ApiBearerAuth()
   @Get(":email")
   @ApiOperation({ summary: "View a user by id." })
-  findOne(@Param("email") email: string, @LoggedUser() user: User) {
+  findOne(@Param("email") email: string, @LoggedUser() user: User): Promise<User> {
     return this.userService.findOne(email, user);
   }
 
@@ -107,7 +107,7 @@ export class UserController {
     @Param("email") email: string,
     @Body() updateUserDto: UpdateUserDto,
     @LoggedUser() user: User,
-  ) {
+  ): Promise<User> {
     return this.userService.update(email, updateUserDto, user);
   }
 
@@ -119,7 +119,7 @@ export class UserController {
   @ApiBearerAuth()
   @Delete(":email")
   @ApiOperation({ summary: "Delete a user (Adm)" })
-  remove(@Param("email") email: string, @LoggedUser() user: User) {
+  remove(@Param("email") email: string, @LoggedUser() user: User): Promise<User> {
     return this.userService.remove(email, user);
   }
 
@@ -131,7 +131,7 @@ export class UserController {
   @ApiBearerAuth()
   @Patch("/Soft-delete/:email")
   @ApiOperation({ summary: "Soft delete a user (Adm)" })
-  softDelete(@Param("email") email: string, @LoggedUser() user: User) {
+  softDelete(@Param("email") email: string, @LoggedUser() user: User): Promise<User> {
     return this.userService.softDelete(email, user);
   }
 
@@ -143,7 +143,7 @@ export class UserController {
   @ApiBearerAuth()
   @Get("/Soft-delete/all")
   @ApiOperation({ summary: "List all soft deleted users (Adm)" })
-  getRemovedUsers(@LoggedUser() user: User) {
+  getRemovedUsers(@LoggedUser() user: User): Promise<User[]> {
     return this.userService.getRemovedUsers(user);
   }
 
@@ -155,7 +155,31 @@ export class UserController {
   @ApiBearerAuth()
   @Patch("/Soft-delete/recovery/:email")
   @ApiOperation({ summary: "Recovery a soft deleted user (Adm)" })
-  recoverSoftDelete(@Param("email") email: string, @LoggedUser() user: User) {
+  recoverSoftDelete(@Param("email") email: string, @LoggedUser() user: User): Promise<User> {
     return this.userService.recoverSoftDelete(email, user);
+  }
+
+  /**
+   * @param req
+   * @returns user
+   */
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @Patch("/userAdmin/:email")
+  @ApiOperation({ summary: "Change user to admin (Adm)" })
+  userAdmin(@Param("email") email: string, @LoggedUser() user: User): Promise<User> {
+    return this.userService.userAdmin(email, user);
+  }
+
+  /**
+   * @param req
+   * @returns user
+   */
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @Patch("/userNormal/:email")
+  @ApiOperation({ summary: "Change user to normal (Adm)" })
+  userNotAdmin(@Param("email") email: string, @LoggedUser() user: User): Promise<User> {
+    return this.userService.userNotAdmin(email, user);
   }
 }

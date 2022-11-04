@@ -15,6 +15,7 @@ import { User } from "src/user/entities/user.entity";
 import { LoggedUser } from "src/auth/logged-user.decorator";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
+import { Specialty } from "./entities/specialty.entity";
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
@@ -29,7 +30,10 @@ export class SpecialtiesController {
    */
   @Post()
   @ApiOperation({ summary: "create a specialty" })
-  create(@Body() dto: CreateSpecialtyDto, @LoggedUser() user: User) {
+  create(
+    @Body() dto: CreateSpecialtyDto,
+    @LoggedUser() user: User,
+  ): Promise<Specialty> {
     return this.specialty.create(dto, user);
   }
 
@@ -39,7 +43,7 @@ export class SpecialtiesController {
    */
   @Get()
   @ApiOperation({ summary: "List all specialties" })
-  findAll(@LoggedUser() user: User) {
+  findAll(@LoggedUser() user: User): Promise<Specialty[]> {
     return this.specialty.findAll(user);
   }
 
@@ -49,7 +53,10 @@ export class SpecialtiesController {
    */
   @Get(":id")
   @ApiOperation({ summary: "Find a specific specialty through the id" })
-  findOne(@Param("id") id: string, @LoggedUser() user: User) {
+  findOne(
+    @Param("id") id: string,
+    @LoggedUser() user: User,
+  ): Promise<Specialty> {
     return this.specialty.findOne(id, user);
   }
 
@@ -63,7 +70,7 @@ export class SpecialtiesController {
     @Param("id") id: string,
     @Body() dto: UpdateSpecialtyDto,
     @LoggedUser() user: User,
-  ) {
+  ): Promise<Specialty> {
     return this.specialty.update(id, dto, user);
   }
 
@@ -73,7 +80,10 @@ export class SpecialtiesController {
    */
   @Delete(":id")
   @ApiOperation({ summary: "delete a specialty" })
-  remove(@Param("id") id: string, @LoggedUser() user: User) {
+  remove(
+    @Param("id") id: string,
+    @LoggedUser() user: User,
+  ): Promise<{ message: string }> {
     return this.specialty.remove(id, user);
   }
 }

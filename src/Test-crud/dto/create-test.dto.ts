@@ -5,7 +5,7 @@ export class CreateTestDto {
   @IsString()
   @ApiProperty({
     description: "Título do teste",
-    example: ["Teste de Proficiência"],
+    example: "Teste de Proficiência",
   })
   title: string;
 

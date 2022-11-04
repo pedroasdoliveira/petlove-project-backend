@@ -13,7 +13,7 @@ import { Specialty } from "./entities/specialty.entity";
 export class SpecialtiesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateSpecialtyDto, user: User) {
+  async create(dto: CreateSpecialtyDto, user: User): Promise<Specialty> {
     isAdmin(user);
     const data: Prisma.SpecialtieCreateInput = {
       performance: dto.performance,
@@ -26,7 +26,7 @@ export class SpecialtiesService {
     };
     return await this.prisma.specialtie
       .create({ data })
-      .then((specialty) => {
+      .then((specialty: Specialty) => {
         specialty.system = specialty.system / 100;
         specialty.person = specialty.person / 100;
         specialty.technology = specialty.technology / 100;
@@ -37,14 +37,14 @@ export class SpecialtiesService {
       .catch(handleError);
   }
 
-  async findAll(user: User) {
+  async findAll(user: User): Promise<Specialty[]> {
     if (!user) {
       throw new UnprocessableEntityException("Usuário não está logado");
     }
 
     return await this.prisma.specialtie
       .findMany()
-      .then((specialties) => {
+      .then((specialties: Specialty[]) => {
         specialties.forEach((specialty) => {
           specialty.system = specialty.system / 100;
           specialty.person = specialty.person / 100;
@@ -57,14 +57,14 @@ export class SpecialtiesService {
       .catch(handleError);
   }
 
-  async findOne(id: string, user: User) {
+  async findOne(id: string, user: User): Promise<Specialty> {
     if (!user) {
       throw new UnprocessableEntityException("Usuário não está logado");
     }
 
     return await this.prisma.specialtie
       .findUnique({ where: { id } })
-      .then((specialty) => {
+      .then((specialty: Specialty) => {
         specialty.system = specialty.system / 100;
         specialty.person = specialty.person / 100;
         specialty.technology = specialty.technology / 100;
@@ -75,7 +75,11 @@ export class SpecialtiesService {
       .catch(handleError);
   }
 
-  async update(id: string, dto: UpdateSpecialtyDto, user: User) {
+  async update(
+    id: string,
+    dto: UpdateSpecialtyDto,
+    user: User,
+  ): Promise<Specialty> {
     isAdmin(user);
 
     const data: Partial<Specialty> = {
@@ -93,7 +97,7 @@ export class SpecialtiesService {
         where: { id },
         data,
       })
-      .then((specialty) => {
+      .then((specialty: Specialty) => {
         specialty.system = specialty.system / 100;
         specialty.person = specialty.person / 100;
         specialty.technology = specialty.technology / 100;
@@ -104,7 +108,7 @@ export class SpecialtiesService {
       .catch(handleError);
   }
 
-  async remove(id: string, user: User) {
+  async remove(id: string, user: User): Promise<{ message: string }> {
     isAdmin(user);
     await this.prisma.specialtie.delete({ where: { id } }).catch(handleError);
     return { message: "Specialty deleted successfully" };

@@ -8,6 +8,6 @@ export class Test {
   toolshop: string[];
   process: string[];
   computationalFundamentals: string[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
