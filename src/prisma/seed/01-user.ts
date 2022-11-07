@@ -63,14 +63,14 @@ export const users: Prisma.UserCreateInput[] = [
     team: "Gestor",
   },
   {
-    name: "pessoa teste 0",
-    email: "testeteste1@bootcamp.com",
+    name: "Ricardo Ryan Otávio",
+    email: "ricardootavio@bootcamp.com",
     password: "Petlove@123",
     role: "Trainee",
     chapter: "backend",
     isVerified: true,
     profilePicture: "https://i.imgur.com/5ROpvzp.jpeg",
-    team: "Cachorro",
+    team: "Sustentação",
     results: {
       createMany: {
         data: [
@@ -112,14 +112,14 @@ export const users: Prisma.UserCreateInput[] = [
     },
   },
   {
-    name: "pessoa teste 1",
-    email: "testeteste1@bootcamp.com",
+    name: "Agatha Eduarda",
+    email: "agathaeduarda@bootcamp.com",
     password: "Petlove@123",
     role: "Trainee",
     chapter: "backend",
     isVerified: true,
     profilePicture: "https://i.imgur.com/5ROpvzp.jpeg",
-    team: "Cachorro",
+    team: "Sustentação",
     results: {
       createMany: {
         data: [
@@ -161,14 +161,14 @@ export const users: Prisma.UserCreateInput[] = [
     },
   },
   {
-    name: "pessoa teste 2",
-    email: "testeteste2@bootcamp.com",
+    name: "Cláudio Vicente Gomes",
+    email: "claudiogomes@bootcamp.com",
     password: "Petlove@123",
     role: "Especialista",
     chapter: "frontend",
     isVerified: true,
     profilePicture: "https://i.imgur.com/alwr7.jpeg",
-    team: "Cachorro",
+    team: "Sustentação",
     results: {
       createMany: {
         data: [
@@ -199,14 +199,14 @@ export const users: Prisma.UserCreateInput[] = [
     },
   },
   {
-    name: "pessoa teste 3",
-    email: "testeteste3@bootcamp.com",
+    name: "Larissa Juliana",
+    email: "larissajuliana@bootcamp.com",
     password: "Petlove@123",
     role: "Junior",
     chapter: "backend",
     isVerified: true,
     profilePicture: "https://i.imgur.com/Di7CszA.jpeg",
-    team: "Gato",
+    team: "Implantação",
     results: {
       createMany: {
         data: [
@@ -237,14 +237,14 @@ export const users: Prisma.UserCreateInput[] = [
     },
   },
   {
-    name: "pessoa teste 4",
-    email: "testeteste4@bootcamp.com",
+    name: "Luan Elias Moura",
+    email: "luanmoura@bootcamp.com",
     password: "Petlove@123",
     role: "Pleno",
     chapter: "frontend",
     isVerified: true,
     profilePicture: "https://i.imgur.com/7PI1xwd.jpeg",
-    team: "Gato",
+    team: "Implantação",
     results: {
       createMany: {
         data: [
