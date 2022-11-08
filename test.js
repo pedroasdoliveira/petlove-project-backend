@@ -3,10 +3,10 @@ const dto = {
   name: "John",
   nextRole: null,
   system: 3,
-  person: 3,
-  technology: 3,
-  process: 3,
-  influence: 3,
+  person: 4,
+  technology: 2.92,
+  process: 4,
+  influence: 3.75,
 };
 
 const specialys = [

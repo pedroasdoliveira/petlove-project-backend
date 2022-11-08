@@ -84,23 +84,11 @@ export class ResultService {
 
     const specialtys = await this.prisma.specialtie.findMany();
 
-    const specialtysToInt = specialtys.map((specialty: Specialty) => {
-      return {
-        performance: specialty.performance,
-        description: specialty.description,
-        influence: Math.round(specialty.influence * 100),
-        technology: Math.round(specialty.technology * 100),
-        person: Math.round(specialty.person * 100),
-        process: Math.round(specialty.process * 100),
-        system: Math.round(specialty.system * 100),
-      };
-    });
-
-    if (specialtysToInt.length === 0) {
+    if (specialtys.length === 0) {
       throw new NotFoundException("Não existem especialidades cadastradas.");
     }
 
-    const result = specialtysToInt.map((specialy: Specialty) => {
+    const result = specialtys.map((specialy: Specialty) => {
       const { performance, system, person, technology, process, influence } =
         specialy;
       const systemDiff = system - dtoToInt.system;

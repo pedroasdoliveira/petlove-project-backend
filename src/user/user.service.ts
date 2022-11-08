@@ -378,15 +378,16 @@ export class UserService {
         throw new BadRequestException("A senha atual não pode ser vazia.");
       }
 
-      if (updateUserDto.newPassword !== updateUserDto.confirmPassword) {
-        throw new BadRequestException(
-          "As novas senhas informadas não são iguais.",
-        );
-      }
+      delete updateUserDto.password;
 
       const data = { ...updateUserDto };
 
       if (updateUserDto.newPassword) {
+        if (updateUserDto.newPassword !== updateUserDto.confirmPassword) {
+          throw new BadRequestException(
+            "As novas senhas informadas não são iguais.",
+          );
+        }
         data.password = await bcrypt.hash(updateUserDto.newPassword, 5);
 
         delete data.newPassword;
