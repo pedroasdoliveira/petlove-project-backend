@@ -26,7 +26,37 @@ export class ResultService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(user: User, dto: CreateResultDto): Promise<Result> {
+    const userTest = await this.prisma.user.findUnique({
+      where: { id: user.id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        team: true,
+        role: true,
+        chapter: true,
+        results: true,
+        createdAt: true,
+        isAdmin: true,
+      },
+    }).catch(handleError);
 
+    const lastTestUser = userTest.results.length > 0 ? userTest.results[userTest.results.length - 1] : null;
+
+    // verificar se a data do ultimo teste é menor do que 3 meses da data atual e se o ultimo teste foi validado
+
+    if (lastTestUser) {
+      const now = DateTime.now();
+      const lastTestUserVerify = DateTime.fromJSDate(lastTestUser.createdAt);
+
+      if (lastTestUserVerify.diff(now, "months").months < 3) {
+        throw new UnauthorizedException("Insufficient completion time!");
+      }
+
+      if (lastTestUser.isValided === null) {
+        throw new UnauthorizedException("Last test not validated!");
+      }
+    }
 
     const dtoToInt: CreateResultDto = {
       person: Math.round(dto.person * 100),
