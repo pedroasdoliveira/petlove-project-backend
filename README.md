@@ -77,7 +77,7 @@ $ npm run start:prod
 
 Repositório: [front-end](https://github.com/pedroasdoliveira/petlove-project-frontend)
 
-Deploy: [vercel](https://petlove-project-frontend.vercel.app)
+Deploy: [vercel](https://selfawareness.solutions)
 
 ## ✒️ Autores
 
