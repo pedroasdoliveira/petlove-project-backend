@@ -28,7 +28,7 @@ export class ResultController {
    * @param req
    * @returns  Result
    */
-  @Post()
+  @Post("create")
   @ApiOperation({ summary: "Create test result" })
   create(
     @LoggedUser() user: User,
