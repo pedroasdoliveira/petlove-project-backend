@@ -1,10 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, Max, Min } from "class-validator";
+import { IsNumber } from "class-validator";
 
 export class CreateResultDto {
   @IsNumber()
-  @Min(0)
-  @Max(5)
   @ApiProperty({
     description: "System test result",
     example: 5,
@@ -12,8 +10,6 @@ export class CreateResultDto {
   system: number;
 
   @IsNumber()
-  @Min(0)
-  @Max(5)
   @ApiProperty({
     description: "Person test result",
     example: 5,
@@ -21,8 +17,6 @@ export class CreateResultDto {
   person: number;
 
   @IsNumber()
-  @Min(0)
-  @Max(3)
   @ApiProperty({
     description: "result for the test category",
     example: 3,
@@ -30,8 +24,6 @@ export class CreateResultDto {
   test: number;
 
   @IsNumber()
-  @Min(0)
-  @Max(5)
   @ApiProperty({
     description: "Process test result",
     example: 5,
@@ -39,8 +31,6 @@ export class CreateResultDto {
   process: number;
 
   @IsNumber()
-  @Min(0)
-  @Max(3)
   @ApiProperty({
     description: "result for the design category",
     example: 3,
@@ -48,8 +38,6 @@ export class CreateResultDto {
   design: number;
 
   @IsNumber()
-  @Min(0)
-  @Max(3)
   @ApiProperty({
     description: "result for the tooling category",
     example: 3,
@@ -57,8 +45,6 @@ export class CreateResultDto {
   toolshop: number;
 
   @IsNumber()
-  @Min(0)
-  @Max(3)
   @ApiProperty({
     description: "Result for the category Computational Fundamentals",
     example: 3,

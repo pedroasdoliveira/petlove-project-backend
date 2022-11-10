@@ -101,6 +101,7 @@ export class UserService {
         name: true,
         createdAt: true,
         updatedAt: true,
+        isVerified: true,
       },
     });
 
