@@ -4,7 +4,7 @@ export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
     performance: "Trainee",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. - Trainee",
+      "Os resultados dos gráfico mostram um perfil mais de iniciante e que pretende crescer na carreira.",
     system: 100,
     person: 200,
     technology: 80,
@@ -14,7 +14,7 @@ export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
     performance: "Junior",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. - Junior",
+      "Trata-se de um profissional mesmo iniciante com uma certa noção sobre suas funções e tarefas.",
     system: 180,
     person: 230,
     technology: 260,
@@ -24,7 +24,7 @@ export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
     performance: "Pleno",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. - Pleno",
+      "Um profissional que já está um certo tempo na área, com experiencias intermediarias em suas funções podendo ter uma certa responsabilidade maior do que antes.",
     system: 310,
     person: 240,
     technology: 310,
@@ -34,7 +34,7 @@ export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
     performance: "Senior",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. - Senior",
+      "Um profissional com grandes capacidades e experiencia profissional podendo contribuir com grandes projetos e tarefas mais complexas.",
     system: 360,
     person: 270,
     technology: 340,
@@ -44,7 +44,7 @@ export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
     performance: "Especialista",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. - Especialista",
+      "Um especialista em realizar suas funções com maestria e com grandes capacidades.",
     system: 470,
     person: 220,
     technology: 420,
@@ -54,7 +54,7 @@ export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
     performance: "Tech-Lead",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. - Tech-Lead",
+      "Um líder dentro da equipe com as principais capacidades de cuidar de equipes e de gerir tarefas.",
     system: 380,
     person: 360,
     technology: 370,
