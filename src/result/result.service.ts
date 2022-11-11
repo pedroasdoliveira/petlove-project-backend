@@ -49,7 +49,7 @@ export class ResultService {
       const now = DateTime.now();
       const lastTestUserVerify = DateTime.fromJSDate(lastTestUser.createdAt);
 
-      if (lastTestUserVerify.diff(now, "months").months < 3) {
+      if (now.diff(lastTestUserVerify, "months").months < 3) {
         throw new UnauthorizedException("Insufficient completion time!");
       }
 
@@ -187,7 +187,7 @@ export class ResultService {
 
         const mailData = {
           from: `Pet Love <${process.env.USER_EMAIL}>`,
-          to: emails,
+          to: user.email,
           subject: "Novo teste realizado",
           html: emailTestValidation(user.name.split(" ")[0]),
         };
