@@ -4,7 +4,7 @@ export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
     performance: "Trainee",
     description:
-      "Os resultados dos gráfico mostram um perfil mais de iniciante e que pretende crescer na carreira.",
+      "Os resultados dos gráficos mostram um perfil mais de iniciante e que pretende crescer na carreira.",
     system: 100,
     person: 200,
     technology: 80,
@@ -14,7 +14,7 @@ export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
     performance: "Junior",
     description:
-      "Trata-se de um profissional mesmo iniciante com uma certa noção sobre suas funções e tarefas.",
+      "Trata-se de um profissional iniciante com uma certa noção sobre suas funções e tarefas.",
     system: 180,
     person: 230,
     technology: 260,
@@ -24,7 +24,7 @@ export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
     performance: "Pleno",
     description:
-      "Um profissional que já está um certo tempo na área, com experiencias intermediarias em suas funções podendo ter uma certa responsabilidade maior do que antes.",
+      "Um profissional que já está há um certo tempo na área, com experiências intermediárias em suas funções e atividades, podendo ter uma responsabilidade maior do que antes.",
     system: 310,
     person: 240,
     technology: 310,
@@ -34,7 +34,7 @@ export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
     performance: "Senior",
     description:
-      "Um profissional com grandes capacidades e experiencia profissional podendo contribuir com grandes projetos e tarefas mais complexas.",
+      "Um profissional com grandes capacidades e experiência profissional, podendo contribuir com grandes projetos e tarefas mais complexas.",
     system: 360,
     person: 270,
     technology: 340,
@@ -54,7 +54,7 @@ export const specialties: Prisma.SpecialtieCreateInput[] = [
   {
     performance: "Tech-Lead",
     description:
-      "Um líder dentro da equipe com as principais capacidades de cuidar de equipes e de gerir tarefas.",
+      "Um líder dentro da equipe com as principais capacidades de cuidar e ajudar os outros integrantes e de gerir tarefas.",
     system: 380,
     person: 360,
     technology: 370,
